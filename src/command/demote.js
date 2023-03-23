@@ -4,7 +4,7 @@ module.exports = {
     admin: true,
     public: false,
     botAdmin: true,
-    category: 'moderation' 
+    category: 'moderation',
     description: 'Promotes the taged user',
     async execute(client, arg, M) {
         if (M.mentions == 0) return M.reply('You must tag the user before using!')
