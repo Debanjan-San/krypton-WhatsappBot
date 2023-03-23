@@ -1,6 +1,7 @@
 module.exports = {
     name: 'help',
     aliases: ['h', 'menu', 'list', 'commands'],
+    category: 'general'
     description: 'Let you see the command list',
     async execute(client, arg, M) {
         console.log(arg)
