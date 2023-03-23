@@ -4,7 +4,7 @@ const Apikey = 'AIzaSyDMbI3nvmQUrfjoCJYLS69Lej1hSXQjnWI&cx=baf9bdb0c631236e5'
 module.exports = {
     name: 'google',
     aliases: ['search'],
-    category: 'unity',
+    category: 'utils',
     description: 'Search topics from google.com',
     async execute(client, arg, M) {
         if (!arg) return M.reply("Sorry you did not give any search term!")
