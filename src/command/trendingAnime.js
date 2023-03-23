@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = {
     name: 'trendinganime',
     aliases: ['ta', 'trendani'],
-    category: 'weeb'
+    category: 'weeb',
     description: 'Gives you the list of trending anime',
     async execute(client, arg, M) {
         const res = await axios.get(`https://api.consumet.org/meta/anilist/trending`)
