@@ -1,0 +1,66 @@
+{
+  "name": "krypton_Botto",
+  "version": "0.0.1",
+  "description": "krytron_Botto based on Typescript",
+  "author": "Debanjan-San",
+  "keywords": [
+    "Whatsapp",
+    "WhatsApp-Bot",
+    "bot",
+    "wabot"
+  ],
+  "license": "SEE LICENSE IN LICENSE.md",
+  "scripts": {
+    "format": "prettier --write --config .prettierrc.json \"src/**/*.js\"",
+    "start": "node --max-old-space-size=4096 src/krypton.js"
+  },
+  "bugs": {
+    "url": "https://github.com/Debanjan-San/Krypton_Botto/issues"
+  },
+  "homepage": "https://github.com/Debanjan-San/Krypton_Botto",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Debanjan-San/Krypton_Botto.git"
+  },
+  "dependencies": {
+    "@adiwajshing/baileys": "^4.4.0",
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "@hapi/boom": "^10.0.0",
+    "@shineiichijo/canvas-chan": "^1.0.1",
+    "@shineiichijo/marika": "^2.0.6",
+    "@shineiichijo/nhentai-ts": "^1.0.0",
+    "axios": "^0.27.2",
+    "better-tord": "^1.3.7",
+    "bluebird": "^3.7.2",
+    "canvacord": "^5.4.8",
+    "chalk": "4.1.1",
+    "chatgpt": "^5.1.2",
+    "cheerio": "^1.0.0-rc.12",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "events": "^3.3.0",
+    "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs-extra": "^11.1.0",
+    "moment-timezone": "^0.5.40",
+    "mongoose": "^6.7.0",
+    "node_characterai": "^1.1.0",
+    "nodemon": "^2.0.22",
+    "openai": "^3.2.1",
+    "path": "^0.12.7",
+    "pino": "^8.8.0",
+    "prettier": "^2.8.1",
+    "qr-image": "^3.2.0",
+    "qrcode-terminal": "^0.12.0",
+    "quick.db": "^9.0.5",
+    "quickmongo": "^5.2.0",
+    "spotifydl-x": "^0.3.0",
+    "telegraph-uploader": "^2.0.0",
+    "wa-sticker-formatter": "^4.4.4",
+    "wikipedia": "^2.0.0",
+    "youtube-yts": "^2.0.0",
+    "youtubedl-core": "^4.11.1",
+    "yt-search": "^2.10.4",
+    "ytdl-core": "^4.11.2"
+  }
+}
