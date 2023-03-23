@@ -4,6 +4,7 @@ module.exports = {
     admin: true,
     public: false,
     botAdmin: true,
+    category: 'moderation',
     description: 'Resets group link',
     async execute(client, arg, M) {
         await client.groupRevokeInvite(M.from)
