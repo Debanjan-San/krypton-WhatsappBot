@@ -67,7 +67,7 @@ function serialize(msg, client) {
             msg.type = getContentType(msg.message);
         }
 
-        msg.mentions = msg.message[msg.type]?.contextInfo ? msg.message[msg.type]?.contextInfo.mentionedJid : null;
+        msg.mentions = msg.message[msg.type]?.contextInfo?.mentionedJid ? msg.message[msg.type]?.contextInfo.mentionedJid : [`${msg.message[msg.type]?.contextInfo?.participant}`];
         try {
             const quoted = msg.message[msg.type]?.contextInfo;
             if (quoted.quotedMessage["ephemeralMessage"]) {

@@ -16,6 +16,7 @@ const {
 const {
     join
 } = require('path')
+const { response } = require('express')
 
 module.exports = MessageHandler = async (messages, client) => {
     try {
@@ -43,6 +44,12 @@ module.exports = MessageHandler = async (messages, client) => {
         const groupMembers = gcMeta?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin)
             .map((v) => v.id)
+        
+        // AI chatting using OpenAI
+        if (M.mentions.includes((client.user.id).split(':')[0] + '@s.whatsapp.net') && !isCmd) {
+            const text = await client.AI.chat(body.trim())
+            M.reply(text.response.trim().replace('[Your Name]', M.pushName));
+        }
 
         // Logging Message
         if (!isGroup && isCmd) console.log(color('~', 'yellow'), color('EXEC', 'red'), color(cmdName, 'yellow'), 'from', color(sender.split('@')[0], 'yellow'), 'args :', color(args.length, 'blue'))
