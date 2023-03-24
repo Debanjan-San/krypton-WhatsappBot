@@ -69,10 +69,10 @@ module.exports = MessageHandler = async (messages, client) => {
 
         if (!command) return M.reply("No such command found! BAKA");
         if (!groupAdmins.includes(sender) && command?.admin) return M.reply("This command can only be used by group or community admins")
-        if (!groupAdmins.includes(client.user.id) && command?.botAdmin) return M.reply("This command can only be used when bot is admin")
-        if (command?.mods) return M.reply("This command can only be used by bot admins")
-        if (command?.privateChat) return M.reply("This command can only be used in private chat")
-        if (!command?.public) return M.reply("This command can only be used in public chat")
+        if (!groupAdmins.includes((client.user.id).split(':')[0] + '@s.whatsapp.net') && command?.botAdmin) return M.reply("This command can only be used when bot is admin")
+       // if (command?.mods) return M.reply("This command can only be used by bot admins")
+        if (isGroup && command?.privateChat) return M.reply("This command can only be used in private chat")
+        if (!isGroup && command?.public) return M.reply("This command can only be used in public chat")
         command.execute(client, arg, M)
         //console.log(command)
     } catch (err) {

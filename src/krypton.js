@@ -18,6 +18,7 @@ const {
     color
 } = require('./lib/colour')
 const contact = require('./lib/contacts')
+const utils = require('./lib/function')
 const openai = require('./lib/openAI')
 const app = require('express')()
 const qr = require('qr-image')
@@ -64,6 +65,9 @@ const start = async () => {
     //Open AI
     client.AI = openai
 
+    //Utils
+    client.utils = utils
+    
     //connection updates
     client.ev.on('connection.update', async (update) => {
         const {

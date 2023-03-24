@@ -121,7 +121,7 @@ function serialize(msg, client) {
             msg.quoted.delete = () => client.sendMessage(msg.from, {
                 delete: msg.quoted.key
             });
-            msg.quoted.download = (pathFile) => downloadMedia(msg.quoted.message, pathFile);
+            msg.quoted.download = () => downloadMedia(msg.quoted.message);
         } catch {
             msg.quoted = null;
         }
@@ -141,7 +141,7 @@ function serialize(msg, client) {
             quoted: msg
         });
        // msg.username = async (jid) => await getName(jid)
-        msg.download = (pathFile) => downloadMedia(msg.message, pathFile);
+        msg.download = () => downloadMedia(msg.message);
     }
     return msg;
 }

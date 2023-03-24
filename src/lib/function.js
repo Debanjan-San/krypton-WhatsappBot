@@ -110,7 +110,7 @@ const gifToMp4 = async (gif, write = false) => {
     return buffer
 }
 
-const exec = promisify(exec)
+//const exec = promisify(exec)
 
 const getRandomItem = (array) => {
     // get random index value
@@ -160,7 +160,6 @@ module.exports = {
     webpToMp4,
     webpToPng,
     fetch,
-    decodeJid,
     extractNumbers,
     generateRandomHex,
     capitalize,
