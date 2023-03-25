@@ -2456,6 +2456,11 @@ https-proxy-agent@^5.0.0:
     agent-base "6"
     debug "4"
 
+human-readable@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/human-readable/-/human-readable-0.2.1.tgz"
+  integrity sha512-uFtz4WZlB1M5xI45MZ5AjyAzfrrgLOdty4363Jd0LQ5NGXa+UiKaD0EQXQeDfCinodrpePFk/vKjzBlDTZdZQQ==
+
 human-time@0.0.2:
   version "0.0.2"
   resolved "https://registry.npmjs.org/human-time/-/human-time-0.0.2.tgz"
@@ -3321,6 +3326,11 @@ openai@^3.2.1:
   dependencies:
     axios "^0.26.0"
     form-data "^4.0.0"
+
+os@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/os/-/os-0.1.2.tgz"
+  integrity sha512-ZoXJkvAnljwvc56MbvhtKVWmSkzV712k42Is2mA0+0KTSRakq5XXuXpjZjgAt9ctzl51ojhQWakQQpmOvXWfjQ==
 
 p-limit@^4.0.0:
   version "4.0.0"

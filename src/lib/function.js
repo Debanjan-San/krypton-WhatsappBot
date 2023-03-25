@@ -1,18 +1,10 @@
 const axios = require('axios').default
-const {
-    tmpdir
-} = require('os')
-const {
-    promisify
-} = require('util')
-const {
-    exec
-} = require('child_process')
-const {
-    readFile,
-    unlink,
-    writeFile
-} = require('fs-extra')
+const { tmpdir } = require('os')
+const { promisify } = require('util')
+const moment = require('moment-timezone')
+const { exec } = require('child_process')
+const { sizeFormatter } = require('human-readable')
+const { readFile, unlink, writeFile } = require('fs-extra')
 
 /**
  * @param {string} url
@@ -22,7 +14,7 @@ const {
 const getBuffer = async (url) =>
     (
         await axios.get(url, {
-            responseType: 'arraybuffer'
+            responseType: 'arraybuffer',
         })
     ).data
 
@@ -35,9 +27,9 @@ const getBuffer = async (url) =>
 const capitalize = (content, all = false) => {
     if (!all) return `${content.charAt(0).toUpperCase()}${content.slice(1)}`
     return `${content
-            .split(' ')
-            .map((text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`)
-            .join(' ')}`
+        .split(' ')
+        .map((text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`)
+        .join(' ')}`
 }
 
 /**
@@ -114,37 +106,49 @@ const gifToMp4 = async (gif, write = false) => {
 
 const getRandomItem = (array) => {
     // get random index value
-    const randomIndex = Math.floor(Math.random() * array.length);
+    const randomIndex = Math.floor(Math.random() * array.length)
     // get random item
-    const item = array[randomIndex];
-    return item;
+    const item = array[randomIndex]
+    return item
 }
 
-const term = (param) => new Promise((resolve, reject) => {
-    console.log('Run terminal =>', param)
-    exec(param, (error, stdout, stderr) => {
-        if (error) {
-            console.log(error.message)
-            resolve(error.message)
-        }
-        if (stderr) {
-            console.log(stderr)
-            resolve(stderr)
-        }
-        console.log(stdout)
-        resolve(stdout)
-    })
+const calculatePing = (timestamp, now) => {
+    return moment.duration(now - moment(timestamp * 1000)).asSeconds()
+}
+
+const formatSize = sizeFormatter({
+    std: 'JEDEC',
+    decimalPlaces: '2',
+    keepTrailingZeroes: false,
+    render: (literal, symbol) => `${literal} ${symbol}B`,
 })
 
+const term = (param) =>
+    new Promise((resolve, reject) => {
+        console.log('Run terminal =>', param)
+        exec(param, (error, stdout, stderr) => {
+            if (error) {
+                console.log(error.message)
+                resolve(error.message)
+            }
+            if (stderr) {
+                console.log(stderr)
+                resolve(stderr)
+            }
+            console.log(stdout)
+            resolve(stdout)
+        })
+    })
+
 const restart = () => {
-    setTimeout(function() {
+    setTimeout(function () {
         // UwU
-        process.on('exit', function() {
+        process.on('exit', function () {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             require('child_process').spawn(process.argv.shift(), process.argv, {
                 cwd: process.cwd(),
                 detached: true,
-                stdio: 'inherit'
+                stdio: 'inherit',
             })
         })
         process.exit()
@@ -161,7 +165,9 @@ module.exports = {
     webpToPng,
     fetch,
     extractNumbers,
+    formatSize,
     generateRandomHex,
+    calculatePing,
     capitalize,
-    getBuffer
+    getBuffer,
 }

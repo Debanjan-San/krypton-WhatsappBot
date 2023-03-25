@@ -1,25 +1,23 @@
 getContact = async (jid, client) => {
     // Gets the arr of contacts
-    const contact = await client.contactDB.get(jid);
+    const contact = await client.contactDB.get(jid)
     //console.log(contact)
     if (!contact)
         return {
             username: 'User',
-            jid
+            jid,
         }
     return {
         username: contact || 'User',
-        jid
+        jid,
     }
 }
 
-
-
 saveContacts = async (contacts, client) => {
-    // Saves the contacts 
+    // Saves the contacts
     for (const contact of contacts) {
         if (contact.id) {
-            await client.contactDB.set(contact.id, contact.notify);
+            await client.contactDB.set(contact.id, contact.notify)
             //console.log(contact)
         }
     }
@@ -27,5 +25,5 @@ saveContacts = async (contacts, client) => {
 
 module.exports = {
     saveContacts,
-    getContact
-};
+    getContact,
+}

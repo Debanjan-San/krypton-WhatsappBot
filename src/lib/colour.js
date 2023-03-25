@@ -10,5 +10,5 @@ const bgcolor = (text, bgcolor) => {
 
 module.exports = {
     color,
-    bgcolor
+    bgcolor,
 }

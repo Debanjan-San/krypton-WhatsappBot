@@ -7,9 +7,8 @@ module.exports = {
     category: 'moderation',
     description: 'Resets group link',
     async execute(client, arg, M) {
-        await client.groupRevokeInvite(M.from)
-        .then(res => {
+        await client.groupRevokeInvite(M.from).then((res) => {
             M.reply(`Done! Group link has been reset`)
         })
-    }
+    },
 }
