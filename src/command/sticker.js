@@ -15,7 +15,7 @@ module.exports = {
         if (isMedia || isQuoted) {
             const context = arg.split(' ')
             const pack = context.shift().split('|')
-            const flags = context.slice(1)
+            const flags = context;
             const buffer = isQuoted ? await M.quoted.download() : await M.download()
             const sticker = new Sticker(buffer, {
                 pack: pack[0] ? pack[0].trim() : '👾 Handcrafted for you by',
