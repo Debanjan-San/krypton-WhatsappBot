@@ -9,6 +9,10 @@ RUN apt-get update && \
   npm i pm2 -g && \
   rm -rf /var/lib/apt/lists/*
 
+COPY package.json .
+
 RUN yarn install
 
-CMD ["yarn", "start"]
+COPY . .
+
+CMD ["pm2-runtime", "."]
