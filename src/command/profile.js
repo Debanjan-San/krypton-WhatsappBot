@@ -27,8 +27,8 @@ module.exports = {
         }
 
         const level = (await client.DB.get(`${user}_LEVEL`)) || 1
-        const stats = getStats(level) || 1
-        const username = (await client.contact.getContact(M.sender, client)).username
+        const stats = getStats(level)
+        const username = (await client.contact.getContact(user, client)).username
         const experience = (await client.exp.get(user)) || 0
 
         console.log(stats)

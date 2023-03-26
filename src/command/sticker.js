@@ -14,13 +14,7 @@ module.exports = {
             (M.type === 'extendedTextMessage' && content.includes('videoMessage'))
 
         if (isMedia || isQuoted) {
-<<<<<<< Updated upstream
-            const context = arg.split(' ')
-            const pack = context.shift().split('|')
-            const flags = context;
-=======
             const pack = arg.split('|')
->>>>>>> Stashed changes
             const buffer = isQuoted ? await M.quoted.download() : await M.download()
             const sticker = new Sticker(buffer, {
                 pack: pack[0] ? pack[0].trim() : '👾 Handcrafted for you by',
