@@ -29,15 +29,12 @@ module.exports = {
             .setCurrentXP(experience, '#db190b')
             .setRequiredXP(requiredXpToLevelUp, '#db190b')
             .setProgressBar('#db190b')
-            .setDiscriminator(user.substring(3, 7), '#FFFFFF')
+            .setDiscriminator(user.substring(3, 7), '#db190b')
             .setCustomStatusColor('#db190b')
-            .setLevelColor('#db190b', '#FFFFFF')
+            .setLevelColor('#db190b', '#db190b')
             .setOverlay('', '', false)
-            .setUsername(username, '#FFFFFF')
-            .setBackground(
-                'IMAGE',
-                'https://c4.wallpaperflare.com/wallpaper/758/235/686/pewdiepie-felix-youtuber-hd-wallpaper-preview.jpg'
-            )
+            .setUsername(username, '#db190b')
+            .setBackground('COLOR', '#000000')
             .setRank(1, '', false)
             .renderEmojis(true)
             .build({ fontX: 'arial', fontY: 'arial' })
