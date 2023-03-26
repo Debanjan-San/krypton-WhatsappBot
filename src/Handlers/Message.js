@@ -5,6 +5,7 @@ const { Collection } = require('discord.js')
 const { readdirSync } = require('fs-extra')
 const { join } = require('path')
 const { response } = require('express')
+const { getStats, ranks } = require('../lib/stats')
 
 module.exports = MessageHandler = async (messages, client) => {
     try {
@@ -28,7 +29,7 @@ module.exports = MessageHandler = async (messages, client) => {
         const groupMembers = gcMeta?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
 
-        console.log(body)
+        //console.log(body)
         // AI chatting using OpenAI
         if (M.mentions.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && !isCmd && isGroup) {
             const text = await client.AI.chat(body.trim())
@@ -97,6 +98,9 @@ module.exports = MessageHandler = async (messages, client) => {
         const command =
             client.cmd.get(cmdName) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(cmdName))
 
+        //Will add exp according to the commands
+        await client.exp.add(sender, command.exp)
+
         if (!command) return M.reply('No such command found! BAKA')
         if (!groupAdmins.includes(sender) && command?.admin)
             return M.reply('This command can only be used by group or community admins')
@@ -107,6 +111,26 @@ module.exports = MessageHandler = async (messages, client) => {
         if (!isGroup && command?.public) return M.reply('This command can only be used in public chat')
         command.execute(client, arg, M)
         //console.log(command)
+
+        //Level up
+        const level = (await client.DB.get(`${sender}_LEVEL`)) || 0
+        const experience = await client.exp.get(sender)
+        const { requiredXpToLevelUp } = getStats(level)
+        if (requiredXpToLevelUp > experience) return null
+        await client.DB.add(`${sender}_LEVEL`, 1)
+        client.sendMessage(
+            M.from,
+            {
+                video: {
+                    url: 'https://media.tenor.com/msfmevhmlDAAAAPo/anime-chibi.mp4'
+                },
+                caption: `Congratulations you leveled up from ${level - 1} ---> ${level}`,
+                gifPlayback: true
+            },
+            {
+                quoted: M
+            }
+        )
     } catch (err) {
         console.log(err)
     }

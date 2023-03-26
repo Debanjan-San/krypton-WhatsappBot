@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 const apiKey = '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'
 
 const configuration = new Configuration({
-    apiKey: apiKey,
+    apiKey: apiKey
 })
 const openai = new OpenAIApi(configuration)
 
@@ -15,11 +15,11 @@ chat = async (text) => {
         max_tokens: 3000,
         top_p: 1,
         frequency_penalty: 0.5,
-        presence_penalty: 0,
+        presence_penalty: 0
     })
 
     return {
-        response: completion.data.choices[0].text,
+        response: completion.data.choices[0].text
     }
 }
 
@@ -30,13 +30,13 @@ gpt = async (text) => {
         messages: [
             {
                 role: 'user',
-                content: `${text}`,
-            },
-        ],
+                content: `${text}`
+            }
+        ]
     })
 
     return {
-        response: completion.data.choices[0].message.content,
+        response: completion.data.choices[0].message.content
     }
 }
 
@@ -44,17 +44,17 @@ createImage = async (text) => {
     const results = await openai.createImage({
         prompt: `${text}`,
         n: 10,
-        size: '1024x1024',
+        size: '1024x1024'
     })
     return {
-        response: results,
+        response: results
     }
 }
 
 editImage = async (text, buffer) => {
     const response = await openai.createImageEdit(buffer, fs.createReadStream('image.png'), `${text}`, 2, '1024x1024')
     return {
-        response: results,
+        response: results
     }
 }
 
@@ -62,5 +62,5 @@ module.exports = {
     chat,
     gpt,
     createImage,
-    editImage,
+    editImage
 }

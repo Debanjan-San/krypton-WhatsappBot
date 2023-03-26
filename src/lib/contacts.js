@@ -5,11 +5,11 @@ getContact = async (jid, client) => {
     if (!contact)
         return {
             username: 'User',
-            jid,
+            jid
         }
     return {
         username: contact || 'User',
-        jid,
+        jid
     }
 }
 
@@ -25,5 +25,5 @@ saveContacts = async (contacts, client) => {
 
 module.exports = {
     saveContacts,
-    getContact,
+    getContact
 }

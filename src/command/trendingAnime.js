@@ -4,6 +4,7 @@ module.exports = {
     name: 'trendinganime',
     aliases: ['ta', 'trendani'],
     category: 'weeb',
+    exp: 4,
     description: 'Gives you the list of trending anime',
     async execute(client, arg, M) {
         const res = await axios.get(`https://api.consumet.org/meta/anilist/trending`)
@@ -24,10 +25,10 @@ module.exports = {
             // M.reply(text);
             client.sendMessage(M.from, {
                 image: {
-                    url: trends[i].image,
+                    url: trends[i].image
                 },
-                caption: text,
+                caption: text
             })
         }
-    },
+    }
 }

@@ -4,6 +4,7 @@ module.exports = {
     name: 'stats',
     aliases: ['status'],
     category: 'music',
+    exp: 8,
     description: 'Bot Stats',
     async execute(client, arg, M) {
         let cpus = os.cpus(),
@@ -15,5 +16,5 @@ module.exports = {
                     cpus.length > 1 ? `(${cpus.length} core)` : ''
                 }\n- Platform: ${os.platform()}`
         await M.reply(text)
-    },
+    }
 }

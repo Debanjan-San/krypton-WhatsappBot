@@ -4,6 +4,7 @@ module.exports = {
     name: 'anime',
     aliases: ['ani'],
     category: 'weeb',
+    exp: 5,
     description: 'Gives you the info of the anime',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
@@ -24,9 +25,9 @@ module.exports = {
         // M.reply(text);
         client.sendMessage(M.from, {
             image: {
-                url: anime.imageUrl,
+                url: anime.imageUrl
             },
-            caption: text,
+            caption: text
         })
-    },
+    }
 }

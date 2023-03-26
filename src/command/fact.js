@@ -4,6 +4,7 @@ module.exports = {
     name: 'fact',
     aliases: ['ft'],
     category: 'fun',
+    exp: 5,
     description: 'Sends random facts',
     async execute(client, arg, M) {
         await axios
@@ -16,5 +17,5 @@ module.exports = {
             .catch((err) => {
                 M.reply(`🔍 Error: ${err}`)
             })
-    },
+    }
 }

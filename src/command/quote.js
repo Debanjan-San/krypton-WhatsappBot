@@ -4,6 +4,7 @@ module.exports = {
     name: 'quote',
     aliases: ['qu'],
     category: 'fun',
+    exp: 10,
     description: 'Sends random quotes',
     async execute(client, arg, M) {
         await axios
@@ -16,5 +17,5 @@ module.exports = {
             .catch((err) => {
                 M.reply(`🔍 Error: ${err}`)
             })
-    },
+    }
 }

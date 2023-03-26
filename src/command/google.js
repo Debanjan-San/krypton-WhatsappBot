@@ -5,6 +5,7 @@ module.exports = {
     name: 'google',
     aliases: ['search'],
     category: 'utils',
+    exp: 5,
     description: 'Search topics from google.com',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
@@ -23,5 +24,5 @@ module.exports = {
             text += `🌐 *Link:* ${result.link}\n\n========================\n`
         }
         M.reply(text)
-    },
+    }
 }

@@ -4,6 +4,7 @@ module.exports = {
     name: 'character',
     aliases: ['char'],
     category: 'weeb',
+    exp: 5,
     description: 'Gives you the info of a character from anime',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
@@ -22,9 +23,9 @@ module.exports = {
         // M.reply(text);
         client.sendMessage(M.from, {
             image: {
-                url: character.image.large,
+                url: character.image.large
             },
-            caption: text,
+            caption: text
         })
-    },
+    }
 }

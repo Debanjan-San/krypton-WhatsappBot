@@ -4,10 +4,11 @@ module.exports = {
     admin: true,
     public: false,
     botAdmin: true,
+    exp: 5,
     category: 'moderation',
     description: 'Demotes the taged user',
     async execute(client, arg, M) {
-        if (M.mentions == 0) return M.reply('You must tag the user before using!')
+        if (M.mentions.length == 0) return M.reply('You must tag the user before using!')
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
@@ -17,5 +18,5 @@ module.exports = {
         await client.groupParticipantsUpdate(M.from, adminUsers, 'demote').then((res) => {
             M.reply(`Done! Demoting ${adminUsers.length} users`)
         })
-    },
+    }
 }

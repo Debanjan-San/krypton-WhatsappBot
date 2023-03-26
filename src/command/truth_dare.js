@@ -4,6 +4,7 @@ module.exports = {
     name: 'truth_dare',
     aliases: ['td'],
     category: 'fun',
+    exp: 29,
     description: 'Gives you tuth and dare',
     async execute(client, arg, M) {
         const _ = ['truth', 'dare']
@@ -16,5 +17,5 @@ module.exports = {
                 return M.reply(TD.get_dare)
                 break
         }
-    },
+    }
 }

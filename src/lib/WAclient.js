@@ -74,14 +74,14 @@ function serialize(msg, client) {
                         type: 'view_once',
                         stanzaId: quoted.stanzaId,
                         participant: decodeJid(quoted.participant),
-                        message: quoted.quotedMessage.ephemeralMessage.message.viewOnceMessage.message,
+                        message: quoted.quotedMessage.ephemeralMessage.message.viewOnceMessage.message
                     }
                 } else {
                     msg.quoted = {
                         type: 'ephemeral',
                         stanzaId: quoted.stanzaId,
                         participant: decodeJid(quoted.participant),
-                        message: quoted.quotedMessage.ephemeralMessage.message,
+                        message: quoted.quotedMessage.ephemeralMessage.message
                     }
                 }
             } else if (quoted.quotedMessage['viewOnceMessageV2']) {
@@ -89,14 +89,14 @@ function serialize(msg, client) {
                     type: 'view_once',
                     stanzaId: quoted.stanzaId,
                     participant: decodeJid(quoted.participant),
-                    message: quoted.quotedMessage.viewOnceMessage.message,
+                    message: quoted.quotedMessage.viewOnceMessage.message
                 }
             } else {
                 msg.quoted = {
                     type: 'normal',
                     stanzaId: quoted.stanzaId,
                     participant: decodeJid(quoted.participant),
-                    message: quoted.quotedMessage,
+                    message: quoted.quotedMessage
                 }
             }
             msg.quoted.isSelf = msg.quoted.participant === decodeJid(client.user.id)
@@ -113,11 +113,11 @@ function serialize(msg, client) {
             msg.quoted.key = {
                 id: msg.quoted.stanzaId,
                 fromMe: msg.quoted.isSelf,
-                remoteJid: msg.from,
+                remoteJid: msg.from
             }
             msg.quoted.delete = () =>
                 client.sendMessage(msg.from, {
-                    delete: msg.quoted.key,
+                    delete: msg.quoted.key
                 })
             msg.quoted.download = () => downloadMedia(msg.quoted.message)
         } catch {
@@ -128,19 +128,17 @@ function serialize(msg, client) {
             msg.message?.[msg.type]?.text ||
             msg.message?.[msg.type]?.caption ||
             (msg.type === 'listResponseMessage' && msg.message?.[msg.type]?.singleSelectReply?.selectedRowId) ||
-            (msg.type === 'buttonsResponseMessage' &&
-                msg.message?.[msg.type]?.selectedButtonId?.includes('SMH') &&
-                msg.message?.[msg.type]?.selectedButtonId) ||
+            (msg.type === 'buttonsResponseMessage' && msg.message?.[msg.type]?.selectedButtonId) ||
             (msg.type === 'templateButtonReplyMessage' && msg.message?.[msg.type]?.selectedId) ||
             ''
         msg.reply = (text) =>
             client.sendMessage(
                 msg.from,
                 {
-                    text,
+                    text
                 },
                 {
-                    quoted: msg,
+                    quoted: msg
                 }
             )
         // msg.username = async (jid) => await getName(jid)
@@ -151,5 +149,5 @@ function serialize(msg, client) {
 
 module.exports = {
     serialize,
-    decodeJid,
+    decodeJid
 }

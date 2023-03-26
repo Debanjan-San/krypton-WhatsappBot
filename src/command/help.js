@@ -2,6 +2,7 @@ module.exports = {
     name: 'help',
     aliases: ['h', 'menu', 'list', 'commands'],
     category: 'general',
+    exp: 10,
     description: 'Let you see the command list',
     async execute(client, arg, M) {
         console.log(arg)
@@ -28,5 +29,5 @@ module.exports = {
         M.reply(
             `*CMD INFO*\n\n*🟥 Name:* ${command.name}\n*🟩 Aliases:* ${command.aliases}\n*🟨 Desc:* ${command.description}`
         )
-    },
+    }
 }

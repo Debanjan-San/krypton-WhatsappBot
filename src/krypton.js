@@ -4,12 +4,12 @@ const {
     useSingleFileAuthState,
     fetchLatestBaileysVersion,
     makeInMemoryStore,
-    delay,
+    delay
 } = require('@adiwajshing/baileys')
 const { QuickDB } = require('quick.db')
 const { MongoDriver } = require('quickmongo')
-const MessageHandler = require('./Handlers/Message.js')
-const EventsHandler = require('./Handlers/Events.js')
+const MessageHandler = require('./Handlers/Message')
+const EventsHandler = require('./Handlers/Events')
 const { color } = require('./lib/colour')
 const contact = require('./lib/contacts')
 const utils = require('./lib/function')
@@ -32,14 +32,14 @@ const start = async () => {
         printQRInTerminal: true,
         auth: state,
         logger: P({
-            level: 'fatal',
+            level: 'fatal'
         }),
-        browser: ['Krypton_Botto', 'fatal', '1.0.0'],
+        browser: ['Krypton_Botto', 'fatal', '1.0.0']
     })
 
     //Database
     client.DB = new QuickDB({
-        driver,
+        driver
     })
     //Tables
     client.contactDB = client.DB.table('contacts')
@@ -49,6 +49,9 @@ const start = async () => {
 
     //Open AI
     client.AI = openai
+
+    //Experience
+    client.exp = client.DB.table('experience')
 
     //Utils
     client.utils = utils

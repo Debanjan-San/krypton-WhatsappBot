@@ -2,6 +2,7 @@ module.exports = {
     name: 'createimg',
     aliases: ['ci'],
     category: 'utils',
+    exp: 5,
     description: 'Let you create an image with openAI',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
@@ -12,9 +13,9 @@ module.exports = {
             client
                 .sendMessage(M.from, {
                     image: {
-                        url: results.response.data.data[i].url,
+                        url: results.response.data.data[i].url
                     },
-                    caption: 'Image made using openAI',
+                    caption: 'Image made using openAI'
                 })
                 .catch((err) => {
                     console.error(err)
@@ -22,7 +23,7 @@ module.exports = {
         }
         //M.reply(res.response);
         //console.log(results.response.data)
-    },
+    }
 }
 //        console.log(M.message.imageMessage, M.quoted.mtype === 'imageMessage')
 

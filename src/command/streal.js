@@ -1,27 +1,18 @@
 const { Sticker, StickerTypes } = require('wa-sticker-formatter')
 
 module.exports = {
-    name: 'sticker',
-    aliases: ['s'],
+    name: 'streal',
+    aliases: ['take'],
     category: 'utils',
-    exp: 15,
-    description: 'sticker [caption/quote message containing media] <pack> | <author>',
+    exp: 10,
+    description: 'steal [quote message containing sticker] <pack> | <author>',
     async execute(client, arg, M) {
         const content = JSON.stringify(M.quoted)
-        const isMedia = M.type === 'imageMessage' || M.type === 'videoMessage'
-        const isQuoted =
-            (M.type === 'extendedTextMessage' && content.includes('imageMessage')) ||
-            (M.type === 'extendedTextMessage' && content.includes('videoMessage'))
+        const isQuotedSticker = M.type === 'extendedTextMessage' && content.includes('stickerMessage')
 
-        if (isMedia || isQuoted) {
-<<<<<<< Updated upstream
-            const context = arg.split(' ')
-            const pack = context.shift().split('|')
-            const flags = context;
-=======
+        if (isQuotedSticker) {
             const pack = arg.split('|')
->>>>>>> Stashed changes
-            const buffer = isQuoted ? await M.quoted.download() : await M.download()
+            const buffer = await M.quoted.download()
             const sticker = new Sticker(buffer, {
                 pack: pack[0] ? pack[0].trim() : '👾 Handcrafted for you by',
                 author: pack[1] ? pack[1].trim() : `Krypton 👾`,

@@ -14,7 +14,7 @@ const { readFile, unlink, writeFile } = require('fs-extra')
 const getBuffer = async (url) =>
     (
         await axios.get(url, {
-            responseType: 'arraybuffer',
+            responseType: 'arraybuffer'
         })
     ).data
 
@@ -120,7 +120,7 @@ const formatSize = sizeFormatter({
     std: 'JEDEC',
     decimalPlaces: '2',
     keepTrailingZeroes: false,
-    render: (literal, symbol) => `${literal} ${symbol}B`,
+    render: (literal, symbol) => `${literal} ${symbol}B`
 })
 
 const term = (param) =>
@@ -148,7 +148,7 @@ const restart = () => {
             require('child_process').spawn(process.argv.shift(), process.argv, {
                 cwd: process.cwd(),
                 detached: true,
-                stdio: 'inherit',
+                stdio: 'inherit'
             })
         })
         process.exit()
@@ -169,5 +169,5 @@ module.exports = {
     generateRandomHex,
     calculatePing,
     capitalize,
-    getBuffer,
+    getBuffer
 }
