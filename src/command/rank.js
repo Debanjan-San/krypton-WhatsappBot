@@ -8,20 +8,18 @@ module.exports = {
     exp: 5,
     description: 'Gives you your rank',
     async execute(client, arg, M) {
-        const user = M.sender
-
         let pfp
         try {
-            pfp = await client.profilePictureUrl(user, 'image')
+            pfp = await client.profilePictureUrl(M.sender, 'image')
         } catch {
             pfp =
                 'https://w0.peakpx.com/wallpaper/346/996/HD-wallpaper-love-live-sunshine-404-error-love-live-sunshine-anime-girl-anime.jpg'
         }
 
-        const level = (await client.DB.get(`${user}_LEVEL`)) || 1
+        const level = (await client.DB.get(`${M.sender}_LEVEL`)) || 1
         const { requiredXpToLevelUp, rank } = getStats(level)
-        const username = (await client.contact.getContact(user, client)).username
-        const experience = (await client.exp.get(user)) || 0
+        const username = (await client.contact.getContact(M.sender, client)).username
+        const experience = (await client.exp.get(M.sender)) || 0
 
         const card = await new cx.Rank()
             .setAvatar(pfp)
@@ -29,7 +27,7 @@ module.exports = {
             .setCurrentXP(experience, '#db190b')
             .setRequiredXP(requiredXpToLevelUp, '#db190b')
             .setProgressBar('#db190b')
-            .setDiscriminator(user.substring(3, 7), '#db190b')
+            .setDiscriminator(M.sender.substring(3, 7), '#db190b')
             .setCustomStatusColor('#db190b')
             .setLevelColor('#db190b', '#db190b')
             .setOverlay('', '', false)
