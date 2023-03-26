@@ -12,8 +12,7 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "scripts": {
     "format": "prettier --write --config .prettierrc.json \"src/**/*.js\"",
-    "start": "node --max-old-space-size=4096 src/krypton.js",
-    "Pm2start": "pm2 start src/krypton.js --deep-monitoring --attach"
+    "start": "node --max-old-space-size=4096 src/krypton.js"
   },
   "bugs": {
     "url": "https://github.com/Debanjan-San/Krypton_Botto/issues"
