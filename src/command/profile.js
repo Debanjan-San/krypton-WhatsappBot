@@ -9,10 +9,11 @@ module.exports = {
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
+        const user = M.quoted?.participant ? M.quoted.participant : M.mentions[0] ? M.mentions[0] : M.sender
 
         let pfp
         try {
-            pfp = await client.profilePictureUrl(M.sender, 'image')
+            pfp = await client.profilePictureUrl(user, 'image')
         } catch {
             pfp =
                 'https://w0.peakpx.com/wallpaper/346/996/HD-wallpaper-love-live-sunshine-404-error-love-live-sunshine-anime-girl-anime.jpg'
@@ -20,25 +21,25 @@ module.exports = {
 
         let bio
         try {
-            bio = (await client.fetchStatus(M.sender)).status
+            bio = (await client.fetchStatus(user)).status
         } catch (error) {
             bio = ''
         }
 
-        const level = (await client.DB.get(`${M.sender}_LEVEL`)) || 1
+        const level = (await client.DB.get(`${user}_LEVEL`)) || 1
         const stats = getStats(level)
-        const username = (await client.contact.getContact(M.sender, client)).username
-        const experience = (await client.exp.get(M.sender)) || 0
+        const username = (await client.contact.getContact(user, client)).username
+        const experience = (await client.exp.get(user)) || 0
 
         console.log(stats)
         let text = ''
-        text += `🏮 *Username:* ${username}#${M.sender.substring(3, 7)}\n\n`
+        text += `🏮 *Username:* ${username}#${user.substring(3, 7)}\n\n`
         text += `🎫 *Bio:* ${bio}\n\n`
-        text += `💈 *Number:* ${M.sender.split('@')[0]}\n\n`
+        text += `💈 *Number:* wa.me/${user.split('@')[0]}\n\n`
         text += `🌟 *Experience:* ${experience}\n\n`
         text += `🥇 *Rank:* ${stats.rank}\n\n`
         text += `🍀 *Level:* ${level}\n\n`
-        text += `👑 *Admin:* ${groupAdmins.includes(M.sender) ? 'T' : 'F'}`
+        text += `👑 *Admin:* ${groupAdmins.includes(user) ? 'T' : 'F'}`
 
         //user.substring(3, 7)
         client.sendMessage(

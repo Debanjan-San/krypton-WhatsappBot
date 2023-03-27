@@ -8,7 +8,8 @@ module.exports = {
     category: 'moderation',
     description: 'Promotes the taged user',
     async execute(client, arg, M) {
-        if (M.mentions.length == 0) return M.reply('You must tag the user before using!')
+        if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
+        if (!M.mentions.length) return M.reply('You must tag the user before using!')
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)

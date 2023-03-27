@@ -30,7 +30,8 @@ module.exports = MessageHandler = async (messages, client) => {
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
 
         //console.log(body)
-        // AI chatting using OpenAI
+        // AI chatting using
+        if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
         if (M.mentions.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && !isCmd && isGroup) {
             const text = await client.AI.chat(body.trim())
             M.reply(text.response.trim().replace('[Your Name]', M.pushName))
@@ -98,9 +99,6 @@ module.exports = MessageHandler = async (messages, client) => {
         const command =
             client.cmd.get(cmdName) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(cmdName))
 
-        //Will add exp according to the commands
-        await client.exp.add(sender, command.exp)
-
         if (!command) return M.reply('No such command found! BAKA')
         if (!groupAdmins.includes(sender) && command?.admin)
             return M.reply('This command can only be used by group or community admins')
@@ -111,6 +109,9 @@ module.exports = MessageHandler = async (messages, client) => {
         if (!isGroup && command?.public) return M.reply('This command can only be used in public chat')
         command.execute(client, arg, M)
         //console.log(command)
+
+        //Will add exp according to the commands
+        await client.exp.add(sender, command.exp)
 
         //Level up
         const level = (await client.DB.get(`${sender}_LEVEL`)) || 0
