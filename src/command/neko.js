@@ -8,7 +8,7 @@ module.exports = {
     description: 'Sends an image of random neko',
     async execute(client, arg, M) {
         const res = await axios.get(`https://nekos.life/api/v2/img/neko`).catch((err) => {
-            return M.reply(err)
+            return M.reply(err.toString())
         })
         client.sendMessage(M.from, {
             image: {

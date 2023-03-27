@@ -12,7 +12,7 @@ module.exports = {
         const res = await axios
             .get(`https://www.googleapis.com/customsearch/v1?q=${arg}&key=${Apikey}`)
             .catch((err) => {
-                return M.reply(err)
+                return M.reply(err.toString())
             })
         if (res.data.items.length == 0) return reply('❌ Unable to find any result')
         const results = res.data.items

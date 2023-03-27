@@ -125,7 +125,7 @@ module.exports = MessageHandler = async (messages, client) => {
                 video: {
                     url: 'https://media.tenor.com/msfmevhmlDAAAAPo/anime-chibi.mp4'
                 },
-                caption: `Congratulations you leveled up from *${level - 1} ---> ${level}* 🎊`,
+                caption: `\n\n\nCongratulations you leveled up from *${level} ---> ${level + 1}* 🎊\n\n\n`,
                 gifPlayback: true
             },
             {
@@ -133,6 +133,6 @@ module.exports = MessageHandler = async (messages, client) => {
             }
         )
     } catch (err) {
-        console.log(err)
+        M.reply(err.toString())
     }
 }

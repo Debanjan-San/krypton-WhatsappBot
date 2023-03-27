@@ -22,7 +22,7 @@ module.exports = {
         let bio
         try {
             bio = (await client.fetchStatus(user)).status
-        } catch (error) {
+        } catch {
             bio = ''
         }
 
