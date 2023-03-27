@@ -133,6 +133,7 @@ module.exports = MessageHandler = async (messages, client) => {
             }
         )
     } catch (err) {
-        M.reply(err.toString())
+        //M.reply(err.toString())
+        console.log(err)
     }
 }
