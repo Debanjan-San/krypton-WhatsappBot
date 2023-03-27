@@ -39,7 +39,7 @@ module.exports = {
                 )
             })
             .catch((err) => {
-                return M.reply(err)
+                return M.reply(err.toString())
                 console.error(err)
             })
     }
