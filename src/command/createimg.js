@@ -7,7 +7,7 @@ module.exports = {
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
         const results = await client.AI.createImage(arg).catch((err) => {
-            return M.reply(err)
+            return M.reply(err.toString())
         })
         for (let i = 0; i < results.response.data.data.length; i++) {
             client
