@@ -65,9 +65,6 @@ module.exports = MessageHandler = async (messages, client) => {
             M.reply(text.response.trim().replace('[Your Name]', M.pushName))
         }
 
-        // Commands active
-        if (ActivateCMD.includes(from) && isGroup) return
-
         // Logging Message
         if (!isGroup && isCmd)
             console.log(
