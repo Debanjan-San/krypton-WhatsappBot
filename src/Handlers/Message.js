@@ -28,14 +28,45 @@ module.exports = MessageHandler = async (messages, client) => {
         const arg = body.replace(cmdName, '').slice(1).trim()
         const groupMembers = gcMeta?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
+        const ActivateMods = (await client.DB.get('mod')) || []
+        const ActivateChatBot = (await client.DB.get('chatbot')) || []
+        const ActivateCMD = (await client.DB.get('cmd')) || []
+
+        // Antilink system
+        if (
+            isGroup &&
+            ActivateMods.includes(from) &&
+            groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') &&
+            body
+        ) {
+            const groupCodeRegex = body.match(/chat.whatsapp.com\/(?:invite\/)?([\w\d]*)/)
+            if (groupCodeRegex && groupCodeRegex.length === 2 && !groupAdmins.includes(sender)) {
+                const groupCode = groupCodeRegex[1]
+                const groupNow = await client.groupInviteCode(from)
+
+                if (groupCode !== groupNow) {
+                    await client.sendMessage(from, { delete: M.key })
+                    return await client.groupParticipantsUpdate(from, [sender], 'remove')
+                    M.reply('Successfully removed an intruder!!!!')
+                }
+            }
+        }
 
         //console.log(body)
         // AI chatting using
         if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
-        if (M.mentions.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && !isCmd && isGroup) {
+        if (
+            M.mentions.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') &&
+            !isCmd &&
+            isGroup &&
+            ActivateChatBot.includes(from)
+        ) {
             const text = await client.AI.chat(body.trim())
             M.reply(text.response.trim().replace('[Your Name]', M.pushName))
         }
+
+        // Commands active
+        if (ActivateCMD.includes(from) && isGroup) return
 
         // Logging Message
         if (!isGroup && isCmd)
@@ -120,7 +151,7 @@ module.exports = MessageHandler = async (messages, client) => {
         if (requiredXpToLevelUp > experience) return null
         await client.DB.add(`${sender}_LEVEL`, 1)
         client.sendMessage(
-            M.from,
+            from,
             {
                 video: {
                     url: 'https://media.tenor.com/msfmevhmlDAAAAPo/anime-chibi.mp4'

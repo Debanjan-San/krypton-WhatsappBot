@@ -15,6 +15,7 @@ module.exports = {
 
         if (spotifydl.error) return M.reply(`Error Fetching: ${arg.trim()}. Check if the url is valid and try again`)
         M.reply('Downloading has started please have some pesence')
+
         const caption = `🎧 *Title:* ${audioSpotify.data.name || ''}\n🎤 *Artists:* ${(
             audioSpotify.data.artists || []
         ).join(',')}\n💽 *Album:* ${audioSpotify.data.album_name}\n📆 *Release Date:* ${

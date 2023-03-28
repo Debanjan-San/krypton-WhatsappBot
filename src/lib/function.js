@@ -63,7 +63,7 @@ const fetch = async (url) => (await axios.get(url)).data
 const webpToPng = async (webp) => {
     const filename = `${tmpdir()}/${Math.random().toString(36)}`
     await writeFile(`${filename}.webp`, webp)
-    await this.exec(`dwebp "${filename}.webp" -o "${filename}.png"`)
+    await exec(`dwebp "${filename}.webp" -o "${filename}.png"`)
     const buffer = await readFile(`${filename}.png`)
     Promise.all([unlink(`${filename}.png`), unlink(`${filename}.webp`)])
     return buffer
@@ -77,8 +77,8 @@ const webpToPng = async (webp) => {
 const webpToMp4 = async (webp) => {
     const filename = `${tmpdir()}/${Math.random().toString(36)}`
     await writeFile(`${filename}.webp`, webp)
-    await this.exec(`magick mogrify -format gif ${filename}.webp`)
-    const mp4 = await this.gifToMp4(await readFile(`${filename}.gif`), true)
+    await exec(`magick mogrify -format gif ${filename}.webp`)
+    const mp4 = await gifToMp4(await readFile(`${filename}.gif`), true)
     const buffer = await readFile(mp4)
     Promise.all([unlink(mp4), unlink(`${filename}.gif`), unlink(`${filename}.gif`)])
     return buffer
@@ -93,7 +93,7 @@ const webpToMp4 = async (webp) => {
 const gifToMp4 = async (gif, write = false) => {
     const filename = `${tmpdir()}/${Math.random().toString(36)}`
     await writeFile(`${filename}.gif`, gif)
-    await this.exec(
+    await exec(
         `ffmpeg -f gif -i ${filename}.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${filename}.mp4`
     )
     if (write) return `${filename}.mp4`

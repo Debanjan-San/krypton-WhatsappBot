@@ -56,14 +56,11 @@
     "qrcode-terminal": "^0.12.0",
     "quick.db": "^9.0.5",
     "quickmongo": "^5.2.0",
-    "spcanvas": "^1.0.0",
     "spotifydl-core": "^0.2.0",
-    "spotifydl-x": "^0.3.0",
     "telegraph-uploader": "^2.0.0",
     "wa-sticker-formatter": "^4.4.4",
+    "welcomer-gif": "^2.0.0",
     "wikipedia": "^2.0.0",
-    "youtube-yts": "^2.0.0",
-    "youtubedl-core": "^4.11.1",
     "yt-search": "^2.10.4",
     "ytdl-core": "^4.11.2"
   }

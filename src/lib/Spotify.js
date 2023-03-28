@@ -1,5 +1,5 @@
 const Spotify = require('spotifydl-core').default
-const spcanvas = require('spcanvas')
+const canvacord = require('canvacord')
 const TrackDetails = require('spotifydl-core/dist/lib/details/Track')
 
 const credentials = {
@@ -12,18 +12,17 @@ const spotifydl = async (url) => {
     const res = await spotify.getTrack(url).catch(() => {
         return { error: 'Failed' }
     })
-    const card = await new spcanvas.Spotify()
+    const card = new canvacord.Spotify()
         .setAuthor(res.artists.join(', '))
         .setAlbum(res.album_name)
-        .setBackground(
-            'image',
-            'https://c4.wallpaperflare.com/wallpaper/758/235/686/pewdiepie-felix-youtuber-hd-wallpaper-preview.jpg'
-        )
+        .setStartTimestamp(40000)
+        .setEndTimestamp(179000)
+        .setBackground('COLOR', '#A30000')
         .setImage(res.cover_url)
-        .setTimestamp(40000, 179000)
         .setTitle(res.name)
-        .build()
-    return { data: res, audio: await spotify.downloadTrack(url), coverimage: card.toBuffer() }
+
+    return { data: res, coverimage: await card.build(), audio: await spotify.downloadTrack(url) }
+    //audio: await spotify.downloadTrack(url)
 }
 
 module.exports = {
