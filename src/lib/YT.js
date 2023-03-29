@@ -12,7 +12,7 @@ const getBuffer = async (url, type) => {
     const stream = createWriteStream(filename)
     ytdl(
         url,
-        { filter: type === 'audio' ? 'audioonly ' : 'videoandaudio' },
+        { filter: type === 'audio' ? 'audioonly' : 'videoandaudio' },
         { quality: type === 'audio' ? 'highestaudio' : 'highest' }
     ).pipe(stream)
     filename = await new Promise((resolve, reject) => {
