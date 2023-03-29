@@ -7,7 +7,7 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
-chat = async (text) => {
+const chat = async (text) => {
     const completion = await openai.createCompletion({
         model: 'text-davinci-003',
         prompt: `${text}`,
@@ -23,7 +23,7 @@ chat = async (text) => {
     }
 }
 
-gpt = async (text) => {
+const gpt = async (text) => {
     //gpt-3.5-turbo
     const completion = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
@@ -40,7 +40,7 @@ gpt = async (text) => {
     }
 }
 
-createImage = async (text) => {
+const createImage = async (text) => {
     const results = await openai.createImage({
         prompt: `${text}`,
         n: 10,
@@ -51,7 +51,7 @@ createImage = async (text) => {
     }
 }
 
-editImage = async (text, buffer) => {
+const editImage = async (text, buffer) => {
     const response = await openai.createImageEdit(buffer, fs.createReadStream('image.png'), `${text}`, 2, '1024x1024')
     return {
         response: results

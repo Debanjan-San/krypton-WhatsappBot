@@ -14,7 +14,7 @@ module.exports = {
                 return M.reply(TD.get_truth())
                 break
             case 'dare':
-                return M.reply(TD.get_dare)
+                return M.reply(TD.get_dare())
                 break
         }
     }
