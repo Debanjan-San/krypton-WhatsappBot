@@ -8,7 +8,7 @@ module.exports = {
     exp: 5,
     description: "Displays global's or group's leaderboord of a specific field",
     async execute(client, arg, M) {
-        const global = ['g', 'global']
+        const group = ['gc', 'group']
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants.map((x) => x.id.split('.whatsapp.net')[0]) || []
         const users = Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net })) || []
@@ -16,7 +16,7 @@ module.exports = {
             by: 'xp',
             order: 'desc'
         })
-        const leaderboard = global.includes(arg.trim())
+        const leaderboard = group.includes(arg.trim())
             ? sortUsers.filter((x) => groupMembers.includes(x.user))
             : sortUsers
 
