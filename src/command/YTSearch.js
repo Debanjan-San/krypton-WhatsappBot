@@ -9,7 +9,7 @@ module.exports = {
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
         const { videos } = await yts(arg.trim())
-        if (!videos || !videos.length) return void M.reply(`No videos found | *"${query}"*`)
+        if (!videos || !videos.length) return M.reply(`No videos found | *"${query}"*`)
         let text = ''
         const length = videos.length >= 10 ? 10 : videos.length
         for (let i = 0; i < length; i++) {
