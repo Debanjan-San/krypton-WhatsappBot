@@ -20,13 +20,13 @@ module.exports = {
             ? sortUsers.filter((x) => groupMembers.includes(x.user))
             : sortUsers
 
-        if (leaderboard.length < 5) return M.reply('Sorry there is no enough users to create a leaderboard')
+        if (leaderboard.length < 10) return M.reply('Sorry there is no enough users to create a leaderboard')
         const myPosition = leaderboard.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
         // console.log(myPosition, M.sender)
         let text = `☆☆💥 LEADERBOARD 💥☆☆\n\n*${
             (await client.contact.getContact(M.sender, client)).username
         }'s Position is ${myPosition + 1}*`
-        for (let i = 0; i < leaderboard.length; i++) {
+        for (let i = 0; i < 10; i++) {
             const level = (await client.DB.get(`${leaderboard[i].user}.whatsapp.net_LEVEL`)) || 1
             const { requiredXpToLevelUp, rank } = getStats(level)
             const username = (await client.contact.getContact(leaderboard[i].user, client)).username.whatsapp.net

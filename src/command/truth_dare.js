@@ -7,8 +7,7 @@ module.exports = {
     exp: 29,
     description: 'Gives you tuth and dare',
     async execute(client, arg, M) {
-        const _ = ['truth', 'dare']
-        if (!arg && !_.includes(arg)) return M.reply('Sorry you did not give any search term!')
+        if (!arg) return M.reply('Sorry you did not give any search term!')
         switch (arg) {
             case 'truth':
                 return M.reply(TD.get_truth())
@@ -16,6 +15,8 @@ module.exports = {
             case 'dare':
                 return M.reply(TD.get_dare())
                 break
+            default:
+                return M.reply('Sorry you did not give any valid term!')
         }
     }
 }
