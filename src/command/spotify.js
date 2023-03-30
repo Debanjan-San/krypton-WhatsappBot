@@ -18,7 +18,7 @@ module.exports = {
 
         const caption = `🎧 *Title:* ${audioSpotify.data.name || ''}\n🎤 *Artists:* ${(
             audioSpotify.data.artists || []
-        ).join(',')}\n💽 *Album:* ${audioSpotify.data.album_name}\n📆 *Release Date:* ${
+        ).join(', ')}\n💽 *Album:* ${audioSpotify.data.album_name}\n📆 *Release Date:* ${
             audioSpotify.data.release_date || ''
         }`
 
