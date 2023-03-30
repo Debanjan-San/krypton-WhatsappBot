@@ -5,7 +5,7 @@ module.exports = {
     exp: 0,
     description: 'Testing stuff',
     async execute(client, arg, M) {
-        console.log(M.cmdName)
+        //console.log(M.cmdName)
         //console.log((client.user.id).split(':')[0] + '@s.whatsapp.net')
         M.reply(
             `Everything is working ${

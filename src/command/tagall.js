@@ -27,6 +27,6 @@ module.exports = {
         for (let i = 0; i < admins.length; i++) text += `${i === 0 ? '\n\n' : '\n'}🌟 *@${admins[i].split('@')[0]}*`
         for (let i = 0; i < members.length; i++) text += `${i === 0 ? '\n\n' : '\n'}🎗 *@${members[i].split('@')[0]}*`
 
-        await client.sendMessage(M.from, { text, mentions: groupMetadata.participants.map((x) => x.id) }, { quoted: M })
+        await client.sendMessage(M.from, { text, mentions: groupMembers }, { quoted: M })
     }
 }

@@ -24,17 +24,3 @@ module.exports = {
         )
     }
 }
-/*
-? await client.DB.push('banned', user)
-                    : await client.sendMessage(
-                          M.from,
-                          { text: `*@${user.split('@')[0]}* is already banned`, mentions: [user] },
-                          { quoted: M }
-                      )
-                : banned.includes(user)
-                ? await client.DB.pull('banned', user)
-                : await client.sendMessage(
-                      M.from,
-                      { text: `*@${user.split('@')[0]}* is already unbanned`, mentions: [user] },
-                      { quoted: M }
-                  )*/

@@ -15,7 +15,7 @@ module.exports = {
                     obj[item.category].push(item.name)
                 }
             })
-            const emojis = ['🌀', '🎴', '🔮', '👑', '🎈', '⚙️', '🍀']
+            const emojis = ['🌀', '🎴', '🔮', '👑', '🎈', '⚙️', '🍀', '🎵']
             let text = `🎫 *Krypton's Command List* 🎫\n\n`
             const keys = Object.keys(obj)
             for (const key of keys)
