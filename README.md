@@ -2,9 +2,8 @@
  <img src="https://i.ibb.co/mzcSXdy/koboo.png" width="150" height="150" border="0" alt="PFP">
  
 # KryPtoN Whatsapp Bot 
-[![](https://img.shields.io/github/repo-size/Debanjan-San/krypton-WhatsappBot)](https://github.com/Debanjan-San/krypton-WhatsappBot/) [![](https://img.shields.io/github/forks/Debanjan-San/krypton-WhatsappBot.svg)](https://github.com/Debanjan-San/krypton-WhatsappBot/network/members)
- 
- <a href="https://git-scm.com/downloads"><img src="http://img.shields.io/badge/-Git-F1502F?style=flat&logo=git&logoColor=FFFFFF"></a>
+
+<a href="https://git-scm.com/downloads"><img src="http://img.shields.io/badge/-Git-F1502F?style=flat&logo=git&logoColor=FFFFFF"></a>
 <a href="https://nodejs.org/en/download"><img
 src="https://img.shields.io/badge/-Node.js-3C873A?style=flat&logo=Node.js&logoColor=white"></a>
 <a href="https://ffmpeg.org/download.html"><img src="http://img.shields.io/badge/-Ffmpeg-000000?style=flat&logo=ffmpeg&logoColor=green"></a>
