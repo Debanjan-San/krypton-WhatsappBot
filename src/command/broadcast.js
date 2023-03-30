@@ -17,7 +17,7 @@ module.exports = {
             const groupMembers = groupMetadata?.participants.map((x) => x.id) || []
             const text = `🔰*「 KRYPTON BROADCAST 」*🔰\n\n🏮 Message: ${arg}`
             await client.sendMessage(i, {
-                image: {
+                video: {
                     url: 'https://media.tenor.com/AtXbqlrwklIAAAPo/anime-tv.mp4'
                 },
                 gifPlayback: true,
