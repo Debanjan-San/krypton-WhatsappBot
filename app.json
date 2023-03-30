@@ -27,10 +27,12 @@
           "required":true
        },
        "OPENAI_API":{
-          "description":"A key used for OpenAI"
+          "description":"A key used for OpenAI",
+          "required":true
        },
        "PORT":{
-          "description":"A port for your app"
+          "description":"A port for your app",
+          "required":true
        }
     },
     "buildpacks":[
