@@ -8,22 +8,19 @@ module.exports = {
     description: 'Gives you the info of a character from anime',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
-        const res = await axios.get(`https://weeb-api.vercel.app/character?search=${arg}`)
-        if (res.data.characters == 0) return M.reply('404 Error could not find the given term')
+        const chara = await axios.get(`https://api.jikan.moe/v4/characters?q=${arg}`)
+        if (chara.data.data.length == 0) return M.reply('404 Error could not find the given term')
 
-        const character = res.data.characters[0]
         let text = '====*CHARACTER*====\n\n'
-        text += `*Name:* ${character.name.full}\n`
-        text += `*Japanese*: ${character.name.native}\n`
-        text += `*Age:* ${character.age}\n`
-        text += `*Gender:* ${character.gender}\n`
-        text += `*BloodType:* ${character.bloodType}\n`
-        text += `*DateOfBirth*: ${JSON.stringify(character.dateOfBirth).replace('{', '')}\n`
-        text += `*Description:* ${character.description}\n\n========================\n`
+        text += `*Name:* ${chara.data.data[0].name}\n`
+        text += `*Japanese*: ${chara.data.data[0].name_kanji}\n`
+        text += `*Favorites:* ${chara.data.data[0].favorites}\n`
+        text += `*Mal_ID:* ${chara.data.data[0].mal_id}\n`
+        text += `*Description:* ${chara.data.data[0].about}\n\n========================\n`
         // M.reply(text);
         client.sendMessage(M.from, {
             image: {
-                url: character.image.large
+                url: chara.data.data[0].image.jpg.image_url
             },
             caption: text
         })

@@ -30,6 +30,7 @@ module.exports = {
         const stats = getStats(level)
         const username = (await client.contact.getContact(user, client)).username
         const experience = (await client.exp.get(user)) || 0
+        const banned = (await client.DB.get('banned')) || []
 
         console.log(stats)
         let text = ''
@@ -40,6 +41,7 @@ module.exports = {
         text += `🥇 *Rank:* ${stats.rank}\n\n`
         text += `🍀 *Level:* ${level}\n\n`
         text += `👑 *Admin:* ${groupAdmins.includes(user) ? 'T' : 'F'}`
+        text += `✖ *Ban:* ${banned.includes(user) ? 'T' : 'F'}`
 
         //user.substring(3, 7)
         client.sendMessage(

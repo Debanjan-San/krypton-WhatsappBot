@@ -16,9 +16,7 @@ module.exports = MessageHandler = async (messages, client) => {
         if (M.type === 'protocolMessage' || M.type === 'senderKeyDistributionMessage' || !M.type || M.type === '')
             return
 
-        client.prefix = '!'
         client.cmd = new Collection()
-        const dev = ['917003213983']
 
         const { isGroup, sender, from, body } = M
         const gcMeta = isGroup ? await client.groupMetadata(from) : ''
@@ -139,7 +137,7 @@ module.exports = MessageHandler = async (messages, client) => {
             return M.reply('This command can only be used by group or community admins')
         if (!groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && command.category == 'moderation')
             return M.reply('This command can only be used when bot is admin')
-        if (!dev.includes(sender.split('@')[0]) && command.category == 'dev')
+        if (!client.mods.includes(sender.split('@')[0]) && command.category == 'dev')
             return M.reply('This command only can be accedby the mods')
         command.execute(client, arg, M)
         //console.log(command)

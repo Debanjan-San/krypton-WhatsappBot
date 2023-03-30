@@ -1,3 +1,4 @@
+require('dotenv').config()
 const {
     default: Baileys,
     DisconnectReason,
@@ -20,8 +21,8 @@ const mongoose = require('mongoose')
 const P = require('pino')
 const { Boom } = require('@hapi/boom')
 const { readFileSync, unlink } = require('fs-extra')
-const port = process.env.PORT || 8080
-const driver = new MongoDriver('mongodb+srv://rrr:rrr@cluster0.xxwc771.mongodb.net/?retryWrites=true&w=majority')
+const port = process.env.PORT || 3000
+const driver = new MongoDriver(process.env.URL)
 
 const start = async () => {
     const { state, saveState } = useSingleFileAuthState('./session.json')
@@ -36,6 +37,14 @@ const start = async () => {
         }),
         browser: ['Krypton_Botto', 'fatal', '1.0.0']
     })
+
+    //Config
+    client.name = process.env.NAME || 'Krypton'
+    client.prefix = process.env.PREFIX || '!'
+    client.url = process.env.URL || null
+    client.port = process.env.PORT || 3000
+    client.openaiAPI = process.env.OPENAI_API || null
+    client.mods = (process.env.MODS || '').split(', ')
 
     //Database
     client.DB = new QuickDB({
@@ -104,10 +113,14 @@ const start = async () => {
     return client
 }
 
-driver.connect().then(() => {
-    console.log(`Connected to the database!`)
-    // Starts the script if gets a success in connecting with Database
-    start()
-})
+if (!process.env.URL) return console.error('You have not provided any MongoDB URL!!')
+driver
+    .connect()
+    .then(() => {
+        console.log(`Connected to the database!`)
+        // Starts the script if gets a success in connecting with Database
+        start()
+    })
+    .catch((err) => console.error(err))
 
 app.listen(port, () => console.log(`Server started on PORT : ${port}`))

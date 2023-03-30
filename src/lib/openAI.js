@@ -1,9 +1,8 @@
 const { Configuration, OpenAIApi } = require('openai')
 const fs = require('fs-extra')
-const apiKey = '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'
 
 const configuration = new Configuration({
-    apiKey: apiKey
+    apiKey: process.env.OPENAI_API
 })
 const openai = new OpenAIApi(configuration)
 

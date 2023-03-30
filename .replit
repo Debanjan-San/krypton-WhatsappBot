@@ -1,0 +1,2 @@
+language = 'nodejs'
+run = 'pm2 start src/krypton.js --deep-monitoring --attach'

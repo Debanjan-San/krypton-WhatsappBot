@@ -14,6 +14,7 @@ module.exports = {
             return M.reply(
                 `Please provide a valid toggleable GroupActions\n\n*Available:* \n${toggleableGroupActions.join('\n')}`
             )
+        if (arg == 'chatbot' && !client.openaiAPI) return M.reply('You did not provided any api key for OpenAI useage!')
         const Actives = (await client.DB.get(arg)) || []
         if (Actives.includes(M.from)) return M.reply(`${client.utils.capitalize(arg)} is already in your group`)
         await client.DB.push(arg, M.from)

@@ -8,24 +8,19 @@ module.exports = {
     description: 'Gives you the info of the anime',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
-        const res = await axios.get(`https://weeb-api.vercel.app/anime?search=${arg}`)
-        if (res.data == 0) return M.reply('404 Error could not find the given term')
+        const res = await axios.get(`https://api.jikan.moe/v4/anime?q=${arg}`)
+        if (res.data.data.length == 0) return M.reply('404 Error could not find the given term')
 
-        const anime = res.data[0]
-        let text = '====*ANIME*====\n\n'
-        text += `*Name:* ${anime.title.english}\n`
-        text += `*Romaji*: ${anime.title.romaji}\n`
-        text += `*Japanese*: ${anime.title.native}\n`
-        text += `*AverageScore* ${anime.averageScore}\n`
-        text += `*Popularity:* ${anime.popularity}\n`
-        text += `*Duration:* ${anime.duration}\n`
-        text += `*Episodes:* ${anime.episodes}\n`
-        text += `*Genres*: ${anime.genres.join(', ')}\n`
-        text += `*Description:* ${anime.description}\n\n========================\n`
+        let text = '========*ANIME*========\n\n'
+        text += `*Name:* ${res.data.data[0].title_english}\n`
+        text += `*Japanese*: ${res.data.data[0].title_japanese}\n`
+        text += `*Duration:* ${res.data.data[0].duration}\n`
+        text += `*Episodes:* ${res.data.data[0].episodes}\n`
+        text += `*Description:* ${res.data.data[0].synopsis}\n\n========================\n`
         // M.reply(text);
         client.sendMessage(M.from, {
             image: {
-                url: anime.imageUrl
+                url: res.data.data[0].images.jpg.large_image_url
             },
             caption: text
         })

@@ -16,7 +16,7 @@ module.exports = {
                 }
             })
             const emojis = ['🌀', '🎴', '🔮', '👑', '🎈', '⚙️', '🍀', '🎵']
-            let text = `🎫 *Krypton's Command List* 🎫\n\n`
+            let text = `🎫 *${client.name}'s Command List* 🎫\n\n`
             const keys = Object.keys(obj)
             for (const key of keys)
                 text += `${emojis[keys.indexOf(key)]} *${client.utils.capitalize(key)}*\n❐ \`\`\`${obj[key].join(

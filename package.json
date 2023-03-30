@@ -1,7 +1,7 @@
 {
-  "name": "krypton_Botto",
+  "name": "krypton",
   "version": "0.0.1",
-  "description": "krytron_Botto based on Typescript",
+  "description": "krytron based on JavaScript",
   "author": "Debanjan-San",
   "keywords": [
     "Whatsapp",
@@ -15,26 +15,24 @@
     "start": "node --max-old-space-size=4096 src/krypton.js"
   },
   "bugs": {
-    "url": "https://github.com/Debanjan-San/Krypton_Botto/issues"
+    "url": "https://github.com/Debanjan-San/krypton-WhatsappBot/issues"
   },
-  "homepage": "https://github.com/Debanjan-San/Krypton_Botto",
+  "homepage": "https://github.com/Debanjan-San/krypton-WhatsappBot",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Debanjan-San/Krypton_Botto.git"
+    "url": "https://github.com/Debanjan-San/krypton-WhatsappBot.git"
   },
   "dependencies": {
     "@adiwajshing/baileys": "^4.4.0",
     "@adiwajshing/keyed-db": "^0.2.4",
+    "@consumet/extensions": "^1.4.17",
     "@hapi/boom": "^10.0.0",
     "@shineiichijo/canvas-chan": "^1.0.1",
-    "@shineiichijo/marika": "^2.0.6",
-    "@shineiichijo/nhentai-ts": "^1.0.0",
     "axios": "^0.27.2",
     "better-tord": "^1.3.7",
     "bluebird": "^3.7.2",
     "canvacord": "^5.4.8",
     "chalk": "4.1.1",
-    "chatgpt": "^5.1.2",
     "cheerio": "^1.0.0-rc.12",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
@@ -46,8 +44,6 @@
     "human-readable": "^0.2.1",
     "moment-timezone": "^0.5.40",
     "mongoose": "^6.7.0",
-    "node_characterai": "^1.1.0",
-    "nodemon": "^2.0.22",
     "openai": "^3.2.1",
     "os": "^0.1.2",
     "path": "^0.12.7",
@@ -59,7 +55,6 @@
     "quickmongo": "^5.2.0",
     "sort-array": "^4.1.5",
     "spotifydl-core": "^0.2.0",
-    "telegraph-uploader": "^2.0.0",
     "wa-sticker-formatter": "^4.4.4",
     "welcomer-gif": "^2.0.0",
     "wikipedia": "^2.0.0",

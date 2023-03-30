@@ -6,7 +6,8 @@ module.exports = {
     description: 'Closes or opens the group',
     async execute(client, arg, M) {
         const group = ['open', 'close']
-        if (!arg && !group.includes(arg)) return M.reply('Sorry you did not give any search term!')
+        if (!arg) return M.reply('Sorry you did not give any term!')
+        if (!group.includes(arg)) return M.reply('Sorry you did not give any valid term!')
         const groupMetadata = await client.groupMetadata(M.from)
         switch (arg) {
             case 'open':
