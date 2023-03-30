@@ -1,9 +1,6 @@
 module.exports = {
     name: 'revoke',
     aliases: ['reset'],
-    admin: true,
-    public: false,
-    botAdmin: true,
     exp: 10,
     category: 'moderation',
     description: 'Resets group link',

@@ -18,6 +18,7 @@ module.exports = MessageHandler = async (messages, client) => {
 
         client.prefix = '!'
         client.cmd = new Collection()
+        const dev = ['917003213983']
 
         const { isGroup, sender, from, body } = M
         const gcMeta = isGroup ? await client.groupMetadata(from) : ''
@@ -31,6 +32,7 @@ module.exports = MessageHandler = async (messages, client) => {
         const ActivateMods = (await client.DB.get('mod')) || []
         const ActivateChatBot = (await client.DB.get('chatbot')) || []
         const ActivateCMD = (await client.DB.get('cmd')) || []
+        const banned = (await client.DB.get('banned')) || []
 
         // Antilink system
         if (
@@ -51,6 +53,9 @@ module.exports = MessageHandler = async (messages, client) => {
                 }
             }
         }
+
+        //Banned system
+        if (banned.includes(sender)) return M.reply('You are banned from using the bot')
 
         //console.log(body)
         // AI chatting using
@@ -123,18 +128,19 @@ module.exports = MessageHandler = async (messages, client) => {
             const command = require(join(__dirname, '..', 'command', file))
             client.cmd.set(command.name, command)
         }
+        if (!isGroup) return
         if (!isCmd) return
         const command =
             client.cmd.get(cmdName) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(cmdName))
+        M.cmdName = cmdName
 
         if (!command) return M.reply('No such command found! BAKA')
-        if (!groupAdmins.includes(sender) && command?.admin)
+        if (!groupAdmins.includes(sender) && command.category == 'moderation')
             return M.reply('This command can only be used by group or community admins')
-        if (!groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && command?.botAdmin)
+        if (!groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && command.category == 'moderation')
             return M.reply('This command can only be used when bot is admin')
-        // if (command?.mods) return M.reply("This command can only be used by bot admins")
-        if (isGroup && command?.privateChat) return M.reply('This command can only be used in private chat')
-        if (!isGroup && command?.public) return M.reply('This command can only be used in public chat')
+        if (!dev.includes(sender.split('@')[0]) && command.category == 'dev')
+            return M.reply('This command only can be accedby the mods')
         command.execute(client, arg, M)
         //console.log(command)
 

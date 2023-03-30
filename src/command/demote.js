@@ -1,9 +1,6 @@
 module.exports = {
     name: 'demote',
     aliases: ['demo'],
-    admin: true,
-    public: false,
-    botAdmin: true,
     exp: 5,
     category: 'moderation',
     description: 'Demotes the taged user',

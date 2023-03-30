@@ -20,7 +20,7 @@ module.exports = {
         text += `*Popularity:* ${anime.popularity}\n`
         text += `*Duration:* ${anime.duration}\n`
         text += `*Episodes:* ${anime.episodes}\n`
-        text += `*Genres*: ${anime.genres.toString().replace(',', ', ')}\n`
+        text += `*Genres*: ${anime.genres.join(', ')}\n`
         text += `*Description:* ${anime.description}\n\n========================\n`
         // M.reply(text);
         client.sendMessage(M.from, {

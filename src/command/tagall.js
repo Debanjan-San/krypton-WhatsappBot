@@ -1,8 +1,6 @@
 module.exports = {
     name: 'tagall',
     aliases: ['everyone'],
-    admin: true,
-    public: false,
     exp: 18,
     category: 'moderation',
     description: 'Tag all the users present in the group',

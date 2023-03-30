@@ -1,9 +1,6 @@
 module.exports = {
     name: 'promote',
     aliases: ['promo'],
-    admin: true,
-    public: false,
-    botAdmin: true,
     exp: 10,
     category: 'moderation',
     description: 'Promotes the taged user',

@@ -1,9 +1,6 @@
 module.exports = {
     name: 'remove',
     aliases: ['rec'],
-    admin: true,
-    public: false,
-    botAdmin: true,
     exp: 10,
     category: 'moderation',
     description: 'Removes the taged user',

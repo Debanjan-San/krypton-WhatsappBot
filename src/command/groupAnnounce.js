@@ -1,9 +1,6 @@
 module.exports = {
     name: 'group',
     aliases: ['gc'],
-    admin: true,
-    public: false,
-    botAdmin: true,
     exp: 5,
     category: 'moderation',
     description: 'Closes or opens the group',
