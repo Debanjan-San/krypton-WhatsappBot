@@ -17,10 +17,9 @@ module.exports = {
         const uptime = formatTime(process.uptime())
         //client.contactDB
         M.reply(
-            `🚦 *UPTIME:* ${uptime}\n\n📛 *OWNER:* DAS\n\n❕ *USERS:* ${
+            `🚦 *UPTIME:* ${uptime}\n\n📛 *USERS:* ${
                 Object.values(await client.contactDB.all()).length
             }\n\n🔰 *COMMANDS:* ${client.cmd.size}`
         )
     }
 }
-//M.quoted.mtype === 'imageMessage',
