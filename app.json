@@ -1,52 +1,55 @@
 {
-    "name":"Krypton",
-    "description":"A WhatsApp Bot With Multi Device Supported",
-    "keywords":[
-       "bot",
-       "whatsapp"
-    ],
-    "website":"https://github.com/Kry9toN/KryPtoN-WhatsApp-Bot#readme",
-    "repository":"https://github.com/Kry9toN/KryPtoN-WhatsApp-Bot.git",
-    "logo":"https://i.ibb.co/mzcSXdy/koboo.png",
-    "success_url":"/",
-    "env":{
-       "NAME":{
-          "description":"Name of your bot",
-          "required":true
-       },
-       "PREFIX":{
-          "description":"Prefix of your bot",
-          "required":true
-       },
-       "MODS":{
-          "description":"The phone numbers of the users who you want to be admin for the bot (should be in international format without + and multiple numbers must be separated by a comma \",\")",
-          "required":true
-       },
-       "URL":{
-          "description":"A secret String for Mongodb Connection.(Required)",
-          "required":true
-       },
-       "OPENAI_API":{
-          "description":"A key used for OpenAI",
-          "required":true
-       },
-       "PORT":{
-          "description":"A port for your app",
-          "required":true
-       }
-    },
-    "buildpacks":[
-       {
-          "url":"heroku/nodejs"
-       },
-       {
-          "url":"https://github.com/PrajjwalDatir/heroku-buildpack-imagemagick.git"
-       },
-       {
-          "url":"https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
-       },
-       {
-          "url":"https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
-       }
-    ]
- }
+   "name":"Krypton",
+   "description":"A WhatsApp Bot With Multi Device Supported",
+   "keywords":[
+      "bot",
+      "whatsapp"
+   ],
+   "website":"https://github.com/Kry9toN/KryPtoN-WhatsApp-Bot#readme",
+   "repository":"https://github.com/Kry9toN/KryPtoN-WhatsApp-Bot.git",
+   "logo":"https://i.ibb.co/mzcSXdy/koboo.png",
+   "success_url":"/",
+   "env":{
+      "NAME":{
+         "description":"Name of your bot",
+         "required":true
+      },
+      "PREFIX":{
+         "description":"Prefix of your bot",
+         "required":true
+      },
+      "MODS":{
+         "description":"The phone numbers of the users who you want to be admin for the bot (should be in international format without + and multiple numbers must be separated by a comma \",\")",
+         "required":true
+      },
+      "URL":{
+         "description":"A secret String for Mongodb Connection.(Required)",
+         "required":true
+      },
+      "OPENAI_API":{
+         "description":"A key used for OpenAI",
+         "required":true
+      },
+      "PORT":{
+         "description":"A port for your app",
+         "required":true
+      }
+   },
+   "buildpacks":[
+      {
+         "url":"heroku/nodejs"
+      },
+      {
+         "url":"https://github.com/PrajjwalDatir/heroku-buildpack-imagemagick.git"
+      },
+      {
+         "url":"https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+      },
+      {
+         "url":"https://github.com/ItsJimi/heroku-buildpack-pm2.git"
+      },
+      {
+         "url":"https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+      }
+   ]
+}
