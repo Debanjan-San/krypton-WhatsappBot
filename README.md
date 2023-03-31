@@ -14,7 +14,7 @@ src="https://img.shields.io/badge/-Node.js-3C873A?style=flat&logo=Node.js&logoCo
         <img src="https://railway.app/button.svg" alt="Deploy on Railway" width="150px"></a>
     <img src="https://img.shields.io/website?color=blue&down_message=Deploy%20to%20Replit&label=%20&logo=replit&up_message=Deploy%20to%20Replit&url=https://github.com/Debanjan-San/krypton-WhatsappBot" alt="Deploy on Replit" width="185px">
 
-Lightweight WhatsApp Bot & 100+ features
+Lightweight WhatsApp Bot & Full of features
 
 </div>
 
