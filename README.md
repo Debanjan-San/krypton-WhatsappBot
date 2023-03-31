@@ -12,6 +12,7 @@ src="https://img.shields.io/badge/-Node.js-3C873A?style=flat&logo=Node.js&logoCo
 [![Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Debanjan-San/krypton-WhatsappBot/tree/main)
        <a href="https://railway.app/new/template/Gts2Zx?referralCode=f3gg2m">
     <img src="https://railway.app/button.svg" alt="Deploy on Railway" width="150px">
+    <img src="https://img.shields.io/website?color=blue&down_message=Deploy%20to%20Replit&label=%20&logo=replit&up_message=Deploy%20to%20Replit&url=https://github.com/Debanjan-San/krypton-WhatsappBot" alt="Deploy on Replit" width="185px">
 
 Lightweight WhatsApp Bot & 100+ features
 
