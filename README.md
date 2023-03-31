@@ -10,8 +10,8 @@ src="https://img.shields.io/badge/-Node.js-3C873A?style=flat&logo=Node.js&logoCo
 <a href="https://www.mongodb.com/cloud/atlas/lp/try4?utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_core_prosp-brand_gic-null_apac-in_ps-all_mobile_eng_lead&utm_term=mongodb%20atlas&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12564980858&adgroup=116332189581&gclid=CjwKCAjw4JWZBhApEiwAtJUN0KnEgMTAPsFAJx0hHJ1U2YvK3Sy5PvVx3jDQN2gyMwKDxl_umuKC4BoCe7IQAvD_BwE"><img src="https://img.shields.io/badge/-MongoDB-3C873A?style=flat&logo=MongoDB&logoColor=green&color=white"></a>
 
 [![Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Debanjan-San/krypton-WhatsappBot/tree/main)
-       <a href="https://railway.app/new/template/Gts2Zx?referralCode=f3gg2m">
-    <img src="https://railway.app/button.svg" alt="Deploy on Railway" width="150px">
+       <a href="https://railway.app/new/template">
+        <img src="https://railway.app/button.svg" alt="Deploy on Railway" width="150px"></a>
     <img src="https://img.shields.io/website?color=blue&down_message=Deploy%20to%20Replit&label=%20&logo=replit&up_message=Deploy%20to%20Replit&url=https://github.com/Debanjan-San/krypton-WhatsappBot" alt="Deploy on Replit" width="185px">
 
 Lightweight WhatsApp Bot & 100+ features
