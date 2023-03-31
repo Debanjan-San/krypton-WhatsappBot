@@ -40,7 +40,7 @@ module.exports = {
         text += `🌟 *Experience:* ${experience}\n\n`
         text += `🥇 *Rank:* ${stats.rank}\n\n`
         text += `🍀 *Level:* ${level}\n\n`
-        text += `👑 *Admin:* ${groupAdmins.includes(user) ? 'T' : 'F'}`
+        text += `👑 *Admin:* ${groupAdmins.includes(user) ? 'T' : 'F'}\n\n`
         text += `✖ *Ban:* ${banned.includes(user) ? 'T' : 'F'}`
 
         //user.substring(3, 7)
@@ -58,4 +58,3 @@ module.exports = {
         )
     }
 }
-//M.quoted.mtype === 'imageMessage',
