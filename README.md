@@ -46,3 +46,14 @@ Lightweight WhatsApp Bot & Full of features
     3. Test first
     4. You can submit a pull request
     5. If it accepts then delete the old fork and the new fork if you want to pull the request again
+
+
+## Helped By 🫂
+
+
+<img src="https://github.com/AliAryanTech.png" width="100" height="100" border="0" alt="PFP">
+📈 AliAryanTech
+
+
+
+
