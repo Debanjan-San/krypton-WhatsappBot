@@ -29,7 +29,6 @@ module.exports = MessageHandler = async (messages, client) => {
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
         const ActivateMods = (await client.DB.get('mod')) || []
         const ActivateChatBot = (await client.DB.get('chatbot')) || []
-        const ActivateCMD = (await client.DB.get('cmd')) || []
         const banned = (await client.DB.get('banned')) || []
 
         // Antilink system
