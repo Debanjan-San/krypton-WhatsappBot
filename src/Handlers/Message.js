@@ -27,14 +27,14 @@ module.exports = MessageHandler = async (messages, client) => {
         const arg = body.replace(cmdName, '').slice(1).trim()
         const groupMembers = gcMeta?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
-        const ActivateMods = (await client.DB.get('mod')) || []
+        const ActivateMod = (await client.DB.get('mod')) || []
         const ActivateChatBot = (await client.DB.get('chatbot')) || []
         const banned = (await client.DB.get('banned')) || []
 
         // Antilink system
         if (
             isGroup &&
-            ActivateMods.includes(from) &&
+            ActivateMod.includes(from) &&
             groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') &&
             body
         ) {
