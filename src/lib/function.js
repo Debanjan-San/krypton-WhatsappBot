@@ -2,9 +2,11 @@ const axios = require('axios').default
 const { tmpdir } = require('os')
 const { promisify } = require('util')
 const moment = require('moment-timezone')
+const FormData = require('form-data')
 const { exec } = require('child_process')
 const { sizeFormatter } = require('human-readable')
 const { readFile, unlink, writeFile } = require('fs-extra')
+const { load } = require('cheerio')
 
 /**
  * @param {string} url
@@ -82,6 +84,46 @@ const webpToMp4 = async (webp) => {
     const buffer = await readFile(mp4)
     Promise.all([unlink(mp4), unlink(`${filename}.gif`), unlink(`${filename}.gif`)])
     return buffer
+}
+
+/**
+ * @param {Buffer} webp
+ * @returns {Promise<Buffer>}
+ */
+
+const webpToMp4 = async (webp) => {
+    const responseFile = async (form, buffer = '') => {
+        return axios.post(
+            buffer ? `https://ezgif.com/webp-to-mp4/${buffer}` : 'https://ezgif.com/webp-to-mp4',
+             form,
+            {
+                headers: { 'Content-Type': `multipart/form-data; boundary=${form._boundary}` }
+            }
+        )
+    }
+    return new Promise(async (resolve, reject) => {
+        const form = new FormData()
+        form.append('new-image-url', '')
+        form.append('new-image', webp, { filename: 'blob' })
+        responseFile(form)
+            .then(({ data }) => {
+                const datafrom = new FormData()
+                const $ = load(data)
+                const file = $('input[name="file"]').attr('value')
+                datafrom.append('file', file)
+                datafrom.append('convert', 'Convert WebP to MP4!')
+                responseFile(datafrom, file)
+                    .then(async ({ data }) => {
+                        const $ = load(data)
+                        const result = await getBuffer(
+                            `https:${$('div#output > p.outfile > video > source').attr('src')}`
+                        )
+                        resolve(result)
+                    })
+                    .catch(reject)
+            })
+            .catch(reject)
+    })
 }
 
 /**
