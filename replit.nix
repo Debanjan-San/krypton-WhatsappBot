@@ -1,7 +1,9 @@
 { pkgs }: {
     deps = [
 
-        pkgs.nodejs-16_x
+        pkgs.yarn
+         pkgs.sudo
+         pkgs.nodejs-16_x
         pkgs.libwebp
         pkgs.python
         pkgs.nodePackages.typescript
