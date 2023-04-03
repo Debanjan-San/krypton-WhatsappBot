@@ -16,8 +16,8 @@ module.exports = {
     category: 'fun',
     aliases: ['r', ...reactions],
     exp: 50,
-    execute = async (client, arg, M) => {
-        const text = args.join(' ').trim()
+    async execute(client, arg, M) {
+        const text = arg.join(' ').trim()
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
         let flag = true
         if (command === 'r' || command === 'reaction') flag = false
