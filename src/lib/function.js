@@ -63,7 +63,7 @@ const fetch = async (url) => (await axios.get(url)).data
 const webpToPng = async (webp) => {
     const filename = `${tmpdir()}/${Math.random().toString(36)}`
     await writeFile(`${filename}.webp`, webp)
-    await exec(`dwebp "${filename}.webp" -o "${filename}.png"`)
+    await execute(`dwebp "${filename}.webp" -o "${filename}.png"`)
     const buffer = await readFile(`${filename}.png`)
     Promise.all([unlink(`${filename}.png`), unlink(`${filename}.webp`)])
     return buffer
@@ -77,7 +77,7 @@ const webpToPng = async (webp) => {
 const webpToMp4 = async (webp) => {
     const filename = `${tmpdir()}/${Math.random().toString(36)}`
     await writeFile(`${filename}.webp`, webp)
-    await exec(`magick mogrify -format gif ${filename}.webp`)
+    await execute(`magick mogrify -format gif ${filename}.webp`)
     const mp4 = await gifToMp4(await readFile(`${filename}.gif`), true)
     const buffer = await readFile(mp4)
     Promise.all([unlink(mp4), unlink(`${filename}.gif`), unlink(`${filename}.gif`)])
@@ -93,18 +93,18 @@ const webpToMp4 = async (webp) => {
 const gifToMp4 = async (gif, write = false) => {
     const filename = `${tmpdir()}/${Math.random().toString(36)}`
     await writeFile(`${filename}.gif`, gif)
-    await exec(
+    await execute(
         `ffmpeg -f gif -i ${filename}.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${filename}.mp4`
     )
     if (write) return `${filename}.mp4`
     const buffer = await readFile(`${filename}.mp4`)
-    Promise.all([unlink(`${filename}.mp4`), unlink(`${filename}.gif`)])
+    Promise.all([unlink(`${filename}.gif`), unlink(`${filename}.mp4`)])
     return buffer
 }
 
-//const exec = promisify(exec)
+const execute = promisify(exec)
 
-const getRandomItem = (array) => {
+function getRandomItem(array) {
     // get random index value
     const randomIndex = Math.floor(Math.random() * array.length)
     // get random item
@@ -159,7 +159,7 @@ module.exports = {
     restart,
     term,
     getRandomItem,
-    exec,
+    execute,
     gifToMp4,
     webpToMp4,
     webpToPng,
