@@ -104,17 +104,9 @@ const gifToMp4 = async (gif, write = false) => {
 
 const execute = promisify(exec)
 
-function getRandomItem(array) {
-    // get random index value
-    const randomIndex = Math.floor(Math.random() * array.length)
-    // get random item
-    const item = array[randomIndex]
-    return item
-}
+const getRandomItem = array => array[Math.floor(Math.random() * array.length)];
 
-const calculatePing = (timestamp, now) => {
-    return moment.duration(now - moment(timestamp * 1000)).asSeconds()
-}
+const calculatePing = (timestamp, now) => (now - timestamp) / 1000;
 
 const formatSize = sizeFormatter({
     std: 'JEDEC',
