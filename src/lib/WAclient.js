@@ -1,12 +1,9 @@
 const { proto, getContentType, jidDecode, downloadContentFromMessage } = require('@adiwajshing/baileys')
-//const { getName } = require('./Database')
 const Bluebird = require('bluebird')
 
 const decodeJid = (jid) => {
-    if (/:\d+@/gi.test(jid)) {
-        const decode = jidDecode(jid) || {}
-        return ((decode.user && decode.server && decode.user + '@' + decode.server) || jid).trim()
-    } else return jid.trim()
+    const decode = jidDecode(jid) || {}
+    return ((decode.user && decode.server && decode.user + '@' + decode.server) || jid).trim()
 }
 
 /**
