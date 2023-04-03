@@ -77,29 +77,10 @@ const webpToPng = async (webp) => {
  */
 
 const webpToMp4 = async (webp) => {
-    const filename = `${tmpdir()}/${Math.random().toString(36)}`
-    await writeFile(`${filename}.webp`, webp)
-    await execute(`magick mogrify -format gif ${filename}.webp`)
-    const mp4 = await gifToMp4(await readFile(`${filename}.gif`), true)
-    const buffer = await readFile(mp4)
-    Promise.all([unlink(mp4), unlink(`${filename}.gif`), unlink(`${filename}.gif`)])
-    return buffer
-}
-
-/**
- * @param {Buffer} webp
- * @returns {Promise<Buffer>}
- */
-
-const webpToMp4 = async (webp) => {
     const responseFile = async (form, buffer = '') => {
-        return axios.post(
-            buffer ? `https://ezgif.com/webp-to-mp4/${buffer}` : 'https://ezgif.com/webp-to-mp4',
-             form,
-            {
-                headers: { 'Content-Type': `multipart/form-data; boundary=${form._boundary}` }
-            }
-        )
+        return axios.post(buffer ? `https://ezgif.com/webp-to-mp4/${buffer}` : 'https://ezgif.com/webp-to-mp4', form, {
+            headers: { 'Content-Type': `multipart/form-data; boundary=${form._boundary}` }
+        })
     }
     return new Promise(async (resolve, reject) => {
         const form = new FormData()
@@ -146,9 +127,9 @@ const gifToMp4 = async (gif, write = false) => {
 
 const execute = promisify(exec)
 
-const getRandomItem = array => array[Math.floor(Math.random() * array.length)];
+const getRandomItem = (array) => array[Math.floor(Math.random() * array.length)]
 
-const calculatePing = (timestamp, now) => (now - timestamp) / 1000;
+const calculatePing = (timestamp, now) => (now - timestamp) / 1000
 
 const formatSize = sizeFormatter({
     std: 'JEDEC',
