@@ -1,99 +1,46 @@
-const axios = require('axios')
+const { capitalize, fetch, getBuffer, gifToMp4 } = require('../lib/function.js');
+
+const suitableWords = {
+  bite: 'Bit', blush: 'Blushed at', bonk: 'Bonked', bully: 'Bullied', cringe: 'Cringed at',
+  cry: 'Cried in front of', cuddle: 'Cuddled', dance: 'Danced with', glomp: 'Glomped at', handhold: 'Held the hands of', happy: 'is Happied with',
+  highfive: 'High-fived', hug: 'Hugged', kick: 'Kicked', kill: 'Killed', kiss: 'Kissed', lick: 'Licked',
+  nom: 'Nomed', pat: 'Patted', poke: 'Poked', slap: 'Slapped', smile: 'Smiled at', smug: 'Smugged',
+  wave: 'Waved at', wink: 'Winked at', yeet: 'Yeeted at'
+};
+
+const reactions = Object.keys(suitableWords)
 
 module.exports = {
-    name: 'react',
-    aliases: [
-        'r',
-        'cry',
-        'kiss',
-        'bully',
-        'hug',
-        'lick',
-        'cuddle',
-        'pat',
-        'smug',
-        'highfive',
-        'bonk',
-        'yeet',
-        'blush',
-        'wave',
-        'smile',
-        'handhold',
-        'nom',
-        'bite',
-        'glomp',
-        'kill',
-        'slap',
-        'cringe',
-        'kick',
-        'wink',
-        'happy',
-        'poke',
-        'punch',
-        'dance'
-    ],
+    name: 'reaction',
+    description: "React to someone's message with a gif specified by the user.",
     category: 'fun',
-    exp: 7,
-    description: "let's react",
-    async execute(client, arg, M) {
-        const Reactions = {
-            cry: ['Cried with', 'is Crying by'],
-            kiss: ['Kissed'],
-            bully: ['Bullied'],
-            hug: ['Hugged'],
-            lick: ['Licked'],
-            cuddle: ['Cuddled with'],
-            pat: ['Patted'],
-            smug: ['Smugged at', 'is Smugging by'],
-            highfive: ['High-fived'],
-            bonk: ['Bonked'],
-            yeet: ['Yeeted'],
-            blush: ['Blushed at', 'is Blushing by'],
-            wave: ['Waved at'],
-            smile: ['Smiled at', 'is Smiling by'],
-            handhold: ['is Holding Hands with'],
-            nom: ['is Eating with', 'is Eating by'],
-            bite: ['Bit'],
-            glomp: ['Glomped'],
-            kill: ['Killed'],
-            slap: ['Slapped'],
-            cringe: ['Cringed at'],
-            kick: ['Kicked'],
-            punch: ['Punched'],
-            wink: ['Winked at'],
-            happy: ['is Happy with', 'is Happy by'],
-            poke: ['Poked'],
-            dance: ['is Dancing with', 'is Dancing by']
+    aliases: ['r', ...reactions],
+    exp: 50,
+    execute = async (client, arg, M) => {
+        const text = args.join(' ').trim()
+        const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
+        let flag = true
+        if (command === 'r' || command === 'reaction') flag = false
+        if (!flag && !text) {
+           const reactionList = `🎃 *Available Reactions:*\n\n- ${reactions.map((reaction) => capitalize(reaction)).join('\n- ')}\n🛠️ *Usage:* ${client.prefix}reaction (reaction) [tag/quote user] | ${client.prefix}(reaction) [tag/quote user]\nExample: ${client.prefix}pat`
+           return void (await M.reply(reactionList))
         }
-        let text = ''
-        Object.keys(Reactions).map((reaction) => {
-            text += `📍${reaction.charAt(0).toUpperCase() + reaction.slice(1)}\n`
-        })
-        text += `🎀 *Usage:* !(reaction) [tag/quote users]\nExample: !pat`
-        if (M.cmdName === 'r' || M.cmdName === 'react') return M.reply(text)
-        const res = await axios.get(`https://g.tenor.com/v1/search?q=${M.cmdName}&key=LIVDSRZULELA&limit=8`)
-        if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
-        if (!M.mentions.length) M.mentions.push(M.sender)
-        let grammar
-        M.mentions[0] === M.sender
-            ? (grammar = Reactions[`${M.cmdName}`].pop() || Reactions[`${M.cmdName}`][0])
-            : (grammar = Reactions[`${M.cmdName}`][0])
-        const single = M.mentions[0] === M.sender
-        client.sendMessage(
-            M.from,
-            {
-                video: {
-                    url: res.data.results?.[Math.floor(Math.random() * res.data.results.length)]?.media[0]?.mp4?.url
-                },
-                caption: `*@${M.sender.split('@')[0]} ${grammar} ${
-                    single ? 'Themselves' : `@${M.mentions[0].split('@')[0]}`
-                }*`,
-                mentions: [M.sender, M.mentions[0]],
-                gifPlayback: true
-            },
-            {
-                quoted: M
-            }
-        )
-    }
+        const reaction = flag ? command : text.split(' ')[0].trim().toLowerCase()
+        if (!flag && !reactions.includes(reaction))
+           return void M.reply(`Invalid reaction. Use *${client.prefix}react* to see all of the available reactions`)
+           const users = M.mentions
+        if (M.quoted && !users.includes(m.quoted.sender)) users.push(M.quoted.sender)
+        while (users.length < 1) users.push(M.sender)
+        const reactant = users[0]
+        const single = reactant === M.sender
+        const { url } = await fetch(`https://api.waifu.pics/sfw/${reaction}`)
+        const result = await getBuffer(url)
+        const buffer = await gifToMp4(result)
+        await client.sendMessage(M.from, {
+           video: buffer,
+           gifPlayback: true,
+           caption: `*@${M.sender.split('@')[0]} ${suitableWords[reaction]} ${single ? 'Themselves' : `@${reactant.split('@')[0]}`}*`,
+           mentions: [M.sender, reactant],
+      }, { quoted: M });
+   }
 }
