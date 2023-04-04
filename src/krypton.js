@@ -64,15 +64,15 @@ const start = async () => {
 
     //Utils
     client.utils = utils
-    client.log = (text, color = 'green') => color ? console.log(chalk.keyword(color)(text)) : console.log(chalk.green(text))
+    client.log = (text, color = 'green') =>
+        color ? console.log(chalk.keyword(color)(text)) : console.log(chalk.green(text))
 
     //connection updates
     client.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update
         if (update.qr) {
-                client.log(`[${chalk.red('!')}]`, 'white')
-                client.log(`Scan the QR code above | You can also authenicate in http://localhost:${port}`, 'blue')
-            )
+            client.log(`[${chalk.red('!')}]`, 'white')
+            client.log(`Scan the QR code above | You can also authenicate in http://localhost:${port}`, 'blue')
             client.QR = qr.imageSync(update.qr)
         }
         if (connection === 'close') {
