@@ -19,6 +19,7 @@ module.exports = MessageHandler = async (messages, client) => {
         client.cmd = new Collection()
 
         const { isGroup, sender, from, body } = M
+        sender.username = M.pushName
         const gcMeta = isGroup ? await client.groupMetadata(from) : ''
         const gcName = isGroup ? gcMeta.subject : ''
         const args = body.trim().split(/ +/).slice(1)
@@ -68,42 +69,19 @@ module.exports = MessageHandler = async (messages, client) => {
         }
 
         // Logging Message
-        if (!isGroup && isCmd)
-            client.log(`~${chalk.red('EXEC')}${cmdName} ${chalk.white('from')} ${sender.split('@')[0]} args: [${chalk.blue(args.length)}]`, 'yellow')
-        if (!isGroup && !isCmd)
-            console.log(
-                color('~', 'yellow'),
-                color('RECV', 'green'),
-                color('Message', 'yellow'),
-                'from',
-                color(sender.split('@')[0], 'yellow'),
-                'args :',
-                color(args.length, 'blue')
+        if (!isCmd)
+            return void client.log(
+                `~${chalk.green('RECV')} Message ${chalk.white('from')} ${sender.username} in ${
+                    isGroup ? gcName : 'DM'
+                } args: [${chalk.blue(args.length)}]`,
+                'yellow'
             )
-        if (isCmd && isGroup)
-            console.log(
-                color('~', 'yellow'),
-                color('EXEC', 'red'),
-                color(cmdName, 'yellow'),
-                'from',
-                color(sender.split('@')[0], 'yellow'),
-                'in',
-                color(gcName, 'yellow'),
-                'args :',
-                color(args.length, 'blue')
-            )
-        if (!isCmd && isGroup)
-            console.log(
-                color('~', 'yellow'),
-                color('RECV', 'green'),
-                color('Message', 'yellow'),
-                'from',
-                color(sender.split('@')[0], 'yellow'),
-                'in',
-                color(gcName, 'yellow'),
-                'args :',
-                color(args.length, 'blue')
-            )
+        client.log(
+            `~${chalk.red('EXEC')}${cmdName} ${chalk.white('from')} ${sender.username} in ${
+                isGroup ? gcName : 'DM'
+            } args: [${chalk.blue(args.length)}]`,
+            'yellow'
+        )
 
         /**
          * Import all commands
@@ -131,7 +109,6 @@ module.exports = MessageHandler = async (messages, client) => {
         if (!client.mods.includes(sender.split('@')[0]) && command.category == 'dev')
             return M.reply('This command only can be accedby the mods')
         command.execute(client, arg, M)
-        //console.log(command)
 
         //Will add exp according to the commands
         await client.exp.add(sender, command.exp)
@@ -156,7 +133,6 @@ module.exports = MessageHandler = async (messages, client) => {
             }
         )
     } catch (err) {
-        //M.reply(err.toString())
         console.log(err)
     }
 }
