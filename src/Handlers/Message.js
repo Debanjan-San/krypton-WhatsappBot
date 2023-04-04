@@ -1,11 +1,11 @@
 const { getBinaryNodeChild } = require('@adiwajshing/baileys')
 const { serialize } = require('../lib/WAclient')
-const { color } = require('../lib/colour')
 const { Collection } = require('discord.js')
 const { readdirSync } = require('fs-extra')
 const { join } = require('path')
 const { response } = require('express')
 const { getStats, ranks } = require('../lib/stats')
+const chalk = require('chalk')
 
 module.exports = MessageHandler = async (messages, client) => {
     try {
@@ -69,15 +69,7 @@ module.exports = MessageHandler = async (messages, client) => {
 
         // Logging Message
         if (!isGroup && isCmd)
-            console.log(
-                color('~', 'yellow'),
-                color('EXEC', 'red'),
-                color(cmdName, 'yellow'),
-                'from',
-                color(sender.split('@')[0], 'yellow'),
-                'args :',
-                color(args.length, 'blue')
-            )
+            client.log(`~${chalk.red('EXEC')}${cmdName} ${chalk.white('from')} ${sender.split('@')[0]} args: [${chalk.blue(args.length)}]`, 'yellow')
         if (!isGroup && !isCmd)
             console.log(
                 color('~', 'yellow'),
