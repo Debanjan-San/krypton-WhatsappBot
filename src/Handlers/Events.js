@@ -8,7 +8,7 @@ module.exports = EventsHandler = async (event, client) => {
     const text =
         event.action === 'add'
             ? `- ${groupMetadata.subject} -\n\n💈 *Group Description:*\n${
-                  groupMetadata.description
+                  groupMetadata.desc
               }\n\nHope you follow the rules and have fun!\n\n*‣ ${event.participants
                   .map((jid) => `@${jid.split('@')[0]}`)
                   .join(' ')}*`

@@ -64,6 +64,9 @@ const start = async () => {
     //Experience
     client.exp = client.DB.table('experience')
 
+    //Cradits
+    client.cradit = client.DB.table('cradit')
+
     //Commands
     client.cmd = new Collection()
 
@@ -86,7 +89,7 @@ const start = async () => {
             })
             client.log('Commands loaded!')
         }
-        readCommand(join(__dirname, '.', 'command'))
+        readCommand(join(__dirname, '.', 'Commands'))
     }
 
     //connection updates
