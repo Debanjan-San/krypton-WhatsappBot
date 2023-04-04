@@ -1,4 +1,3 @@
-const { getBuffer, gifToMp4 } = require('../lib/function.js')
 const Welcomer = require('welcomer-gif')
 
 module.exports = EventsHandler = async (event, client) => {
@@ -8,7 +7,7 @@ module.exports = EventsHandler = async (event, client) => {
     const text =
         event.action === 'add'
             ? `- ${groupMetadata.subject} -\n\n💈 *Group Description:*\n${
-                  groupMetadata.description
+                  groupMetadata.desc
               }\n\nHope you follow the rules and have fun!\n\n*‣ ${event.participants
                   .map((jid) => `@${jid.split('@')[0]}`)
                   .join(' ')}*`
@@ -29,7 +28,7 @@ module.exports = EventsHandler = async (event, client) => {
         } catch {
             imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
         }
-        const pfp = await getBuffer(imageUrl)
+        const pfp = await client.utils.getBuffer(imageUrl)
         const image = new Welcomer()
             .setBackground('https://i.pinimg.com/originals/07/28/dc/0728dc400eca09632215055ff003d8bf.gif')
             .setGIF(true)
@@ -37,7 +36,7 @@ module.exports = EventsHandler = async (event, client) => {
             .setName(username)
             .setDiscriminator(tag)
         return void (await client.sendMessage(event.id, {
-            video: await gifToMp4(await image.generate()),
+            video: await client.utils.gifToMp4(await image.generate()),
             gifPlayback: true,
             mentions: event.participants,
             caption: text
