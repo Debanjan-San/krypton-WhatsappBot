@@ -1,4 +1,4 @@
-const { spotifydl } = require('../lib/Spotify')
+const { spotifydl } = require('../../lib/Spotify')
 
 module.exports = {
     name: 'spotify',

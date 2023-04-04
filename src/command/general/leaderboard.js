@@ -1,4 +1,4 @@
-const { getStats } = require('../lib/stats')
+const { getStats } = require('../../lib/stats')
 const sortArray = require('sort-array')
 
 module.exports = {

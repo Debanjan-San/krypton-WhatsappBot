@@ -1,4 +1,5 @@
-const { getStats } = require('../lib/stats')
+const { getStats } = require('../../lib/stats')
+
 module.exports = {
     name: 'profile',
     aliases: ['p'],

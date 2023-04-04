@@ -9,6 +9,7 @@ const {
 } = require('@adiwajshing/baileys')
 const { QuickDB } = require('quick.db')
 const { MongoDriver } = require('quickmongo')
+const { Collection } = require('discord.js')
 const MessageHandler = require('./Handlers/Message')
 const EventsHandler = require('./Handlers/Events')
 const contact = require('./lib/contacts')
@@ -19,7 +20,8 @@ const qr = require('qr-image')
 const mongoose = require('mongoose')
 const P = require('pino')
 const { Boom } = require('@hapi/boom')
-const { readFileSync, unlink } = require('fs-extra')
+const { join } = require('path')
+const { readdirSync, readFileSync, unlink } = require('fs-extra')
 const port = process.env.PORT || 3000
 const driver = new MongoDriver(process.env.URL)
 const chalk = require('chalk')
@@ -62,10 +64,30 @@ const start = async () => {
     //Experience
     client.exp = client.DB.table('experience')
 
+    //Commands
+    client.cmd = new Collection()
+
     //Utils
     client.utils = utils
+
+    //Colourful
     client.log = (text, color = 'green') =>
         color ? console.log(chalk.keyword(color)(text)) : console.log(chalk.green(text))
+
+    //Command Loader
+    const loadCommands = async () => {
+        const readCommand = (rootDir) => {
+            readdirSync(rootDir).forEach(($dir) => {
+                const commandFiles = readdirSync(join(rootDir, $dir)).filter((file) => file.endsWith('.js'))
+                for (let file of commandFiles) {
+                    const command = require(join(rootDir, $dir, file))
+                    client.cmd.set(command.name, command)
+                }
+            })
+            client.log('Commands loaded!')
+        }
+        readCommand(join(__dirname, '.', 'command'))
+    }
 
     //connection updates
     client.ev.on('connection.update', async (update) => {
@@ -93,6 +115,7 @@ const start = async () => {
         }
         if (connection === 'open') {
             client.state = 'open'
+            loadCommands()
             client.log('🤖 Krypton Bot is ready!!')
         }
     })
