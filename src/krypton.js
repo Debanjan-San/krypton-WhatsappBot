@@ -23,6 +23,7 @@ const { Boom } = require('@hapi/boom')
 const { readFileSync, unlink } = require('fs-extra')
 const port = process.env.PORT || 3000
 const driver = new MongoDriver(process.env.URL)
+const chalk = require('chalk')
 
 const start = async () => {
     const { state, saveState } = useSingleFileAuthState('./session.json')
@@ -64,16 +65,14 @@ const start = async () => {
 
     //Utils
     client.utils = utils
+    client.log = (text, color = 'green') => color ? console.log(chalk.keyword(color)(text)) : console.log(chalk.green(text))
 
     //connection updates
     client.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update
         if (update.qr) {
-            console.log(
-                color('[', 'white'),
-                color('!', 'red'),
-                color(']', 'white'),
-                color(`Scan the QR code above | You can also authenicate in http://localhost:${port}`, 'blue')
+                client.log(`[${chalk.red('!')}]`, 'white')
+                client.log(`Scan the QR code above | You can also authenicate in http://localhost:${port}`, 'blue')
             )
             client.QR = qr.imageSync(update.qr)
         }
