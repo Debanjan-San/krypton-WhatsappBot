@@ -31,8 +31,8 @@ module.exports = {
         if (senderCradits >= 10000) targetAmount = Math.floor(Math.random() * 10000)
         let userAmount = Math.floor(Math.random() * (mentionCradits - 250) + 250)
         if (userAmount >= 10000) userAmount = Math.floor(Math.random() * 10000)
-        await client.cradit.add(M.sender, result === 'success' ? targetAmount : -userAmount)
-        await client.cradit.add(M.mentions[0], result === 'success' ? -targetAmount : userAmount)
+        await client.cradit.add(`${M.sender}.wallet`, result === 'success' ? targetAmount : -userAmount)
+        await client.cradit.add(`${M.mentions[0]}.wallet`, result === 'success' ? -targetAmount : userAmount)
         const text =
             result === 'caught'
                 ? `you got caught and paid *${userAmount} gold* to *@${target.split('@')[0]}*`
