@@ -19,7 +19,6 @@ module.exports = MessageHandler = async (messages, client) => {
         client.cmd = new Collection()
 
         const { isGroup, sender, from, body } = M
-        sender.username = M.pushName
         const gcMeta = isGroup ? await client.groupMetadata(from) : ''
         const gcName = isGroup ? gcMeta.subject : ''
         const args = body.trim().split(/ +/).slice(1)
@@ -69,17 +68,12 @@ module.exports = MessageHandler = async (messages, client) => {
         }
 
         // Logging Message
-        if (!isCmd)
-            return void client.log(
-                `~${chalk.green('RECV')} Message ${chalk.white('from')} ${sender.username} in ${
-                    isGroup ? gcName : 'DM'
-                } args: [${chalk.blue(args.length)}]`,
-                'yellow'
-            )
         client.log(
-            `~${chalk.red('EXEC')}${cmdName} ${chalk.white('from')} ${sender.username} in ${
-                isGroup ? gcName : 'DM'
-            } args: [${chalk.blue(args.length)}]`,
+            `${chalk[isCmd ? 'red' : 'green'](`${isCmd ? '~EXEC' : '~RECV'}`)} ${
+                isCmd ? `${client.prefix}${cmdName}` : 'Message'
+            } ${chalk.white('from')} ${M.pushName} ${chalk.white('in')} ${isGroup ? gcName : 'DM'} ${chalk.white(
+                `args: [${chalk.blue(args.length)}]`
+            )}`,
             'yellow'
         )
 
