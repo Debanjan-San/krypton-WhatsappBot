@@ -3,31 +3,33 @@ module.exports = {
     aliases: ['h', 'menu', 'list', 'commands'],
     category: 'general',
     exp: 10,
-    description: 'Let you see the command list',
+    description: 'Displays the command list or specific command info',
     async execute(client, arg, M) {
-        console.log(arg)
         if (!arg) {
-            let obj = {}
-            client.cmd.forEach((item) => {
-                if (obj[item.category]) obj[item.category].push(item.name)
-                else {
-                    obj[item.category] = []
-                    obj[item.category].push(item.name)
-                }
-            })
-            const emojis = ['🌀', '💰', '🎴', '🔮', '👑', '🎈', '⚙️', '🍀', '🎵']
-            let text = `🎫 *${client.name}'s Command List* 🎫\n\n`
-            const keys = Object.keys(obj)
-            for (const key of keys)
-                text += `${emojis[keys.indexOf(key)]} *${client.utils.capitalize(key)}*\n❐ \`\`\`${obj[key].join(
-                    ', '
-                )}\`\`\`\n\n`
-            return M.reply(text + `🗃️ *Note: Use ${client.prefix}help <command_name> to view the command info*`)
+            const categories = client.cmd.reduce((obj, cmd) => {
+                const category = cmd.category || 'Uncategorized'
+                obj[category] = obj[category] || []
+                obj[category].push(cmd.name)
+                return obj
+            }, {})
+
+            const emojis = ['👨🏻‍💻', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛠️', '🎊']
+            const sortedCategories = Object.keys(categories).sort()
+            const commandList = sortedCategories
+                .map((category, index) => {
+                    const commands = categories[category].join(', ')
+                    const emoji = emojis[index % emojis.length]
+                    return `${emoji} ${client.utils.capitalize(category)}\n❐ ${commands}`
+                })
+                .join('\n\n')
+            const message = `🎫 *${client.name}'s Command List* 🎫\n\n${commandList}\n\n🗃️ *Note:* _Use ${client.prefix}help <command_name> to view the command info_`
+            return M.reply(message)
         }
         const command = client.cmd.get(arg) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(arg))
-        if (!command) return M.reply('Command does not exsist')
-        M.reply(
-            `*CMD INFO*\n\n*🟥 Name:* ${command.name}\n*🟩 Aliases:* ${command.aliases}\n*🟨 Desc:* ${command.description}`
-        )
+        if (!command) return M.reply('Command not found')
+        const message = `*CMD INFO*\n\n*🟥 Name:* ${command.name}\n*🟩 Aliases:* ${command.aliases.join(
+            ', '
+        )}\n*🟨 Desc:* ${command.description}`
+        M.reply(message)
     }
 }
