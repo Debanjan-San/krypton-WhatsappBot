@@ -34,7 +34,7 @@ module.exports = {
         const lines = machine.lines.filter((line) => !line.diagonal)
         const points = machine.lines.reduce((total, line) => total + line.points, 0)
         const resultAmount = points <= 0 ? -amount : amount * points
-        await client.cradit.add(M.sender, resultAmount)
+        await client.cradit.add(`${M.sender}.wallet`, resultAmount)
         let text = '🎰 *SLOT MACHINE* 🎰\n\n'
         text += machine.visualize()
         text += points <= 0 ? `\n\n📉 You lost ${amount} gold` : `\n\n📈 You won ${resultAmount} gold`
