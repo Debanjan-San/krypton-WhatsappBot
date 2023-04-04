@@ -18,7 +18,7 @@ module.exports = {
                 .map((category, index) => {
                     const commands = categories[category].join(', ')
                     const emoji = emojis[index % emojis.length]
-                    return `${emoji} ${client.utils.capitalize(category)}\n❐ ${commands}`
+                    return `${emoji} *${client.utils.capitalize(category)}*\n❐ ${commands}`
                 })
                 .join('\n\n')
             const message = `🎫 *${client.name}'s Command List* 🎫\n\n${commandList}\n\n🗃️ *Note:* _Use ${client.prefix}help <command_name> to view the command info_`
