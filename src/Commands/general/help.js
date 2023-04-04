@@ -1,6 +1,6 @@
 module.exports = {
     name: 'help',
-    aliases: ['h', 'menu', 'list', 'commands'],
+    aliases: ['h', 'menu', 'list'],
     category: 'general',
     exp: 10,
     description: 'Displays the command list or specific command info',
@@ -12,7 +12,6 @@ module.exports = {
                 obj[category].push(cmd.name)
                 return obj
             }, {})
-
             const emojis = ['👨🏻‍💻', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛠️', '🎊']
             const sortedCategories = Object.keys(categories).sort()
             const commandList = sortedCategories
