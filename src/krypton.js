@@ -93,7 +93,7 @@ const start = async () => {
         }
         if (connection === 'open') {
             client.state = 'open'
-            console.log('🤖', color('Krypton Bot is ready!!', 'green'))
+            client.log('🤖 Krypton Bot is ready!!')
         }
     })
 
