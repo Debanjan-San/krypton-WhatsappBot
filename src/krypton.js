@@ -86,7 +86,7 @@ const start = async () => {
             })
             client.log('Commands loaded!')
         }
-        readCommand(join(__dirname, '.', 'command'))
+        readCommand(join(__dirname, '.', 'Commands'))
     }
 
     //connection updates
