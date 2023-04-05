@@ -50,7 +50,7 @@ module.exports = {
             })
             .catch((err) => {
                 return M.reply(err.toString())
-                console.error(err)
+                client.log(err, 'red')
             })
     }
 }

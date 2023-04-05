@@ -23,7 +23,7 @@
     "url": "https://github.com/Debanjan-San/krypton-WhatsappBot.git"
   },
   "dependencies": {
-    "@adiwajshing/baileys": "^4.4.0",
+    "@adiwajshing/baileys": "^5.0.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@consumet/extensions": "^1.4.17",
     "@hapi/boom": "^10.0.0",
@@ -62,6 +62,6 @@
     "welcomer-gif": "^2.0.0",
     "wikipedia": "^2.0.0",
     "yt-search": "^2.10.4",
-    "ytdl-core": "^4.11.2"
+    "ytdl-core": "^4.11.3"
   }
 }

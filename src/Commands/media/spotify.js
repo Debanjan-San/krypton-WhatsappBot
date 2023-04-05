@@ -10,7 +10,7 @@ module.exports = {
         if (!arg) return M.reply('Please use command with a valid youtube.com link')
         const audioSpotify = await spotifydl(arg.trim()).catch((err) => {
             return M.reply(err.toString())
-            console.error(err)
+            client.log(err, 'red')
         })
 
         if (spotifydl.error) return M.reply(`Error Fetching: ${arg.trim()}. Check if the url is valid and try again`)

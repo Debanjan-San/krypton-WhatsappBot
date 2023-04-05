@@ -9,6 +9,7 @@ module.exports = {
         if (!client.openaiAPI) return M.reply('You did not provided any api key for OpenAI useage!')
         const res = await client.AI.gpt(arg).catch((err) => {
             return M.reply(err.toString())
+            client.log(err, 'red')
         })
         M.reply(res.response)
     }

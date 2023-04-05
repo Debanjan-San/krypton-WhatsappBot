@@ -17,7 +17,7 @@ saveContacts = async (contacts, client) => {
     // Saves the contacts
     for (const contact of contacts) {
         if (contact.id) {
-            await client.contactDB.set(contact.id, contact.notify)
+            await client.contactDB.set(contact.id, contact.notify || '')
             //console.log(contact)
         }
     }

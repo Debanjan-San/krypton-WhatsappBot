@@ -22,7 +22,20 @@ module.exports = {
         }
         if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
         if (!M.mentions.length) M.mentions.push(M.sender)
-        const types = ['Compassionate', 'Generous', 'Grumpy', 'Forgiving', 'Obedient', 'Good', 'Simp', 'Kind-Hearted', 'patient', 'UwU', 'top, anyway', 'Helpful']
+        const types = [
+            'Compassionate',
+            'Generous',
+            'Grumpy',
+            'Forgiving',
+            'Obedient',
+            'Good',
+            'Simp',
+            'Kind-Hearted',
+            'patient',
+            'UwU',
+            'top, anyway',
+            'Helpful'
+        ]
         const character = types[Math.floor(Math.random() * types.length)]
         const percentage = Math.floor(Math.random() * 100) + 1
         const sentence = command.split('check')

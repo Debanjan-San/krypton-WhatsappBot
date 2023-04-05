@@ -9,6 +9,7 @@ module.exports = {
     async execute(client, arg, M) {
         const res = await axios.get(`https://api.waifu.im/search/?included_tags=waifu`).catch((err) => {
             return M.reply(err.toString())
+            client.log(err, 'red')
         })
 
         client.sendMessage(M.from, {

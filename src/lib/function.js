@@ -43,31 +43,31 @@ const capitalize = (content, all = false) => {
  */
 
 const generateCreditCardImage = (cardName, expiryDate) => {
-  const canvas = createCanvas(800, 500)
-  const ctx = canvas.getContext('2d')
-  ctx.fillStyle = '#fff'
-  ctx.fillRect(0, 0, 800, 500)
-  ctx.fillStyle = '#1e90ff'
-  ctx.fillRect(0, 0, 800, 80)
-  ctx.fillStyle = '#555'
-  ctx.font = '24px Arial, sans-serif'
-  ctx.fillText('Credit Card', 40, 150)
-  ctx.fillStyle = '#000'
-  ctx.font = '48px Arial, sans-serif'
-  ctx.fillText('1234 5678 9012 3456', 40, 250) // card numbers
-  ctx.fillStyle = '#555'
-  ctx.font = '24px Arial, sans-serif'
-  ctx.fillText('Card Name', 40, 350)
-  ctx.fillStyle = '#000'
-  ctx.font = '32px Arial, sans-serif'
-  ctx.fillText(cardName, 40, 400)
-  ctx.fillStyle = '#555'
-  ctx.font = '24px Arial, sans-serif'
-  ctx.fillText('Expiry Date', 450, 350)
-  ctx.fillStyle = '#000'
-  ctx.font = '32px Arial, sans-serif'
-  ctx.fillText(expiryDate, 450, 400)
-  return canvas.toBuffer()
+    const canvas = createCanvas(800, 500)
+    const ctx = canvas.getContext('2d')
+    ctx.fillStyle = '#fff'
+    ctx.fillRect(0, 0, 800, 500)
+    ctx.fillStyle = '#1e90ff'
+    ctx.fillRect(0, 0, 800, 80)
+    ctx.fillStyle = '#555'
+    ctx.font = '24px Arial, sans-serif'
+    ctx.fillText('Credit Card', 40, 150)
+    ctx.fillStyle = '#000'
+    ctx.font = '48px Arial, sans-serif'
+    ctx.fillText('1234 5678 9012 3456', 40, 250) // card numbers
+    ctx.fillStyle = '#555'
+    ctx.font = '24px Arial, sans-serif'
+    ctx.fillText('Card Name', 40, 350)
+    ctx.fillStyle = '#000'
+    ctx.font = '32px Arial, sans-serif'
+    ctx.fillText(cardName, 40, 400)
+    ctx.fillStyle = '#555'
+    ctx.font = '24px Arial, sans-serif'
+    ctx.fillText('Expiry Date', 450, 350)
+    ctx.fillStyle = '#000'
+    ctx.font = '32px Arial, sans-serif'
+    ctx.fillText(expiryDate, 450, 400)
+    return canvas.toBuffer()
 }
 
 /**
@@ -207,19 +207,19 @@ const restart = () => {
 }
 
 module.exports = {
-  calculatePing,
-  capitalize,
-  execute,
-  extractNumbers,
-  fetch,
-  formatSize,
-  generateCreditCardImage,
-  generateRandomHex,
-  getBuffer,
-  getRandomItem,
-  gifToMp4,
-  restart,
-  term,
-  webpToMp4,
-  webpToPng
+    calculatePing,
+    capitalize,
+    execute,
+    extractNumbers,
+    fetch,
+    formatSize,
+    generateCreditCardImage,
+    generateRandomHex,
+    getBuffer,
+    getRandomItem,
+    gifToMp4,
+    restart,
+    term,
+    webpToMp4,
+    webpToPng
 }

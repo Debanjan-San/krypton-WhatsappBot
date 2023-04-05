@@ -9,6 +9,7 @@ module.exports = {
     async execute(client, arg, M) {
         const res = await axios.get(`https://nekos.life/api/v2/img/neko`).catch((err) => {
             return M.reply(err.toString())
+            client.log(err, 'red')
         })
         client.sendMessage(M.from, {
             image: {

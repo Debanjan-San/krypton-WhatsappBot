@@ -32,7 +32,9 @@ module.exports = {
                       total: (cradit) => cradit.wallet + cradit.bank
                   }
               })
-        const leaderboard = group.includes(term[1] || arg) ? sortUsers.filter((x) => groupMembers.includes(x.user)) : sortUsers
+        const leaderboard = group.includes(term[1] || arg)
+            ? sortUsers.filter((x) => groupMembers.includes(x.user))
+            : sortUsers
 
         if (leaderboard.length < 10) return M.reply('Sorry there is no enough users to create a leaderboard')
         const myPosition = leaderboard.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
