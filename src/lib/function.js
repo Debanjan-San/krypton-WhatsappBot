@@ -36,37 +36,39 @@ const capitalize = (content, all = false) => {
 }
 
 /**
+ * Copyright by (AliAryanTech), give credit!
  * @param {string} cardName
  * @param {string} expiryDate
  * @returns {Promise<Buffer}
  */
 
 const generateCreditCardImage = (cardName, expiryDate) => {
-  const canvas = createCanvas(320, 200)
+  const canvas = createCanvas(800, 500)
   const ctx = canvas.getContext('2d')
   ctx.fillStyle = '#fff'
-  ctx.fillRect(0, 0, 320, 200)
+  ctx.fillRect(0, 0, 800, 500)
   ctx.fillStyle = '#1e90ff'
-  ctx.fillRect(0, 0, 320, 40)
+  ctx.fillRect(0, 0, 800, 80)
   ctx.fillStyle = '#555'
-  ctx.font = '12px Arial, sans-serif'
-  ctx.fillText('Credit Card', 20, 60)
-  ctx.fillStyle = '#000'
   ctx.font = '24px Arial, sans-serif'
-  ctx.fillText('1234 5678 9012 3456', 20, 100) // card numbers
-  ctx.fillStyle = '#555'
-  ctx.font = '12px Arial, sans-serif'
-  ctx.fillText('Card Name', 20, 140)
+  ctx.fillText('Credit Card', 40, 150)
   ctx.fillStyle = '#000'
-  ctx.font = '14px Arial, sans-serif'
-  ctx.fillText(cardName, 20, 160)
+  ctx.font = '48px Arial, sans-serif'
+  ctx.fillText('1234 5678 9012 3456', 40, 250) // card numbers
   ctx.fillStyle = '#555'
-  ctx.font = '12px Arial, sans-serif'
-  ctx.fillText('Expiry Date', 20, 180)
+  ctx.font = '24px Arial, sans-serif'
+  ctx.fillText('Card Name', 40, 350)
   ctx.fillStyle = '#000'
-  ctx.font = '12px Arial, sans-serif'
-  ctx.fillText(expiryDate, 100, 180)
-  return canvas.toBuffer()
+  ctx.font = '32px Arial, sans-serif'
+  ctx.fillText(cardName, 40, 400)
+  ctx.fillStyle = '#555'
+  ctx.font = '24px Arial, sans-serif'
+  ctx.fillText('Expiry Date', 450, 350)
+  ctx.fillStyle = '#000'
+  ctx.font = '32px Arial, sans-serif'
+  ctx.fillText(expiryDate, 450, 400)
+  const buffer = canvas.toBuffer('image/png')
+  return buffer
 }
 
 /**
