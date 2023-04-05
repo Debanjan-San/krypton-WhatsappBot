@@ -67,8 +67,7 @@ const generateCreditCardImage = (cardName, expiryDate) => {
   ctx.fillStyle = '#000'
   ctx.font = '32px Arial, sans-serif'
   ctx.fillText(expiryDate, 450, 400)
-  const buffer = canvas.toBuffer('image/png')
-  return buffer
+  return canvas.toBuffer()
 }
 
 /**
