@@ -7,6 +7,7 @@ const { exec } = require('child_process')
 const { sizeFormatter } = require('human-readable')
 const { readFile, unlink, writeFile } = require('fs-extra')
 const { load } = require('cheerio')
+const { createCanvas } = require('canvas')
 
 /**
  * @param {string} url
@@ -32,6 +33,40 @@ const capitalize = (content, all = false) => {
         .split(' ')
         .map((text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`)
         .join(' ')}`
+}
+
+/**
+ * @param {string} cardName
+ * @param {string} expiryDate
+ * @returns {Promise<Buffer}
+ */
+
+const generateCreditCardImage = (cardName, expiryDate) => {
+  const canvas = createCanvas(320, 200)
+  const ctx = canvas.getContext('2d')
+  ctx.fillStyle = '#fff'
+  ctx.fillRect(0, 0, 320, 200)
+  ctx.fillStyle = '#1e90ff'
+  ctx.fillRect(0, 0, 320, 40)
+  ctx.fillStyle = '#555'
+  ctx.font = '12px Arial, sans-serif'
+  ctx.fillText('Credit Card', 20, 60)
+  ctx.fillStyle = '#000'
+  ctx.font = '24px Arial, sans-serif'
+  ctx.fillText('1234 5678 9012 3456', 20, 100) // card numbers
+  ctx.fillStyle = '#555'
+  ctx.font = '12px Arial, sans-serif'
+  ctx.fillText('Card Name', 20, 140)
+  ctx.fillStyle = '#000'
+  ctx.font = '14px Arial, sans-serif'
+  ctx.fillText(cardName, 20, 160)
+  ctx.fillStyle = '#555'
+  ctx.font = '12px Arial, sans-serif'
+  ctx.fillText('Expiry Date', 20, 180)
+  ctx.fillStyle = '#000'
+  ctx.font = '12px Arial, sans-serif'
+  ctx.fillText(expiryDate, 100, 180)
+  return canvas.toBuffer()
 }
 
 /**
@@ -171,18 +206,19 @@ const restart = () => {
 }
 
 module.exports = {
-    restart,
-    term,
-    getRandomItem,
-    execute,
-    gifToMp4,
-    webpToMp4,
-    webpToPng,
-    fetch,
-    extractNumbers,
-    formatSize,
-    generateRandomHex,
-    calculatePing,
-    capitalize,
-    getBuffer
+  calculatePing,
+  capitalize,
+  execute,
+  extractNumbers,
+  fetch,
+  formatSize,
+  generateCreditCardImage,
+  generateRandomHex,
+  getBuffer,
+  getRandomItem,
+  gifToMp4,
+  restart,
+  term,
+  webpToMp4,
+  webpToPng
 }
