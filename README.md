@@ -1,6 +1,6 @@
 <div align="center">
   
-  <img src="https://i.ibb.co/mzcSXdy/koboo.png" width="150" height="150" border="0" alt="PFP">
+  <img src="https://i.ibb.co/ZgrSw5L/URUHA-RUSHIA.jpg" width="150" height="150" border="0" alt="PFP">
 
 </div>
 
@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> This whatsapp bot project (now) use
+<p align="center"> This whatsapp bot project use
   <a href="https://github.com/adiwajshing/Baileys">Baileys Multi-Device.</a>
 </p>
 
