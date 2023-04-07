@@ -12,7 +12,7 @@ module.exports = {
                 obj[category].push(cmd.name)
                 return obj
             }, {})
-            const emojis = ['👨🏻‍💻', '💰', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛠️', '🎊']
+            const emojis = ['👨🏻‍💻', '💰', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛹', '🛠️', '🎊']
             const sortedCategories = Object.keys(categories).sort()
             const commandList = sortedCategories
                 .map((category, index) => {
