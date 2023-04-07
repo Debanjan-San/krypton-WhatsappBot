@@ -64,6 +64,9 @@ const start = async () => {
     //Cradits
     client.cradit = client.DB.table('cradit')
 
+    //RPG
+    client.rpg = client.DB.table('rpg_game')
+
     //Commands
     client.cmd = new Collection()
 

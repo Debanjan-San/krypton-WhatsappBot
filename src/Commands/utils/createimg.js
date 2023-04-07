@@ -6,6 +6,7 @@ module.exports = {
     description: 'Let you create an image with openAI',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
+        if (!client.openaiAPI) return M.reply('You did not provided any api key for OpenAI useage!')
         const results = await client.AI.createImage(arg).catch((err) => {
             return M.reply(err.toString())
         })
