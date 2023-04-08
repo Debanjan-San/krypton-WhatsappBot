@@ -32,7 +32,7 @@
 </p>
 
 <p align="center">
-  <img title="Whatsapp-Bot-Server" src="https://img.shields.io/badge/self hosting-3d1513?style=for-the-badge&logo=serverless&logoColor=FD5750"></img>
+  <a href="https://deploy.cyclic.app/"><img title="Whatsapp-Bot-Server" src="https://img.shields.io/badge/cyclic-338BA8?style=for-the-badge&logo=serverless&logoColor=FD5750"></img></a>
   <a href="https://railway.app/new/template"><img src="https://img.shields.io/badge/railway-3e164f?style=for-the-badge&logo=railway&logoColor=0B0D0E"></a>
 </p>
 <p align="center">
