@@ -10,6 +10,7 @@
     "wabot"
   ],
   "license": "SEE LICENSE IN LICENSE.md",
+  "main": "src/krypton.js",
   "scripts": {
     "format": "prettier --write --config .prettierrc.json \"src/**/*.js\"",
     "start": "node --max-old-space-size=4096 src/krypton.js"
@@ -43,7 +44,6 @@
     "googlethis": "^1.7.1",
     "human-readable": "^0.2.1",
     "moment-timezone": "^0.5.40",
-    "mongoose": "^6.7.0",
     "openai": "^3.2.1",
     "os": "^0.1.2",
     "parse-ms": "^2.1.0",
