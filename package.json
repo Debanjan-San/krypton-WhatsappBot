@@ -13,7 +13,7 @@
    "license":"SEE LICENSE IN LICENSE.md",
    "scripts":{
       "format":"prettier --write --config .prettierrc.json \"src/**/*.js\"",
-      "start":"node --max-old-space-size=4096 src/krypton.js"
+      "start":"node --max-old-space-size=496 src/krypton.js"
    },
    "bugs":{
       "url":"https://github.com/Debanjan-San/krypton-WhatsappBot/issues"
