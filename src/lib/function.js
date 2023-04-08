@@ -192,18 +192,14 @@ const term = (param) =>
     })
 
 const restart = () => {
-    setTimeout(function () {
-        // UwU
-        process.on('exit', function () {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            require('child_process').spawn(process.argv.shift(), process.argv, {
-                cwd: process.cwd(),
-                detached: true,
-                stdio: 'inherit'
-            })
-        })
-        process.exit()
-    }, 2000)
+    exec('pm2 start src/krypton.js', (err, stdout, stderr) => {
+        if (err) {
+            console.log(err)
+            return
+        }
+        console.log(`stdout: ${stdout}`)
+        console.log(`stderr: ${stderr}`)
+    })
 }
 
 module.exports = {
