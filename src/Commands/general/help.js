@@ -1,11 +1,10 @@
 module.exports = {
     name: 'help',
-    aliases: ['h', 'menu', 'list', 'commands'],
+    aliases: ['h', 'menu', 'list'],
     category: 'general',
     exp: 10,
-    description: 'Let you see the command list',
+    description: 'Displays the command list or specific command info',
     async execute(client, arg, M) {
-        console.log(arg)
         if (!arg) {
             const categories = client.cmd.reduce((obj, cmd) => {
                 const category = cmd.category || 'Uncategorized'
@@ -13,7 +12,7 @@ module.exports = {
                 obj[category].push(cmd.name)
                 return obj
             }, {})
-            const emojis = ['👨🏻‍💻', '💰', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛠️', '🎊']
+            const emojis = ['👨🏻‍💻', '💰', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛹', '🛠️', '🎊']
             const sortedCategories = Object.keys(categories).sort()
             const commandList = sortedCategories
                 .map((category, index) => {
@@ -26,11 +25,10 @@ module.exports = {
             return M.reply(message)
         }
         const command = client.cmd.get(arg) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(arg))
-        if (!command) return M.reply('Command does not exsist')
-        M.reply(
-            `*CMD INFO*\n\n*🟥 Name:* ${command.name}\n*🟩 Aliases:* ${command.aliases.join(', ')}\n*🟨 Desc:* ${
-                command.description
-            }`
-        )
+        if (!command) return M.reply('Command not found')
+        const message = `*CMD INFO*\n\n*🟥 Name:* ${command.name}\n*🟩 Aliases:* ${command.aliases.join(
+            ', '
+        )}\n*🟨 Desc:* ${command.description}`
+        M.reply(message)
     }
 }
