@@ -1,4 +1,4 @@
-const ytdl = require('ytdl-core')
+const ytdl = require('youtubedl-core')
 const { createWriteStream, readFile } = require('fs-extra')
 const { tmpdir } = require('os')
 const axios = require('axios')
