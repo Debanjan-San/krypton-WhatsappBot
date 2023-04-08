@@ -6,7 +6,6 @@ const FormData = require('form-data')
 const { exec } = require('child_process')
 const { sizeFormatter } = require('human-readable')
 const { readFile, unlink, writeFile } = require('fs-extra')
-const { load } = require('cheerio')
 const { createCanvas } = require('canvas')
 
 /**
