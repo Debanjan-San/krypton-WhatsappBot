@@ -1,4 +1,4 @@
-const Spotify = require('spotifydl-core').default
+const Spotify = require('spotifydl-x').default
 const canvacord = require('canvacord')
 const TrackDetails = require('spotifydl-core/dist/lib/details/Track')
 
