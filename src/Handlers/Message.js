@@ -3,6 +3,8 @@ const { serialize } = require('../lib/WAclient')
 const { response } = require('express')
 const { getStats, ranks } = require('../lib/stats')
 const chalk = require('chalk')
+const emojiStrip = require('emoji-strip')
+const axios = require('axios')
 
 module.exports = MessageHandler = async (messages, client) => {
     try {
@@ -58,8 +60,8 @@ module.exports = MessageHandler = async (messages, client) => {
             isGroup &&
             ActivateChatBot.includes(from)
         ) {
-            const text = await client.AI.chat(body.trim())
-            M.reply(text.response.trim().replace('[Your Name]', M.pushName))
+            const text = await axios.get(`https://api.simsimi.net/v2/?text=${emojiStrip(body)}&lc=en&cf=true`)
+            M.reply(body == 'hi' ? `Hey ${M.pushName} whats up?` : text.data.messages[0].text)
         }
 
         // Logging Message

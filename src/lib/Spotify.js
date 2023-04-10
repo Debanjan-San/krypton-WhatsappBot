@@ -1,6 +1,6 @@
-const Spotify = require('spotifydl-core').default
+const Spotify = require('spotifydl-x').default
 const canvacord = require('canvacord')
-const TrackDetails = require('spotifydl-core/dist/lib/details/Track')
+const TrackDetails = require('spotifydl-x/dist/lib/details/Track')
 
 const credentials = {
     clientId: 'acc6302297e040aeb6e4ac1fbdfd62c3',
