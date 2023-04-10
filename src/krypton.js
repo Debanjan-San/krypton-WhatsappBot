@@ -2,7 +2,7 @@ require('dotenv').config()
 const {
     default: Baileys,
     DisconnectReason,
-    useMultiFileAuthState,
+    useSingleFileAuthState,
     fetchLatestBaileysVersion,
     makeInMemoryStore,
     delay
@@ -27,8 +27,8 @@ const driver = new MongoDriver(process.env.URL)
 const chalk = require('chalk')
 
 const start = async () => {
-    const { state, saveCreds } = await useMultiFileAuthState('./session')
-    const clearState = () => unlink('./session')
+    const { state, saveState } = useSingleFileAuthState('./session.json')
+    const clearState = () => unlink('./session.json')
 
     const client = Baileys({
         version: (await fetchLatestBaileysVersion()).version,
@@ -133,7 +133,7 @@ const start = async () => {
 
     client.ev.on('contacts.update', async (update) => await contact.saveContacts(update, client))
 
-    client.ev.on('creds.update', saveCreds)
+    client.ev.on('creds.update', saveState)
     return client
 }
 
