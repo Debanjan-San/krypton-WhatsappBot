@@ -29,9 +29,9 @@ const getBuffer = async (url) =>
 const capitalize = (content, all = false) => {
     if (!all) return `${content.charAt(0).toUpperCase()}${content.slice(1)}`
     return `${content
-        .split(' ')
+        .split('')
         .map((text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`)
-        .join(' ')}`
+        .join('')}`
 }
 
 /**

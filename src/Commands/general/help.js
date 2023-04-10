@@ -13,15 +13,22 @@ module.exports = {
                 return obj
             }, {})
             const emojis = ['👨🏻‍💻', '💰', '🎃', '⚙️', '📽️', '🌀', '🎵', '🛹', '🛠️', '🎊']
-            const sortedCategories = Object.keys(categories).sort()
-            const commandList = sortedCategories
-                .map((category, index) => {
-                    const commands = categories[category].join(', ')
-                    const emoji = emojis[index % emojis.length]
-                    return `${emoji} *${client.utils.capitalize(category)}*\n❐ ${commands}`
-                })
-                .join('\n\n')
-            const message = `🎫 *${client.name}'s Command List* 🎫\n\n${commandList}\n\n🗃️ *Note:* _Use ${client.prefix}help <command_name> to view the command info_`
+            const commandList = Object.keys(categories)
+            let commands = ''
+            for (const category of commandList) {
+                commands += `\n${emojis[commandList.indexOf(category)]} *${client.utils.capitalize(
+                    category,
+                    true
+                )}*\n\n${categories[category].map((cmd) => `• _${client.prefix}${cmd}_`).join('\n')}\n`
+            }
+
+            const message = `~ <× [ *—͟͞͞${client.utils.capitalize(client.name)}* ] ×> ~\n\n*Hey 👋 ${
+                M.pushName
+            } (>❤️ω❤️)>*\n*I am ${client.utils.capitalize(
+                client.name
+            )}*\n*I am here to make*\n*your WhatsApp* 🎋\n*experience better ~*\n\n*—————↝ LINKS ↜—————*\n\n*Please fork and star* ⭐️\n*my repo and don’t forget to* \n*like my video tutorial 🍃*\n\n🥢 *Tutorial:*\nyoutu.be/6P1Ya6ByEYQ\n\n📗 *Repo:*\nshorturl.at/gvU39\n\n⛩ *Follow My* \n*Instagram: das_abae*\n\n💈*Link:*\ninstagram.com/das_abae\n\n*🎐COMMANDS🎐*\n\n${commands}\n🗃️ *Note:* _Use ${
+                client.prefix
+            }help <command_name>\nto view the command info_`
             return M.reply(message)
         }
         const command = client.cmd.get(arg) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(arg))
