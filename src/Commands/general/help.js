@@ -26,7 +26,7 @@ module.exports = {
                 M.pushName
             } (>❤️ω❤️)>*\n*I am ${client.utils.capitalize(
                 client.name
-            )}*\n*I am here to make*\n*your WhatsApp* 🎋\n*experience better ~*\n\n*—————↝ LINKS ↜—————*\n\n*Please fork and star* ⭐️\n*my repo and don’t forget to* \n*like my video tutorial 🍃*\n\n🥢 *Tutorial:*\nyoutu.be/6P1Ya6ByEYQ\n\n📗 *Repo:*\nshorturl.at/gvU39\n\n⛩ *Follow My* \n*Instagram: das_abae*\n\n💈 *Link:*\ninstagram.com/das_abae\n\n*🎐COMMANDS🎐*\n\n${commands}\n🗃️ *Note:* _Use ${
+            )}*\n*I am here to make*\n*your WhatsApp* 🎋\n*experience better ~*\n\n*————↝ LINKS ↜————*\n\n*Please fork and star* ⭐️\n*my repo and don’t forget to* \n*like my video tutorial 🍃*\n\n🥢 *Tutorial:*\nyoutu.be/6P1Ya6ByEYQ\n\n📗 *Repo:*\nshorturl.at/gvU39\n\n⛩ *Follow My* \n*Instagram: das_abae*\n\n💈 *Link:*\ninstagram.com/das_abae\n\n*🎐COMMANDS🎐*\n\n${commands}\n🗃️ *Note:* Use ${
                 client.prefix
             }help <cmd>\nto view the command info`
             const url =
