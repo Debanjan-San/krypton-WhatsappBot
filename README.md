@@ -54,6 +54,22 @@
 -   Suitable for those who want to learn Java Script programming
 
 ---
+
+## Hosting
+
+---
+
+- Host the bot in any server
+- Use the ```session``` command to get the session in text format
+- Copy the session 
+- Go to [GitHub Gist](https://gist.github.com)
+- Paste the session
+- Create a gist with name of ```session.json```
+- Copy the raw URL by clicking in the raw button at the top right corner
+- Paste the URL in the ```SESSION``` var 
+
+---
+
 ## Tutorial
 
 Here's a tutorial to set up Krypton Bot on your own account in *less than 7 minutes.* The tutorial for which is attached below.
@@ -94,6 +110,7 @@ PREFIX=!
 MODS=917003213xxx
 PORT=3000
 OPENAI_API=
+SESSION=
 URL=mongodb+srv://<username>:<password>@cluster0.xxwc771.mongodb.net/?retryWrites=true&w=majority
 ```
 
