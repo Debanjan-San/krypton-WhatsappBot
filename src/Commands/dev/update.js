@@ -7,7 +7,9 @@ module.exports = {
     async execute(client, arg, M) {
         M.reply('Updating...')
         await client.utils
-            .term('git remote set-url origin https://github.com/Debanjan-San/krypton-WhatsappBot.git && git pull origin main')
+            .term(
+                'git remote set-url origin https://github.com/Debanjan-San/krypton-WhatsappBot.git && git pull origin main'
+            )
             .then((res) => M.reply(res))
             .catch((err) => M.reply(err.message))
     }

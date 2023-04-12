@@ -1,7 +1,7 @@
 const { Sticker, StickerTypes } = require('wa-sticker-formatter')
 
 module.exports = {
-    name: 'streal',
+    name: 'steal',
     aliases: ['take'],
     category: 'utils',
     exp: 10,

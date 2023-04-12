@@ -74,7 +74,6 @@ module.exports = MessageHandler = async (messages, client) => {
             'yellow'
         )
 
-        if (!isGroup) return
         if (!isCmd) return
         const command =
             client.cmd.get(cmdName) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(cmdName))
@@ -84,6 +83,7 @@ module.exports = MessageHandler = async (messages, client) => {
             return M.reply('This command can only be used by group or community admins')
         if (!groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && command.category == 'moderation')
             return M.reply('This command can only be used when bot is admin')
+        if (!isGroup && command.category == 'moderation') return M.reply('This command is ment to use in groups')
         if (!client.mods.includes(sender.split('@')[0]) && command.category == 'dev')
             return M.reply('This command only can be accessed by the mods')
         command.execute(client, arg, M)

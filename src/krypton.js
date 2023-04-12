@@ -19,14 +19,19 @@ const app = require('express')()
 const qr = require('qr-image')
 const mongoose = require('mongoose')
 const P = require('pino')
+const axios = require('axios')
 const { Boom } = require('@hapi/boom')
 const { join } = require('path')
-const { readdirSync, readFileSync, unlink } = require('fs-extra')
+const { readdirSync, unlink, writeFileSync } = require('fs-extra')
 const port = process.env.PORT || 3000
 const driver = new MongoDriver(process.env.URL)
 const chalk = require('chalk')
 
 const start = async () => {
+    if (process.env.SESSION) {
+        const { data } = await axios.get(process.env.SESSION)
+        writeFileSync('./session.json', JSON.stringify(data))
+    }
     const { state, saveState } = useSingleFileAuthState('./session.json')
     const clearState = () => unlink('./session.json')
 
