@@ -19,14 +19,16 @@ module.exports = {
                 commands += `\n${emojis[commandList.indexOf(category)]} *${client.utils.capitalize(
                     category,
                     true
-                )} COMMANDS:*\n\n${categories[category].map((cmd, index) => `${index + 1}| *${client.prefix}${cmd}* \n- ${client.cmd.get(cmd).description}\n`).join( '\n')}\n`
+                )}*\n\n${categories[category].map((cmd) => `• _${client.prefix}${cmd}_`).join('\n')}\n`
             }
 
-            const message = `~ <× [ *—͟͞͞${client.utils.capitalize(client.name)}* ] ×> ~\n\nHey 👋 ${
+            const message = `~ <× [ *—͟͞͞${client.utils.capitalize(client.name)}* ] ×> ~\n\n*Hey 👋 ${
                 M.pushName
-            } *(>❤️ω❤️)>*\nI am ${client.utils.capitalize(
+            } (>❤️ω❤️)>*\n*I am ${client.utils.capitalize(
                 client.name
-            )} I am here to make your WhatsApp 🎋 experience better ~\n\n*———————↝ LINKS ↜———————*\n\n*Please fork and star ⭐️ my repo and don’t forget to like my video tutorial 🍃*\n\n🥢 *Tutorial:*\nhttps://youtu.be/6P1Ya6ByEYQ\n\n📗 *Repo:*\nhttps://github.com/Debanjan-San/krypton-WhatsappBot\n\n⛩ *Follow My* \n*Instagram:* das_abae\n\n💈 *Link:*\nhttps://instagram.com/das_abae?igshid=YmMyMTA2M2Y=\n\n\t\t\t\t*🎐COMMANDS🎐*\n\n${commands}\n📚 Use ${client.prefix}help <command_name> to view the full info. \n🔖 _Eg: ${client.prefix}help promote_`
+            )}*\n*I am here to make*\n*your WhatsApp* 🎋\n*experience better ~*\n\n*————↝ LINKS ↜————*\n\n*Please fork and star* ⭐️\n*my repo and don’t forget to* \n*like my video tutorial 🍃*\n\n🥢 *Tutorial:*\nyoutu.be/6P1Ya6ByEYQ\n\n📗 *Repo:*\nshorturl.at/gvU39\n\n⛩ *Follow My* \n*Instagram: das_abae*\n\n💈 *Link:*\ninstagram.com/das_abae\n\n*🎐COMMANDS🎐*\n\n${commands}\n🗃️ *Note:* Use ${
+                client.prefix
+            }help <cmd>\nto view the command info`
             const url =
                 'https://camo.githubusercontent.com/ba1eb0374c0193222b7003d9ce1642ab1f3a138a307ec22de39cf2599a53a12c/68747470733a2f2f692e6962622e636f2f5a67725377354c2f55525548412d5255534849412e6a7067'
             const buffer = await client.utils.getBuffer(url)
@@ -34,7 +36,7 @@ module.exports = {
                 M.from,
                 {
                     video: {
-                        url: 'https://media.tenor.com/9X1bdbB1N4AAAAPo/kawaii-anime-girl.mp4'
+                        url: 'https://media.tenor.com/q0iOtisXZ0oAAAPo/anime-girl.mp4'
                     },
                     gifPlayback: true,
                     caption: message,
