@@ -9,9 +9,9 @@ module.exports = {
     description: 'Updates gives the list of latest commits and updatenow updates the bot',
     async execute(client, arg, M) {
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
+        await git.fetch()
+        const commits = await git.log(['main' + '..origin/' + 'main'])
         if (command == 'updates') {
-            await git.fetch()
-            const commits = await git.log(['main' + '..origin/' + 'main'])
             let updates = '======= *UPDATES* =======\n\n'
             if (commits.total == 0) return M.reply('Sorry there is no new updates!!')
             commits['all'].map((commit) => {
@@ -27,8 +27,6 @@ module.exports = {
             M.reply(updates)
         }
         if (command == 'updatenow') {
-            await git.fetch()
-            const commits = await git.log(['main' + '..origin/' + 'main'])
             if (commits.total == 0) return M.reply('You are already using the updated version')
             git.pull(async (err, update) => {
                 if (update && update.summary.changes) {

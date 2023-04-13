@@ -45,8 +45,6 @@ const start = async () => {
     //Config
     client.name = process.env.NAME || 'Krypton'
     client.prefix = process.env.PREFIX || '!'
-    client.url = process.env.URL || null
-    client.port = process.env.PORT || 3000
     client.openaiAPI = process.env.OPENAI_API || null
     client.mods = (process.env.MODS || '').split(', ')
 
@@ -108,18 +106,18 @@ const start = async () => {
         if (connection === 'close') {
             const { statusCode } = new Boom(lastDisconnect?.error).output
             if (statusCode !== DisconnectReason.loggedOut) {
-                console.log('Connecting...')
+                client.log('Connecting...')
                 setTimeout(() => start(), 3000)
             } else {
-                console.log('Disconnected.', true)
+                client.log('Disconnected.', true)
                 clearState()
-                console.log('Starting...')
+                client.log('Starting...')
                 setTimeout(() => start(), 3000)
             }
         }
         if (connection === 'connecting') {
             client.state = 'connecting'
-            console.log('Connecting to WhatsApp...')
+            client.log('Connecting to WhatsApp...')
         }
         if (connection === 'open') {
             client.state = 'open'
