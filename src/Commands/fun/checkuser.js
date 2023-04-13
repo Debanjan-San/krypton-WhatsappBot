@@ -10,9 +10,8 @@ module.exports = {
     async execute(client, arg, M) {
         const text = arg.trim()
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
-        let flag = true
-        if (command == 'checkuser' || command == 'cu') flag = false
-        if (!flag && !text) {
+        if (command == 'checkuser' || command == 'cu')
+        if (!text) {
             const CheckList = `🎃 *Available Checks:*\n\n- ${checks
                 .map((check) => client.utils.capitalize(check))
                 .join('\n- ')}\n🛠️ *Usage:* ${client.prefix}check [tag/quote user] | ${

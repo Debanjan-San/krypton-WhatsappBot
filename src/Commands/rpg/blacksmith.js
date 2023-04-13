@@ -134,8 +134,7 @@ module.exports = {
     description: 'Blacksmith where weapons are made',
     async execute(client, arg, M) {
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
-        const flag = arg ? true : false
-        if (command === 'blacksmith' && !flag) {
+        if (command === 'blacksmith') {
             const objKeys = Object.keys(blacksmith)
             let text = '====🥢 BLACKSMITH🥢====\n\n'
             for (const v of objKeys) {
