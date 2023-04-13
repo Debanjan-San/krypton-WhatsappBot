@@ -11,14 +11,14 @@ module.exports = {
         const text = arg.trim()
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
         if (command == 'checkuser' || command == 'cu')
-        if (!text) {
-            const CheckList = `🎃 *Available Checks:*\n\n- ${checks
-                .map((check) => client.utils.capitalize(check))
-                .join('\n- ')}\n🛠️ *Usage:* ${client.prefix}check [tag/quote user] | ${
-                client.prefix
-            }(check) [tag/quote user]\nExample: ${client.prefix}awesomecheck`
-            return await M.reply(CheckList)
-        }
+            if (!text) {
+                const CheckList = `🎃 *Available Checks:*\n\n- ${checks
+                    .map((check) => client.utils.capitalize(check))
+                    .join('\n- ')}\n🛠️ *Usage:* ${client.prefix}check [tag/quote user] | ${
+                    client.prefix
+                }(check) [tag/quote user]\nExample: ${client.prefix}awesomecheck`
+                return await M.reply(CheckList)
+            }
         if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
         if (!M.mentions.length) M.mentions.push(M.sender)
         const types = [
