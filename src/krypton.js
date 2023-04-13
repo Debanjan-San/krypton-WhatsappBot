@@ -14,7 +14,7 @@ const MessageHandler = require('./Handlers/Message')
 const EventsHandler = require('./Handlers/Events')
 const contact = require('./lib/contacts')
 const utils = require('./lib/function')
-const openai = require('./lib/openAI')
+const AI_lib = require('./lib/AI_lib')
 const app = require('express')()
 const qr = require('qr-image')
 const mongoose = require('mongoose')
@@ -45,7 +45,7 @@ const start = async () => {
     //Config
     client.name = process.env.NAME || 'Krypton'
     client.prefix = process.env.PREFIX || '!'
-    client.openaiAPI = process.env.OPENAI_API || null
+    client.writesonicAPI = process.env.WRITE_SONIC || null
     client.mods = (process.env.MODS || '').split(', ')
 
     //Database
@@ -59,7 +59,7 @@ const start = async () => {
     client.contact = contact
 
     //Open AI
-    client.AI = openai
+    client.AI = AI_lib
 
     //Experience
     client.exp = client.DB.table('experience')

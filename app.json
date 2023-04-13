@@ -26,8 +26,8 @@
          "description":"A secret String for Mongodb Connection.(Required)",
          "required":true
       },
-      "OPENAI_API":{
-         "description":"A key used for OpenAI",
+      "WRITE_SONIC":{
+         "description":"A key used for Write Sonic",
          "required":true
       },
       "PORT":{
