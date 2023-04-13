@@ -18,9 +18,7 @@ module.exports = {
                 author: pack[1] ? pack[1].trim() : `Krypton 👾`,
                 type: StickerTypes.FULL,
                 categories: ['🤩', '🎉'],
-                id: '12345',
-                quality: 70,
-                background: 'transparent'
+                quality: 70
             })
 
             await client.sendMessage(
