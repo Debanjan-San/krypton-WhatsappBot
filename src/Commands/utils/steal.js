@@ -16,7 +16,11 @@ module.exports = {
             const sticker = new Sticker(buffer, {
                 pack: pack[0] ? pack[0].trim() : '👾 Handcrafted for you by',
                 author: pack[1] ? pack[1].trim() : `Krypton 👾`,
-                quality: 50
+                type: StickerTypes.FULL,
+                categories: ['🤩', '🎉'],
+                id: '12345',
+                quality: 70,
+                background: 'transparent'
             })
 
             await client.sendMessage(
