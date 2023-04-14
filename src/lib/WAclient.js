@@ -97,7 +97,7 @@ function serialize(msg, client) {
                     type: 'normal',
                     stanzaId: quoted.stanzaId,
                     participant: decodeJid(quoted.participant),
-                    message: quoted.quotedMessage
+                    message: quoted.quotedMessage.conversation
                 }
             }
             msg.quoted.isSelf = msg.quoted.participant === decodeJid(client.user.id)
