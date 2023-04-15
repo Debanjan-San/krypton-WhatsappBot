@@ -4,9 +4,10 @@ const { promisify } = require('util')
 const moment = require('moment-timezone')
 const FormData = require('form-data')
 const { exec } = require('child_process')
+const { createCanvas } = require('canvas')
 const { sizeFormatter } = require('human-readable')
 const { readFile, unlink, writeFile } = require('fs-extra')
-const { createCanvas } = require('canvas')
+const { removeBackgroundFromImageBase64 } = require('remove.bg')
 
 /**
  * @param {string} url
@@ -32,6 +33,25 @@ const capitalize = (content, all = false) => {
         .split('')
         .map((text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`)
         .join('')}`
+}
+
+/**
+ * @param {Buffer} input
+ * @returns {Promise<Buffer>}
+ */
+
+const removeBG = async (input) => {
+    try {
+        const response = await removeBackgroundFromImageBase64({
+            base64img: input.toString('base64'),
+            apiKey: process.env.BG_API_KEY,
+            size: 'auto',
+            type: 'auto'
+        })
+        return Buffer.from(response.base64img, 'base64')
+    } catch (error) {
+        throw error
+    }
 }
 
 /**
@@ -208,6 +228,7 @@ module.exports = {
     extractNumbers,
     fetch,
     formatSize,
+    removeBG,
     generateCreditCardImage,
     generateRandomHex,
     getBuffer,

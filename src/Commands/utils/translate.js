@@ -8,7 +8,7 @@ module.exports = {
     exp: 0,
     description: 'Translates a text to a spacific language',
     async execute(client, arg, M) {
-        const message = M.quoted ? M.quoted.message : arg
+        const message = M.quoted ? M.quoted.message.conversation : arg
         const language = arg.split('-')[1] || 'en'
         if (!message) return M.reply('Reply to a text message!')
         if (!Object.keys(languages).includes(language))
