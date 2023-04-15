@@ -12,7 +12,7 @@ module.exports = {
             ? M.type === 'extendedTextMessage' && content.includes('imageMessage')
             : M.type === 'imageMessage'
         if (!isImage) return M.reply("You didn't provide an image")
-        const buffer = isImage ? await M.quoted.download() : await M.download()
+        const buffer = isQuoted ? await M.quoted.download() : await M.download()
         const image = await client.utils.removeBG(buffer)
 
         await client.sendMessage(
