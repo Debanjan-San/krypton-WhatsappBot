@@ -30,6 +30,10 @@
          "description":"A key used for Write Sonic",
          "required":true
       },
+      "BG_API_KEY":{
+         "description":"A key used for www.remove.bg",
+         "required":true
+      },
       "PORT":{
          "description":"A port for your app",
          "required":true
