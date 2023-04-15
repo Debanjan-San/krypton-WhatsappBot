@@ -109,7 +109,8 @@ NAME=Krypton
 PREFIX=!
 MODS=917003213xxx
 PORT=3000
-OPENAI_API=
+WRITE_SONIC=
+BG_API_KEY=
 SESSION=
 URL=mongodb+srv://<username>:<password>@cluster0.xxwc771.mongodb.net/?retryWrites=true&w=majority
 ```
