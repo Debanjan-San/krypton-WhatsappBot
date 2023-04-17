@@ -47,7 +47,7 @@ const start = async () => {
     client.prefix = process.env.PREFIX || '!'
     client.writesonicAPI = process.env.WRITE_SONIC || null
     client.bgAPI = process.env.BG_API_KEY || null
-    client.mods = (process.env.MODS || '').split(', ')
+    client.mods = (process.env.MODS || '').split(',')
 
     //Database
     client.DB = new QuickDB({
