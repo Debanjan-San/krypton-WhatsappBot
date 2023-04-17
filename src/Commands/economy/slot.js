@@ -28,7 +28,7 @@ module.exports = {
         const amount = parseInt(arg)
         if (isNaN(amount)) return M.reply('Please provide the amount')
         if (arg.startsWith('-') || arg.startsWith('+')) return M.reply('Please provide the amount')
-        const cradits = await client.cradit.get(`${M.sender}.wallet`) || 0
+        const cradits = (await client.cradit.get(`${M.sender}.wallet`)) || 0
         if (cradits - amount < 0) return M.reply('You dont have that much in your wallet')
         const machine = new SlotMachine(3, symbols).play()
         const lines = machine.lines.filter((line) => !line.diagonal)

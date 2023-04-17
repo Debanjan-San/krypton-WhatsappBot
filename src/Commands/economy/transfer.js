@@ -11,7 +11,7 @@ module.exports = {
         if (!amount) return M.reply('Please provide the amount')
         if (arg.split(' ')[0].startsWith('-') || arg.split(' ')[0].startsWith('+'))
             return M.reply('Please provide the amount')
-        const cradits = await client.cradit.get(`${M.sender}.wallet`) || 0
+        const cradits = (await client.cradit.get(`${M.sender}.wallet`)) || 0
         if (cradits - amount < 0) return M.reply('You dont have that much in your wallet')
         await client.cradit.add(`${M.mentions[0]}.wallet`, amount)
         await client.cradit.sub(`${M.sender}.wallet`, amount)

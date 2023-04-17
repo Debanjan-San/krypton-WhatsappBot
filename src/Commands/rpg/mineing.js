@@ -44,7 +44,11 @@ module.exports = {
         } else await client.rpg.sub(`${M.sender}.pickaxe.durability`, `${elements[element].damage}`)
         await client.rpg.add(`${M.sender}[${element}]`, elements[element].amount)
         M.reply(
-            `*You have collected _${elements[element].amount} ${element} elements_. Your pickaxe got ${parseInt(pickaxe.durability) - parseInt(elements[element].damage) < 0 ? "broken" : `${elements[element].damage} damage`}*`
+            `*You have collected _${elements[element].amount} ${element} elements_. Your pickaxe got ${
+                parseInt(pickaxe.durability) - parseInt(elements[element].damage) < 0
+                    ? 'broken'
+                    : `${elements[element].damage} damage`
+            }*`
         )
     }
 }

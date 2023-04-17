@@ -11,7 +11,7 @@ module.exports = {
     exp: 7,
     description: 'Fishing to add stuff to the inventory',
     async execute(client, arg, M) {
-        const fishingrod = (await client.rpg.get(`${M.sender}.fishingrod`))
+        const fishingrod = await client.rpg.get(`${M.sender}.fishingrod`)
         if (!fishingrod) return M.reply("You don't have any fishingrod in your inventory")
         const lastfishingtimeout = 420000
         const lastfishing = await client.DB.get(`${M.sender}.fishingcooldown`)

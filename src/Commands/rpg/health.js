@@ -5,6 +5,6 @@ module.exports = {
     exp: 5,
     description: 'Show health information',
     async execute(client, arg, M) {
-        M.reply(`*Your health is ❤️ ${await client.rpg.get(`${M.sender}.health`) || 100}*`)
+        M.reply(`*Your health is ❤️ ${(await client.rpg.get(`${M.sender}.health`)) || 100}*`)
     }
 }

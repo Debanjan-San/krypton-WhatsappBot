@@ -68,7 +68,7 @@ module.exports = {
                 return monster.level === level
             })
             const monster = level_monsters[Math.floor(Math.random() * level_monsters.length)]
-            const health = await client.rpg.get(`${M.sender}.health`) || 100
+            const health = (await client.rpg.get(`${M.sender}.health`)) || 100
             if (health - monster.requirehealth < 0)
                 return M.reply(
                     `You do not have enough heath to hunt a *_Level: ${monster.level} monster_* with this much *_Health: ${health}_ (Needed Health: ${monster.requirehealth})*`
