@@ -96,6 +96,7 @@ function serialize(msg, client) {
                     message: quoted.quotedMessage
                 }
             }
+            msg.quoted.isSelf = msg.quoted.participant === decodeJid(client.user.id)
             msg.quoted.mtype = Object.keys(msg.quoted.message).filter(
                 (v) => v.includes('Message') || v.includes('conversation')
             )[0]
