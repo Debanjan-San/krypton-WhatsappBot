@@ -13,14 +13,14 @@ module.exports = {
         const lastRob = await client.cradit.get(`${M.sender}.lastrob`)
         if (time - (Date.now() - lastRob) > 0) {
             const timeLeft = ms(time - (Date.now() - lastRob))
-            return M.reply(
-                `You robbed recently Try again in ${timeLeft.minutes} minute(s), ${timeLeft.seconds} second(s).`
-            )
+            //return M.reply(
+            //`You robbed recently Try again in ${timeLeft.minutes} minute(s), ${timeLeft.seconds} second(s).`
+            //)
         }
         const senderCradits = (await client.cradit.get(`${M.sender}.wallet`)) || 0
         const mentionCradits = (await client.cradit.get(`${M.mentions[0]}.wallet`)) || 0
-        if (senderCradits - 500 < 0) return M.reply('*You dont have that much in your wallet to pay*')
-        if (mentionCradits - 500 < 0) return M.reply('*The user dont have that much money in wallet*')
+        if ((senderCradits - 500) < 0) return M.reply('*You dont have that much in your wallet to pay*')
+        if ((mentionCradits - 500) < 0) return M.reply('*The user dont have that much money in wallet*')
         const getResultByProbability = (n) => {
             if (Math.random() < n) return 'success'
             return 'caught'
@@ -35,10 +35,9 @@ module.exports = {
         await client.cradit.add(`${M.mentions[0]}.wallet`, result === 'success' ? -targetAmount : userAmount)
         const text =
             result === 'caught'
-                ? `you got caught and paid *${userAmount} gold* to *@${target.split('@')[0]}*`
-                : `*@${M.sender.split('@')[0]}* robbed *@${
-                      M.mentions[0].split('@')[0]
-                  }* and got away with *${targetAmount} gold!*`
+                ? `you got caught and paid *${userAmount} gold* to *@${M.mentions[0].split('@')[0]}*`
+                : `*@${M.sender.split('@')[0]}* robbed *@${M.mentions[0].split('@')[0]
+                }* and got away with *${targetAmount} gold!*`
         client.sendMessage(M.from, { text, mentions: [M.sender, M.mentions[0]] }, { quoted: M })
     }
 }

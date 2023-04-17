@@ -14,7 +14,7 @@ module.exports = {
         if (arg.split(' ')[0].startsWith('-') || arg.split(' ')[0].startsWith('+'))
             return M.reply('Please provide a valid the amount')
         const cradits = (await client.cradit.get(`${M.sender}.wallet`)) || 0
-        if (cradits - amount < 0) return M.reply('You dont have that much in your wallet')
+        if ((cradits - amount) < 0) return M.reply('You dont have that much in your wallet')
         const result = directions[Math.floor(Math.random() * directions.length)]
         await client.cradit.add(`${M.sender}.wallet`, result === arg.split(' ')[1] ? amount : -amount)
         M.reply(result === arg.split(' ')[1] ? `🎉 *You won ${amount}*` : `🥀 *You lost ${amount}*`)
