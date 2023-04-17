@@ -112,10 +112,6 @@ function serialize(msg, client) {
                 fromMe: msg.quoted.isSelf,
                 remoteJid: msg.from
             }
-            msg.quoted.delete = () =>
-                client.sendMessage(msg.from, {
-                    delete: msg.quoted.key
-                })
             msg.quoted.download = () => downloadMedia(msg.quoted.message)
         } catch {
             msg.quoted = null
