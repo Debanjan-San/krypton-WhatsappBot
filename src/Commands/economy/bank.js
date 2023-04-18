@@ -14,9 +14,8 @@ module.exports = {
                     ).username,
                     '5/25'
                 ),
-                caption: `${(await client.contact.getContact(M.sender, client)).username} | *Bank:* ${
-                    (await client.cradit.get(`${M.sender}.bank`)) || 0
-                }`
+                caption: `${(await client.contact.getContact(M.sender, client)).username} | *Bank:* ${(await client.cradit.get(`${M.sender}.bank`)) || 0
+                    }`
             },
             {
                 quoted: M

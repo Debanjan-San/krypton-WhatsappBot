@@ -7,7 +7,6 @@ module.exports = {
     exp: 5,
     description: 'Attend to rob the mentioned user',
     async execute(client, arg, M) {
-        if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
         if (!M.mentions.length) return M.reply('*You must mention someone to attend the robbery*')
         const time = 90000
         const lastRob = await client.cradit.get(`${M.sender}.lastrob`)

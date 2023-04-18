@@ -5,7 +5,6 @@ module.exports = {
     exp: 5,
     description: 'Transfer golds to your friend',
     async execute(client, arg, M) {
-        if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
         if (!M.mentions.length) return M.reply('*You must mention someone to attend the robbery*')
         const amount = parseInt(arg.split(' ')[0])
         if (!amount) return M.reply('Please provide the amount')
@@ -17,7 +16,7 @@ module.exports = {
         await client.cradit.sub(`${M.sender}.wallet`, amount)
         client.sendMessage(
             M.from,
-            { text: `You gave *${amount}* to @${arg.split(' ')[1]}`, mentions: [M.mentions[0]] },
+            { text: `You gave *${amount}* to *@${M.mentions[0].split('@')[0]}*`, mentions: [M.mentions[0]] },
             { quoted: M }
         )
     }
