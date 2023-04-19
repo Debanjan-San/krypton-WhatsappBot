@@ -8,21 +8,57 @@ module.exports = {
     description: 'Gives you the info of the anime',
     async execute(client, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
-        const res = await axios.get(`https://api.jikan.moe/v4/anime?q=${arg}`)
-        if (res.data.data.length == 0) return M.reply('404 Error could not find the given term')
+        if (arg.split('/')[0] == 'https:' && arg.split('/')[2] == 'yugen.to' && arg.split('/')[3] == 'anime' && arg.split('/')[6] == 'watch') {
+            const res = await axios.get(`https://yogapi.debanjan-san.repl.co/anime/info?link=${arg}`)
+            if (!res.data) return M.reply('404 Error could not find the given term')
+            try {
+                let text = '========*ANIME*========\n\n'
+                text += `*Name:* ${res.data.name}\n`
+                text += `*Native:* ${res.data.native}\n`
+                text += `*Studio:* ${res.data.studio}\n`
+                text += `*Format:* ${res.data.format}\n`
+                text += `*Status:* ${res.data.status}\n`
+                text += `*Premired:* ${res.data.premired}\n`
+                text += `*Genres:* ${res.data.genres}\n`
+                text += `*Desc:* ${res.data.about}\n\n========*EPISORDS*========\n`
+                    (res.data.episodes).array.forEach(element => {
+                        text += `*EP:* ${element.id}\n`
+                        text += `*Title:* ${element.ep_title}\n`
+                        text += `*Link:* ${client.prefix}anime ${element.link}\n`
+                    });
 
-        let text = '========*ANIME*========\n\n'
-        text += `*Name:* ${res.data.data[0].title_english}\n`
-        text += `*Japanese*: ${res.data.data[0].title_japanese}\n`
-        text += `*Duration:* ${res.data.data[0].duration}\n`
-        text += `*Episodes:* ${res.data.data[0].episodes}\n`
-        text += `*Description:* ${res.data.data[0].synopsis}\n\n========================\n`
-        // M.reply(text);
-        client.sendMessage(M.from, {
-            image: {
-                url: res.data.data[0].images.jpg.large_image_url
-            },
-            caption: text
-        })
+                client.sendMessage(M.from, {
+                    image: {
+                        url: res.data.image.coverimage
+                    },
+                    caption: text
+                })
+            } catch (err) {
+                return M.reply('error')
+            }
+        } else if (arg.split('/')[0] == 'https:' && arg.split('/')[2] == 'yugen.to' && arg.split('/')[3] == 'watch') {
+            const res = await axios.get(`https://yogapi.debanjan-san.repl.co/anime/watch?link=${arg}`)
+            if (!res.data) return M.reply('404 Error')
+            M.reply(`
+            *Stream:* ${res.data.stream}\n
+            *Episodes:* ${res.data.download}\n
+            `)
+        } else {
+            const res = await axios.get(`https://yogapi.debanjan-san.repl.co/anime/search?term=${arg}`)
+            if (res.data.length == 0) return M.reply('404 Error')
+
+            let text = '========*ANIME*========\n\n'
+            for (let i = 0; i < res.data.length; i++) {
+                text += `*Name:* ${res.data[i].name}\n`
+                text += `*Link*: ${res.data[i].link}\n`
+                text += `${client.prefix}anime ${res.data[i].link}\n\n========================\n`
+            }
+            client.sendMessage(M.from, {
+                image: {
+                    url: res.data[0].image
+                },
+                caption: text
+            })
+        }
     }
 }

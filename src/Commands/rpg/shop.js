@@ -55,13 +55,12 @@ module.exports = {
             const price =
                 parseInt(Object.values(items[command][buyItems.indexOf(term[0].toLowerCase())]).join('')) *
                 (term[1] || 1)
-            if (cradits - price < 0)
+            if ((cradits - price) < 0)
                 return M.reply(`You dont have that much in your wallet to buy ${term[0].toLowerCase()} ${term[1] || 1}`)
             await client.rpg.add(`${M.sender}[${term[0].toLowerCase()}]`, 1 * parseInt(term[1] || 1))
             await client.cradit.sub(`${M.sender}.wallet`, price)
             M.reply(
-                `*Thank you 🎉 for your purches*\n*Now you have _${client.utils.capitalize(term[0])} : ${
-                    (await client.rpg.get(`${M.sender}[${term[0].toLowerCase()}]`)) || 0
+                `*Thank you 🎉 for your purches*\n*Now you have _${client.utils.capitalize(term[0])} : ${(await client.rpg.get(`${M.sender}[${term[0].toLowerCase()}]`)) || 0
                 }_*`
             )
         }
@@ -79,8 +78,7 @@ module.exports = {
             )
             await client.cradit.add(`${M.sender}.wallet`, price * ('all' == term[1].toLowerCase() ? itemQuantity : 1))
             M.reply(
-                `*Congratulations 🎉 you have gained ${price} by selling ${
-                    'all' == term[1].toLowerCase() ? itemQuantity : 1
+                `*Congratulations 🎉 you have gained ${price} by selling ${'all' == term[1].toLowerCase() ? itemQuantity : 1
                 } ${client.utils.capitalize(term[0])}*\n*Now you have _${await client.cradit.get(
                     `${M.sender}.wallet`
                 )}_ in your wallet*`
