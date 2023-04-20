@@ -168,11 +168,11 @@ module.exports = {
             return M.reply(`👴🏽⛏️ : I see you still have ${type}, come when your ${type} is destroyed`)
         const metalType = Object.keys(blacksmith[command])
         if (!metalType.includes(arg.trim())) return M.reply('Please give a valid type!')
-        const cradits = (await client.cradit.get(`${M.sender}.wallet`)) || 0
+        const cradits = await client.cradit.get(`${M.sender}.wallet`) || 0
         for (const less in blacksmith[command][arg.trim()].material) {
             if ((cradits - blacksmith[command][[arg.trim()]].durability * 5) < 0)
                 return M.reply('You dont have that much in your wallet')
-            let item = (await client.rpg.get(`${M.sender}[${less}]`)) || 0
+            let item = await client.rpg.get(`${M.sender}[${less}]`) || 0
             if ((item - blacksmith[command][[arg.trim()]].material[less]) < 0) {
                 return M.reply(`You are short of ${less}\n`)
             } else {
