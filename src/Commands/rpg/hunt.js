@@ -98,7 +98,7 @@ module.exports = {
                     const armor_damage = monster.requirehealth - amount_damage
                     if ((armor - monster.requirehealth) > 0) {
                         await client.rpg.sub(`${M.sender}.armor.durability`, armor_damage)
-                        await client.rpg.set(`${M.sender}.health`, health - amount_damage)
+                        await client.rpg.sub(`${M.sender}.health`, amount_damage)
                     } else {
                         const getDamage = armor_damage - armor
                         console.log(getDamage)
@@ -119,7 +119,7 @@ module.exports = {
                                     ? rewards * 8
                                     : rewards
                 await client.rpg.sub(`${M.sender}.sword.durability`, 1)
-                if (sword - 1 == 0) M.reply(`Your 🗡️ *${swordType}* broke`) && client.rpg.delete(`${M.sender}.sword`)
+                if ((sword - 1) == 0) M.reply(`Your 🗡️ *${swordType}* broke`) && client.rpg.delete(`${M.sender}.sword`)
                 await client.rpg.add(`${M.sender}.monster_valuables`, rewards_quantity)
                 M.reply(
                     `*Congratulations 🎉 you collected ${rewards_quantity} valuables from hunting monsters*\n*Now you have ❤️ _Health:_ ${await client.rpg.get(

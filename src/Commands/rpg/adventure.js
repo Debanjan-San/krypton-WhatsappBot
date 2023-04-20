@@ -32,8 +32,8 @@ module.exports = {
                 `*You have to wait ${lastadvntime.minutes} minute(s), ${lastadvntime.seconds} second(s) for another hunt*`
             )
         }
-        const level = (await client.DB.get(`${M.sender}_LEVEL`)) || 1
-        const health = (await client.rpg.get(`${M.sender}.health`)) || 100
+        const level = await client.DB.get(`${M.sender}_LEVEL`) || 1
+        const health = await client.rpg.get(`${M.sender}.health`) || 100
         const armor = await client.rpg.get(`${M.sender}.armor.durability`)
         const sword = await client.rpg.get(`${M.sender}.sword.durability`)
         if (!armor) return M.reply(`*You dont have any armor!!*`)

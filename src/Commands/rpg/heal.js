@@ -5,7 +5,7 @@ module.exports = {
     exp: 7,
     description: 'Recharges your health upto 30%',
     async execute(client, arg, M) {
-        const health = (await client.rpg.get(`${M.sender}.health`)) || 100
+        const health = await client.rpg.get(`${M.sender}.health`) || 100
         const heal_potion = await client.rpg.get(`${M.sender}.potion`)
         if (!heal_potion) return M.reply('You do not have any heal potions')
         if (health == 100) return M.reply('Your ❤️health is full! You do not need to heal!!')
