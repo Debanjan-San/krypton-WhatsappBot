@@ -178,9 +178,9 @@ module.exports = {
             } else {
                 await client.rpg.set(`${M.sender}[${type}].type`, arg.trim())
                 await client.rpg.set(`${M.sender}[${type}].durability`, blacksmith[command][arg.trim()].durability)
-                await client.rpg.set(
+                await client.rpg.sub(
                     `${M.sender}[${less}]`,
-                    item - blacksmith[command][[arg.trim()]].material[less] * 1
+                    blacksmith[command][[arg.trim()]].material[less] * 1
                 )
                 return M.reply(
                     `👴🏽⛏️ : Looks like I managed to make your ${arg.trim()} ${type} with durability ${blacksmith[command][arg.trim()].durability
