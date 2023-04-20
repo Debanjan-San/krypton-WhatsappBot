@@ -98,7 +98,7 @@ module.exports = {
                     const armor_damage = monster.requirehealth - amount_damage
                     if ((armor - monster.requirehealth) > 0) {
                         await client.rpg.sub(`${M.sender}.armor.durability`, armor_damage)
-                        await client.rpg.set(`${M.sender}.health`, health - amount_damage)
+                        await client.rpg.sub(`${M.sender}.health`, amount_damage)
                     } else {
                         const getDamage = armor_damage - armor
                         console.log(getDamage)
