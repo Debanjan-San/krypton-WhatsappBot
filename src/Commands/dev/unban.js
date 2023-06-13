@@ -4,7 +4,7 @@ module.exports = {
     exp: 0,
     category: 'dev',
     description: 'unans the taged user',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
         if (!M.mentions.length) return M.reply('You must tag the user before using!')
         const banned = (await client.DB.get('banned')) || []

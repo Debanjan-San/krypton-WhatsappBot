@@ -7,7 +7,7 @@ module.exports = {
     exp: 10,
     category: 'fun',
     description: 'Checks on user',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const text = arg.trim()
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
         if (command == 'checkuser' || command == 'cu')

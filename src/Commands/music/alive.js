@@ -4,7 +4,7 @@ module.exports = {
     category: 'music',
     exp: 0,
     description: 'Testing stuff',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         M.reply(
             `Everything is working ${
                 (await client.contact.getContact(M.sender, client)).username

@@ -7,7 +7,7 @@ module.exports = {
     category: 'media',
     exp: 5,
     description: 'Downloads given YT Video and sends it as Audio',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const link = async (term) => {
             const { videos } = await yts(term.trim())
             if (!videos || !videos.length) return null

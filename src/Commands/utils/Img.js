@@ -4,7 +4,7 @@ module.exports = {
     category: 'utils',
     exp: 10,
     description: 'Converts sticker to image/gif',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!M.quoted || (M.quoted && M.quoted.mtype !== 'stickerMessage'))
             return M.reply('*Quote the sticker that you want to convert, Baka!*')
         const buffer = await M.quoted.download()

@@ -6,7 +6,7 @@ module.exports = {
     category: 'fun',
     exp: 10,
     description: 'Sends random quotes',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         await axios
             .get(`https://animechan.vercel.app/api/random`)
             .then((response) => {

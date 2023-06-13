@@ -6,7 +6,7 @@ module.exports = {
     category: 'utils',
     exp: 7,
     description: 'Searches gif',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
         const res = await axios.get(`https://g.tenor.com/v1/search?q=${arg}&key=LIVDSRZULELA&limit=8`).catch(() => null)
         if (!res.data) return M.reply('Could not find')

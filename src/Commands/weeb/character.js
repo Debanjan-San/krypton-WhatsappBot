@@ -6,7 +6,7 @@ module.exports = {
     category: 'weeb',
     exp: 5,
     description: 'Gives you the info of a character from anime',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
         const chara = await axios.get(`https://api.jikan.moe/v4/characters?q=${arg}`)
         if (chara.data.data.length == 0) return M.reply('404 Error could not find the given term')

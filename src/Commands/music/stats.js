@@ -6,7 +6,7 @@ module.exports = {
     category: 'music',
     exp: 8,
     description: 'Bot Stats',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         let cpus = os.cpus(),
             text =
                 `*Server:*\n\n- Nodejs: ${process.version}\n- Memory: ${

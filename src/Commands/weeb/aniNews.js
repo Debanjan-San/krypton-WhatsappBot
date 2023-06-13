@@ -6,7 +6,7 @@ module.exports = {
     category: 'weeb',
     exp: 15,
     description: 'Gives you news about anime',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         try {
             const news = await new NEWS.ANN().fetchNewsFeeds()
             for (let i = 0; i < 5; i++) {

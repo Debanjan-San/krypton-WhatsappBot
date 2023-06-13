@@ -6,7 +6,7 @@ module.exports = {
     category: 'fun',
     exp: 9,
     description: 'Gives you tuth and dare',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
         const Available = ['truth', 'dare']
         if (!Available.includes(arg.trim()))

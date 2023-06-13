@@ -6,7 +6,7 @@ module.exports = {
     category: 'weeb',
     exp: 4,
     description: 'Gives you the list of trending anime',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const res = await axios.get(`https://api.consumet.org/meta/anilist/trending`)
         const trends = res.data.results
         for (let i = 0; i < trends.length; i++) {

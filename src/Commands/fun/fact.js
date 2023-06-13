@@ -6,7 +6,7 @@ module.exports = {
     category: 'fun',
     exp: 5,
     description: 'Sends random facts',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         await axios
             .get(`https://nekos.life/api/v2/fact`)
             .then((response) => {

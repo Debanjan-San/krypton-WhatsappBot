@@ -4,7 +4,7 @@ module.exports = {
     category: 'weeb',
     exp: 5,
     description: 'Summons a random anime character to marry',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const result = await client.utils.fetch('https://reina-api.vercel.app/api/mwl/random')
         let text = '========*HAIGUSHA*========\n'
         text += `*Name:* ${result.data.name}\n`

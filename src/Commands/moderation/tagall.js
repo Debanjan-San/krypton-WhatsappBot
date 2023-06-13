@@ -4,7 +4,7 @@ module.exports = {
     exp: 18,
     category: 'moderation',
     description: 'Tag all the users present in the group',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants.map((x) => x.id) || []
         const groupAdmins = groupMetadata.participants.filter((x) => x.admin).map((x) => x.id)

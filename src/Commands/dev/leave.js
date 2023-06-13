@@ -4,7 +4,7 @@ module.exports = {
     category: 'dev',
     exp: 0,
     description: 'Bot leaves the group',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         client.groupLeave(M.from).catch((res) => M.reply('Something went wrong please check the link'))
     }
 }

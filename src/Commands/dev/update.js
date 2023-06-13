@@ -7,7 +7,7 @@ module.exports = {
     category: 'dev',
     exp: 0,
     description: 'Updates gives the list of latest commits and updatenow updates the bot',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
         await git.fetch()
         const commits = await git.log(['main' + '..origin/' + 'main'])

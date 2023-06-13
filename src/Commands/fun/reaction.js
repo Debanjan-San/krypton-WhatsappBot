@@ -15,12 +15,12 @@ module.exports = {
     category: 'fun',
     aliases: ['r', ...reactions],
     exp: 50,
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const text = arg.trim()
         const command = M.body.split(' ')[0].toLowerCase().slice(client.prefix.length).trim()
-        let flag = true
-        if (command === 'r' || command === 'reaction') flag = false
-        if (!flag && !text) {
+        let raw = true
+        if (command === 'r' || command === 'reaction') raw = false
+        if (!raw && !text) {
             const reactionList = `🎃 *Available Reactions:*\n\n- ${reactions
                 .map((reaction) => client.utils.capitalize(reaction))
                 .join('\n- ')}\n🛠️ *Usage:* ${client.prefix}reaction (reaction) [tag/quote user] | ${
@@ -28,8 +28,8 @@ module.exports = {
             }(reaction) [tag/quote user]\nExample: ${client.prefix}pat`
             return await M.reply(reactionList)
         }
-        const reaction = flag ? command : text.split(' ')[0].trim().toLowerCase()
-        if (!flag && !reactions.includes(reaction))
+        const reaction = raw ? command : text.split(' ')[0].trim().toLowerCase()
+        if (!raw && !reactions.includes(reaction))
             return M.reply(`Invalid reaction. Use *${client.prefix}react* to see all of the available reactions`)
         const users = M.mentions
         if (M.quoted && !users.includes(M.quoted.sender)) users.push(M.quoted.sender)

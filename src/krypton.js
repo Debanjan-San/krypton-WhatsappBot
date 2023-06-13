@@ -2,11 +2,9 @@ require('dotenv').config()
 const {
     default: Baileys,
     DisconnectReason,
-    useSingleFileAuthState,
-    fetchLatestBaileysVersion,
-    makeInMemoryStore,
-    delay
-} = require('@adiwajshing/baileys')
+    useMultiFileAuthState,
+    fetchLatestBaileysVersion
+} = require('@whiskeysockets/baileys')
 const { QuickDB } = require('quick.db')
 const { MongoDriver } = require('quickmongo')
 const { Collection } = require('discord.js')
@@ -14,26 +12,20 @@ const MessageHandler = require('./Handlers/Message')
 const EventsHandler = require('./Handlers/Events')
 const contact = require('./lib/contacts')
 const utils = require('./lib/function')
-const AI_lib = require('./lib/AI_lib')
+const openai = require('./lib/AI_lib')
 const app = require('express')()
 const qr = require('qr-image')
-const mongoose = require('mongoose')
 const P = require('pino')
-const axios = require('axios')
 const { Boom } = require('@hapi/boom')
 const { join } = require('path')
-const { readdirSync, unlink, writeFileSync } = require('fs-extra')
+const { readdirSync, unlink } = require('fs-extra')
 const port = process.env.PORT || 3000
 const driver = new MongoDriver(process.env.URL)
 const chalk = require('chalk')
 
 const start = async () => {
-    if (process.env.SESSION) {
-        const { data } = await axios.get(process.env.SESSION)
-        writeFileSync('./session.json', JSON.stringify(data))
-    }
-    const { state, saveState } = useSingleFileAuthState('./session.json')
-    const clearState = () => unlink('./session.json')
+    const { state, saveCreds } = await useMultiFileAuthState('session')
+    const clearState = () => unlink('session')
 
     const client = Baileys({
         version: (await fetchLatestBaileysVersion()).version,
@@ -60,16 +52,10 @@ const start = async () => {
     client.contact = contact
 
     //Open AI
-    client.AI = AI_lib
+    client.AI = openai
 
     //Experience
     client.exp = client.DB.table('experience')
-
-    //Cradits
-    client.cradit = client.DB.table('cradit')
-
-    //RPG
-    client.rpg = client.DB.table('rpg_game')
 
     //Commands
     client.cmd = new Collection()
@@ -89,9 +75,10 @@ const start = async () => {
                 for (let file of commandFiles) {
                     const command = require(join(rootDir, $dir, file))
                     client.cmd.set(command.name, command)
+                    client.log(`Loaded: ${command.name.toUpperCase()} from ${file}`)
                 }
             })
-            client.log('Commands loaded!')
+            client.log(`Successfully Loaded Commands`)
         }
         readCommand(join(__dirname, '.', 'Commands'))
     }
@@ -107,18 +94,18 @@ const start = async () => {
         if (connection === 'close') {
             const { statusCode } = new Boom(lastDisconnect?.error).output
             if (statusCode !== DisconnectReason.loggedOut) {
-                client.log('Connecting...')
+                console.log('Connecting...')
                 setTimeout(() => start(), 3000)
             } else {
-                client.log('Disconnected.', true)
+                console.log('Disconnected.', true)
                 clearState()
-                client.log('Starting...')
+                console.log('Starting...')
                 setTimeout(() => start(), 3000)
             }
         }
         if (connection === 'connecting') {
             client.state = 'connecting'
-            client.log('Connecting to WhatsApp...')
+            console.log('Connecting to WhatsApp...')
         }
         if (connection === 'open') {
             client.state = 'open'
@@ -137,7 +124,7 @@ const start = async () => {
 
     client.ev.on('contacts.update', async (update) => await contact.saveContacts(update, client))
 
-    client.ev.on('creds.update', saveState)
+    client.ev.on('creds.update', saveCreds)
     return client
 }
 

@@ -4,7 +4,7 @@ module.exports = {
     exp: 10,
     category: 'moderation',
     description: 'Deactivate certain features on group-chats',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const toggleableGroupActions = ['mod', 'events', 'invitelink', 'chatbot', 'nsfw']
         if (!arg)
             return M.reply(

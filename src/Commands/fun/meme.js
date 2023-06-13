@@ -6,7 +6,7 @@ module.exports = {
     category: 'fun',
     exp: 16,
     description: 'Sends an image of random meme',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const res = await axios.get(`https://meme-api.com/gimme`).catch((err) => {
             return M.reply(err.toString())
         })

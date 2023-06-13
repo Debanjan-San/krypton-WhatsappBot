@@ -6,7 +6,7 @@ module.exports = {
     category: 'utils',
     exp: 10,
     description: 'steal [quote message containing sticker] <pack> | <author>',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const content = JSON.stringify(M.quoted)
         const isQuotedSticker = M.type === 'extendedTextMessage' && content.includes('stickerMessage')
 

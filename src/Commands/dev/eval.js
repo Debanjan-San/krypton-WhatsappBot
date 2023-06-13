@@ -4,7 +4,7 @@ module.exports = {
     category: 'dev',
     exp: 0,
     description: 'Evaluates JavaScript',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('Sorry you did not give term!')
         let out = ''
         try {

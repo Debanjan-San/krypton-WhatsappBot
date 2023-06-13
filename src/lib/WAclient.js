@@ -1,9 +1,8 @@
-const { proto, getContentType, jidDecode, downloadContentFromMessage } = require('@adiwajshing/baileys')
-const Bluebird = require('bluebird')
+const { proto, getContentType, jidDecode, downloadContentFromMessage } = require('@whiskeysockets/baileys')
 
 const decodeJid = (jid) => {
-  const { user, server } = jidDecode(jid) || {}
-  return (user && server) ? `${user}@${server}`.trim() : jid
+    const { user, server } = jidDecode(jid) || {}
+    return user && server ? `${user}@${server}`.trim() : jid
 }
 
 /**
@@ -135,6 +134,8 @@ function serialize(msg, client) {
                 }
             )
         msg.download = () => downloadMedia(msg.message)
+        msg.numbers = client.utils.extractNumbers(msg.body)
+        msg.urls = client.utils.extractUrls(msg.body)
     }
     return msg
 }

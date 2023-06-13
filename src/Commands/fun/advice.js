@@ -6,7 +6,7 @@ module.exports = {
     category: 'fun',
     exp: 5,
     description: 'Sends random advices',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         await axios
             .get(`https://api.adviceslip.com/advice`)
             .then((response) => {

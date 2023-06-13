@@ -4,7 +4,7 @@ module.exports = {
     exp: 10,
     category: 'moderation',
     description: 'Promotes the taged user',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!M.mentions.length) return M.reply('You must tag the user before using!')
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants || []

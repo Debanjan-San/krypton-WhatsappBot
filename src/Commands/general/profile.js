@@ -6,7 +6,7 @@ module.exports = {
     category: 'general',
     exp: 5,
     description: 'Gives you your stats',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)

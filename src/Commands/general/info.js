@@ -4,7 +4,7 @@ module.exports = {
     category: 'general',
     exp: 0,
     description: 'Get information bot information',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         //console.log(M.mentions.includes((client.user.id).split(':')[0] + '@s.whatsapp.net'))
         //console.log((client.user.id).split(':')[0] + '@s.whatsapp.net')
         const pad = (s) => (s < 10 ? '0' : '') + s
@@ -17,9 +17,9 @@ module.exports = {
         const uptime = formatTime(process.uptime())
         //client.contactDB
         M.reply(
-            `🚦 *UPTIME:* ${uptime}\n\n📛 *USERS:* ${
+            `💚 *UPTIME:* ${uptime}\n\🌃 *USERS:* ${
                 Object.values(await client.contactDB.all()).length
-            }\n\n🔰 *COMMANDS:* ${client.cmd.size}`
+            }\n\n🧧 *COMMANDS:* ${client.cmd.size}`
         )
     }
 }

@@ -6,14 +6,16 @@ module.exports = {
     category: 'media',
     exp: 5,
     description: 'Downloads given spotify track and sends it as Audio',
-    async execute(client, arg, M) {
-        if (!arg) return M.reply('Please use command with a valid youtube.com link')
-        const audioSpotify = await spotifydl(arg.trim()).catch((err) => {
+    async execute(client, flag, arg, M) {
+        const link = M.urls[0]
+        if (!link.includes('https://open.spotify.com/track/'))
+            return M.reply('Please use command with a valid youtube.com link')
+        const audioSpotify = await spotifydl(link.trim()).catch((err) => {
             return M.reply(err.toString())
             client.log(err, 'red')
         })
 
-        if (spotifydl.error) return M.reply(`Error Fetching: ${arg.trim()}. Check if the url is valid and try again`)
+        if (spotifydl.error) return M.reply(`Error Fetching: ${link.trim()}. Check if the url is valid and try again`)
         M.reply('Downloading has started please have some pesence')
 
         const caption = `🎧 *Title:* ${audioSpotify.data.name || ''}\n🎤 *Artists:* ${(

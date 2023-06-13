@@ -1,7 +1,7 @@
 const axios = require('axios').default
 const { tmpdir } = require('os')
 const { promisify } = require('util')
-const moment = require('moment-timezone')
+const linkify = require('linkifyjs')
 const FormData = require('form-data')
 const { load } = require('cheerio')
 const { exec } = require('child_process')
@@ -105,6 +105,20 @@ const extractNumbers = (content) => {
     const search = content.match(/(-\d+|\d+)/g)
     if (search !== null) return search.map((string) => parseInt(string)) || []
     return []
+}
+
+/**
+ * @param {string} content
+ * @returns {url[]}
+ */
+
+const extractUrls = (content) => {
+    const urls = linkify.find(content)
+    const arr = []
+    for (const url of urls) {
+        arr.push(url.value)
+    }
+    return arr
 }
 
 /**
@@ -230,6 +244,7 @@ module.exports = {
     fetch,
     formatSize,
     removeBG,
+    extractUrls,
     generateCreditCardImage,
     generateRandomHex,
     getBuffer,

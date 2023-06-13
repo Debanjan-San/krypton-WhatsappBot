@@ -4,7 +4,7 @@ module.exports = {
     category: 'dev',
     exp: 0,
     description: 'Will make a broadcast for groups where the bot is in. Can be used to make announcements',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('No query provided!')
         const getGroups = await client.groupFetchAllParticipating()
         const groups = Object.entries(getGroups)
@@ -17,10 +17,6 @@ module.exports = {
             const groupMembers = groupMetadata?.participants.map((x) => x.id) || []
             const text = `🔰*「 ${client.name.toUpperCase()} BROADCAST 」*🔰\n\n🏮 Message: ${arg}`
             await client.sendMessage(i, {
-                video: {
-                    url: 'https://media.tenor.com/AtXbqlrwklIAAAPo/anime-tv.mp4'
-                },
-                gifPlayback: true,
                 mentions: groupMembers,
                 caption: `${text}`
             })

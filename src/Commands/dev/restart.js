@@ -4,7 +4,7 @@ module.exports = {
     category: 'dev',
     exp: 0,
     description: 'Restarts the bot',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         M.reply('Restarting...')
         await client.utils.restart()
     }

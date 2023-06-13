@@ -6,7 +6,7 @@ module.exports = {
     category: 'utils',
     exp: 7,
     description: 'Sends an image of a random waifu',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any search term!')
         const nsfw = (await client.DB.get('nsfw')) || []
         const res = await axios.get(`https://meme-api.com/gimme/${arg}`)

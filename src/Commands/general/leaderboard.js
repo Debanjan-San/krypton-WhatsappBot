@@ -6,35 +6,20 @@ module.exports = {
     aliases: ['lb'],
     category: 'general',
     exp: 5,
-    description: "Displays global's or group's leaderboord of a specific field\nEx: lb gold gc",
-    async execute(client, arg, M) {
-        const group = ['gc', 'group']
-        const economy = ['gold', 'economy']
-        const term = arg.split(' ')
+    description: "Displays global's or group's leaderboord of a specific field\nEx: lb --gc",
+    async execute(client, flag, arg, M) {
+        const group = ['--gc', '--group']
         const groupMetadata = await client.groupMetadata(M.from)
         const groupMembers = groupMetadata?.participants.map((x) => x.id.split('.whatsapp.net')[0]) || []
-        const users = !economy.includes(term[0])
-            ? Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net })) || []
-            : Object.values(await client.cradit.all()).map((x) => ({
-                  user: x.id,
-                  wallet: x.value.whatsapp.net.wallet || 0,
-                  bank: x.value.whatsapp.net.bank || 0
-              }))
-        const sortUsers = !economy.includes(term[0])
-            ? sortArray(users, {
-                  by: 'xp',
-                  order: 'desc'
-              })
-            : sortArray(users, {
-                  by: 'total',
-                  order: 'desc',
-                  computed: {
-                      total: (cradit) => cradit.wallet + cradit.bank
-                  }
-              })
-        const leaderboard = group.includes(term[1] || arg)
-            ? sortUsers.filter((x) => groupMembers.includes(x.user))
-            : sortUsers
+        const users = Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net }))
+        const sortUsers = sortArray(users, {
+            by: 'total',
+            order: 'desc',
+            computed: {
+                total: (cradit) => cradit.wallet + cradit.bank
+            }
+        })
+        const leaderboard = group.includes(flag) ? sortUsers.filter((x) => groupMembers.includes(x.user)) : sortUsers
 
         if (leaderboard.length < 10) return M.reply('Sorry there is no enough users to create a leaderboard')
         const myPosition = leaderboard.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
@@ -51,9 +36,7 @@ module.exports = {
             text += `🏮 *Username: ${username}*#${leaderboard[i].user.substring(
                 3,
                 7
-            )}\n〽️ *Level: ${level}*\n⭐ *Exp: ${experience}*\n💫 *Rank: ${rank}* ${
-                economy.includes(term[0]) ? `\n💰 *Cradit: ${leaderboard[i].wallet + leaderboard[i].bank}*` : ''
-            }`
+            )}\n〽️ *Level: ${level}*\n⭐ *Exp: ${experience}*\n💫 *Rank: ${rank}*`
         }
 
         client.sendMessage(
@@ -71,4 +54,3 @@ module.exports = {
         )
     }
 }
-//M.quoted.mtype === 'imageMessage',

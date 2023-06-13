@@ -4,7 +4,7 @@ module.exports = {
     category: 'utils',
     exp: 5,
     description: 'Let you chat with GPT chat bot',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         if (!arg) return M.reply('Sorry you did not give any term!')
         if (!client.writesonicAPI) return M.reply('You did not provided any api key for OpenAI useage!')
         await client.AI.WriteSonic_gpt(arg)

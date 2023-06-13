@@ -7,7 +7,7 @@ module.exports = {
     category: 'fun',
     exp: 5,
     description: 'Ship People! ♥',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const shipArray = []
         let users = M.mentions
         if (M.quoted && !users.includes(M.quoted.participant)) users.push(M.quoted.participant)

@@ -6,7 +6,7 @@ module.exports = {
     category: 'weeb',
     exp: 10,
     description: 'Sends an image of random neko',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const res = await axios.get(`https://api.waifu.pics/sfw/neko`).catch((err) => {
             return M.reply(err.toString())
             client.log(err, 'red')

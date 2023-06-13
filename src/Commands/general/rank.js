@@ -7,7 +7,7 @@ module.exports = {
     category: 'general',
     exp: 5,
     description: 'Gives you your rank',
-    async execute(client, arg, M) {
+    async execute(client, flag, arg, M) {
         const user = M.quoted?.participant ? M.quoted.participant : M.mentions[0] ? M.mentions[0] : M.sender
 
         let pfp
