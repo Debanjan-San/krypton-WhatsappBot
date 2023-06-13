@@ -114,11 +114,7 @@ const extractNumbers = (content) => {
 
 const extractUrls = (content) => {
     const urls = linkify.find(content)
-    const arr = []
-    for (const url of urls) {
-        arr.push(url.value)
-    }
-    return arr
+    return urls.map(url => url.value)
 }
 
 /**
