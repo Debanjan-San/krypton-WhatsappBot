@@ -3,7 +3,7 @@ const getContact = async (jid, client) => {
     const contact = await client.contactDB.get(jid)
 
     // If the contact exists, return their name, otherwise return "User"
-    const username = contact?.name ?? 'User'
+    const username = contact ?? 'User'
 
     return { username, jid }
 }
