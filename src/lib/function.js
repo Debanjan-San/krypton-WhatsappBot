@@ -59,7 +59,7 @@ const removeBG = async (input) => {
  * Copyright by (AliAryanTech), give credit!
  * @param {string} cardName
  * @param {string} expiryDate
- * @returns {Promise<Buffer}
+ * @returns {Promise<Buffer>}
  */
 
 const generateCreditCardImage = (cardName, expiryDate) => {
@@ -102,9 +102,8 @@ const generateRandomHex = () => `#${(~~(Math.random() * (1 << 24))).toString(16)
  */
 
 const extractNumbers = (content) => {
-    const search = content.match(/(-\d+|\d+)/g)
-    if (search !== null) return search.map((string) => parseInt(string)) || []
-    return []
+    const numbers = content.match(/(-?\d+)/g)
+    return numbers ? numbers.map((n) => Math.max(parseInt(n), 0)) : []
 }
 
 /**
@@ -112,10 +111,7 @@ const extractNumbers = (content) => {
  * @returns {url[]}
  */
 
-const extractUrls = (content) => {
-    const urls = linkify.find(content)
-    return urls.map(url => url.value)
-}
+const extractUrls = (content) => linkify.find(content).map((url) => url.value)
 
 /**
  * @param {string} url
