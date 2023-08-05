@@ -1,6 +1,6 @@
 module.exports = {
     name: 'repo',
-    aliases: ['script', 'credit'],
+    aliases: ['script'],
     category: 'general',
     exp: 100,
     description: 'Get the base repo of the bot',
@@ -10,7 +10,7 @@ module.exports = {
             'https://api.github.com/repos/Debanjan-San/krypton-WhatsappBot'
         )
         let caption = ''
-        caption += `*${result.name}* ✨\n`
+        caption += `*${result.name}* ✨\n\n`
         caption += `✍🏻 *Author: ${result.owner.login}*\n`
         caption += `⭐ *Star's: ${result.stargazers_count}*\n`
         caption += `🍴 *Forks: ${result.forks_count}*\n`
