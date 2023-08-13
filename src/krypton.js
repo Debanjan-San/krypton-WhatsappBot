@@ -14,23 +14,23 @@ const contact = require('./lib/contacts')
 const utils = require('./lib/function')
 const openai = require('./lib/AI_lib')
 const app = require('express')()
-const qr = require('qr-image')
+const chalk = require('chalk')
 const P = require('pino')
 const { Boom } = require('@hapi/boom')
 const { join } = require('path')
+const { imageSync } = require('qr-image')
 const { readdirSync, unlink } = require('fs-extra')
 const port = process.env.PORT || 3000
 const driver = new MongoDriver(process.env.URL)
-const chalk = require('chalk')
 
 const start = async () => {
     const { state, saveCreds } = await useMultiFileAuthState('session')
-    const clearState = () => unlink('session')
 
     const client = Baileys({
         version: (await fetchLatestBaileysVersion()).version,
         auth: state,
         logger: P({ level: 'silent' }),
+        browser: ['krypton-WhatsappBot', 'silent', '4.0.0'],
         printQRInTerminal: true
     })
 
@@ -63,6 +63,24 @@ const start = async () => {
     //Utils
     client.utils = utils
 
+    client.messagesMap = new Map()
+
+    /**
+     * @returns {Promise<string[]>}
+     */
+
+    client.getAllGroups = async () => Object.keys(await client.groupFetchAllParticipating())
+
+    /**
+     * @returns {Promise<string[]>}
+     */
+
+    client.getAllUsers = async () => {
+        const data = (await client.contactDB.all()).map((x) => x.id)
+        const users = data.filter((element) => /^\d+@s$/.test(element)).map((element) => `${element}.whatsapp.net`)
+        return users
+    }
+
     //Colourful
     client.log = (text, color = 'green') =>
         color ? console.log(chalk.keyword(color)(text)) : console.log(chalk.green(text))
@@ -78,7 +96,7 @@ const start = async () => {
                     client.log(`Loaded: ${command.name.toUpperCase()} from ${file}`)
                 }
             })
-            client.log(`Successfully Loaded Commands`)
+            client.log('Successfully Loaded Commands')
         }
         readCommand(join(__dirname, '.', 'Commands'))
     }
@@ -89,7 +107,7 @@ const start = async () => {
         if (update.qr) {
             client.log(`[${chalk.red('!')}]`, 'white')
             client.log(`Scan the QR code above | You can also authenicate in http://localhost:${port}`, 'blue')
-            client.QR = qr.imageSync(update.qr)
+            client.QR = imageSync(update.qr)
         }
         if (connection === 'close') {
             const { statusCode } = new Boom(lastDisconnect?.error).output
@@ -97,8 +115,8 @@ const start = async () => {
                 console.log('Connecting...')
                 setTimeout(() => start(), 3000)
             } else {
-                console.log('Disconnected.', true)
-                clearState()
+                client.log('Disconnected.', 'red')
+                await unlink('session')
                 console.log('Starting...')
                 setTimeout(() => start(), 3000)
             }
@@ -110,7 +128,7 @@ const start = async () => {
         if (connection === 'open') {
             client.state = 'open'
             loadCommands()
-            client.log('🤖 Krypton Bot is ready!!')
+            client.log('Connected to WhatsApp')
         }
     })
 
