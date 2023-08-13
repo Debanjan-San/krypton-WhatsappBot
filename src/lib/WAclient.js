@@ -57,7 +57,7 @@ function serialize(msg, client) {
             msg.message = msg.message[msg.type].message
             msg.type = getContentType(msg.message)
         }
-
+        msg.messageTypes = (type) => ['videoMessage', 'imageMessage'].includes(type)
         msg.mentions = []
         const array = msg?.message?.[msg.type]?.contextInfo?.mentionedJid || []
         msg.mentions.push(...array.filter(Boolean))
