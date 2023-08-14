@@ -22,6 +22,8 @@ const getBuffer = async (url) =>
         })
     ).data
 
+const formatSeconds = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 8)
+
 /**
  * @param {string} content
  * @param {boolean} all
@@ -233,6 +235,7 @@ module.exports = {
     capitalize,
     execute,
     extractNumbers,
+    formatSeconds,
     fetch,
     formatSize,
     removeBG,
