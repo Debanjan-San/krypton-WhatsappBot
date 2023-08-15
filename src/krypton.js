@@ -19,7 +19,7 @@ const P = require('pino')
 const { Boom } = require('@hapi/boom')
 const { join } = require('path')
 const { imageSync } = require('qr-image')
-const { readdirSync, unlink } = require('fs-extra')
+const { readdirSync, remove } = require('fs-extra')
 const port = process.env.PORT || 3000
 const driver = new MongoDriver(process.env.URL)
 
@@ -116,7 +116,7 @@ const start = async () => {
                 setTimeout(() => start(), 3000)
             } else {
                 client.log('Disconnected.', 'red')
-                await unlink('session')
+                await remove('session')
                 console.log('Starting...')
                 setTimeout(() => start(), 3000)
             }
