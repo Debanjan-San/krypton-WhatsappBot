@@ -1,4 +1,4 @@
-const { getStats } = require('../../library/stats')
+const { getStats } = require('../../Library/stats')
 const cx = require('canvacord')
 
 module.exports.execute = async (client, flag, arg, M) => {

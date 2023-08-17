@@ -1,5 +1,5 @@
-const { serialize } = require('../helper/WAclient')
-const { getStats } = require('../library/stats')
+const { serialize } = require('../Helper/WAclient')
+const { getStats } = require('../Library/stats')
 const chalk = require('chalk')
 const emojiStrip = require('emoji-strip')
 const axios = require('axios')

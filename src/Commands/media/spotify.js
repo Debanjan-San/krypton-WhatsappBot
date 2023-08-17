@@ -1,4 +1,4 @@
-const { spotifydl } = require('../../library/Spotify')
+const { spotifydl } = require('../../Library/Spotify')
 
 module.exports.execute = async (client, flag, arg, M) => {
     const link = M.urls[0]

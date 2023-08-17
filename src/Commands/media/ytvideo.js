@@ -1,4 +1,4 @@
-const YT = require('../../library/YT')
+const YT = require('../../Library/YT')
 const yts = require('yt-search')
 
 module.exports.execute = async (client, flag, arg, M) => {

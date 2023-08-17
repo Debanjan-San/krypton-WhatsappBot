@@ -1,4 +1,4 @@
-const { getStats } = require('../../library/stats')
+const { getStats } = require('../../Library/stats')
 
 module.exports.execute = async (client, flag, arg, M) => {
     const groupMetadata = await client.groupMetadata(M.from)
