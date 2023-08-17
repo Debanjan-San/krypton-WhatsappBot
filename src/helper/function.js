@@ -22,8 +22,6 @@ const getBuffer = async (url) =>
         })
     ).data
 
-const formatSeconds = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 8)
-
 /**
  * @param {string} content
  * @param {boolean} all
@@ -37,6 +35,8 @@ const capitalize = (content, all = false) => {
         .map((text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`)
         .join('')}`
 }
+
+const formatSeconds = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 8)
 
 /**
  * @param {Buffer} input

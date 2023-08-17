@@ -1,5 +1,5 @@
-const { serialize } = require('../lib/WAclient')
-const { getStats } = require('../lib/stats')
+const { serialize } = require('../helper/WAclient')
+const { getStats } = require('../library/stats')
 const chalk = require('chalk')
 const emojiStrip = require('emoji-strip')
 const axios = require('axios')
@@ -16,10 +16,8 @@ module.exports = MessageHandler = async (messages, client) => {
         const { isGroup, sender, from, body } = M
         const gcMeta = isGroup ? await client.groupMetadata(from) : ''
         const gcName = isGroup ? gcMeta.subject : ''
-        const args = body.trim().split(/ +/).slice(1)
-        const isCmd = body.startsWith(client.prefix)
-        const cmdName = body.slice(client.prefix.length).trim().split(/ +/).shift().toLowerCase()
-        const arg = body.replace(cmdName, '').slice(1).trim()
+        const isCmd = body.startsWith(client.config.prefix)
+        const [cmdName, arg, ...args] = body.replace(client.config.prefix, '').split(' ')
         const flag = args.filter((arg) => arg.startsWith('--'))
         const groupMembers = gcMeta?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
@@ -31,7 +29,7 @@ module.exports = MessageHandler = async (messages, client) => {
         await antilink(client, M, groupAdmins, ActivateMod, isGroup, sender, body, from)
 
         //Banned system
-        if (banned.includes(sender)) return M.reply('You are banned from using the bot')
+        if (banned.includes(sender)) return M.reply('🟥 *You are banned from using the bot*')
 
         //Ai chat
         await ai_chat(client, M, isGroup, isCmd, ActivateChatBot, body, from)
@@ -39,7 +37,7 @@ module.exports = MessageHandler = async (messages, client) => {
         // Logging Message
         client.log(
             `${chalk[isCmd ? 'red' : 'green'](`${isCmd ? '~EXEC' : '~RECV'}`)} ${
-                isCmd ? `${client.prefix}${cmdName}` : 'Message'
+                isCmd ? `${client.config.prefix}${cmdName}` : 'Message'
             } ${chalk.white('from')} ${M.pushName} ${chalk.white('in')} ${isGroup ? gcName : 'DM'} ${chalk.white(
                 `args: [${chalk.blue(args.length)}]`
             )}`,
@@ -48,16 +46,21 @@ module.exports = MessageHandler = async (messages, client) => {
 
         if (!isCmd) return
         const command =
-            client.cmd.get(cmdName) || client.cmd.find((cmd) => cmd.aliases && cmd.aliases.includes(cmdName))
+            client.cmd.get(cmdName) ||
+            client.cmd.find((cmd) => cmd.command.aliases && cmd.command.aliases.includes(cmdName))
 
-        if (!command) return M.reply('No such command found! BAKA')
-        if (!groupAdmins.includes(sender) && command.category == 'moderation')
-            return M.reply('This command can only be used by group or community admins')
-        if (!groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') && command.category == 'moderation')
-            return M.reply('This command can only be used when bot is admin')
-        if (!isGroup && command.category == 'moderation') return M.reply('This command is ment to use in groups')
-        if (!client.mods.includes(sender.split('@')[0]) && command.category == 'dev')
-            return M.reply('This command only can be accessed by the mods')
+        if (!command) return M.reply('💔 *No such command found! BAKA*')
+        if (!groupAdmins.includes(sender) && command.command.category == 'moderation')
+            return M.reply('🟨 *User Missing Admin Permission*')
+        if (
+            !groupAdmins.includes(client.user.id.split(':')[0] + '@s.whatsapp.net') &&
+            command.command.category == 'moderation'
+        )
+            return M.reply('💔 *Missing admin permission. Try promoting me to admin and try again.*')
+        if (!isGroup && command.command.category == 'moderation')
+            return M.reply('🟨 *This command and its aliases can only be used in a group chat*')
+        if (!client.config.mods.includes(sender.split('@')[0]) && command.command.category == 'dev')
+            return M.reply('📛 *This command only can be accessed by the mods*')
         command.execute(client, flag, arg, M)
 
         //Experiance
@@ -83,7 +86,7 @@ const antilink = async (client, M, groupAdmins, ActivateMod, isGroup, sender, bo
             if (groupCode !== groupNow) {
                 await client.sendMessage(from, { delete: M.key })
                 return await client.groupParticipantsUpdate(from, [sender], 'remove')
-                M.reply('Successfully removed an intruder!!!!')
+                M.reply('❤ *Successfully removed an intruder!!!!*')
             }
         }
     }
@@ -103,9 +106,9 @@ const ai_chat = async (client, M, isGroup, isCmd, ActivateChatBot, body, from) =
     }
 }
 
-const experience = async (client, sender, M, from, command) => {
+const experience = async (client, sender, M, from, cmd) => {
     //Will add exp according to the commands
-    await client.exp.add(sender, command.exp)
+    await client.exp.add(sender, cmd.command.exp)
 
     //Level up
     const level = (await client.DB.get(`${sender}_LEVEL`)) || 0
@@ -119,7 +122,9 @@ const experience = async (client, sender, M, from, command) => {
             video: {
                 url: 'https://media.tenor.com/msfmevhmlDAAAAPo/anime-chibi.mp4'
             },
-            caption: `Congratulations you leveled up from *${level} ---> ${level + 1}* 🎊`,
+            caption: `🎉 Congratuations! You've Leveled Up!
+
+             *${level} ---> ${level + 1}* 🎊`,
             gifPlayback: true
         },
         {

@@ -1,11 +1,13 @@
-module.exports = {
+module.exports.execute = async (client, flag, arg, M) => {
+    M.reply('Restarting...')
+    await client.utils.restart()
+}
+
+module.exports.command = {
     name: 'restart',
     aliases: ['relife'],
     category: 'dev',
     exp: 0,
-    description: 'Restarts the bot',
-    async execute(client, flag, arg, M) {
-        M.reply('Restarting...')
-        await client.utils.restart()
-    }
+    usage: '',
+    description: 'Restarts the bot'
 }

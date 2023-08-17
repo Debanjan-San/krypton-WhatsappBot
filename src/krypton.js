@@ -1,4 +1,3 @@
-require('dotenv').config()
 const {
     default: Baileys,
     DisconnectReason,
@@ -6,13 +5,14 @@ const {
     fetchLatestBaileysVersion
 } = require('@whiskeysockets/baileys')
 const { QuickDB } = require('quick.db')
+const { getConfig } = require('./getConfig')
 const { MongoDriver } = require('quickmongo')
 const { Collection } = require('discord.js')
 const MessageHandler = require('./Handlers/Message')
 const EventsHandler = require('./Handlers/Events')
-const contact = require('./lib/contacts')
-const utils = require('./lib/function')
-const openai = require('./lib/AI_lib')
+const contact = require('./helper/contacts')
+const utils = require('./helper/function')
+const openai = require('./library/AI_lib')
 const app = require('express')()
 const chalk = require('chalk')
 const P = require('pino')
@@ -35,11 +35,7 @@ const start = async () => {
     })
 
     //Config
-    client.name = process.env.NAME || 'Krypton'
-    client.prefix = process.env.PREFIX || '!'
-    client.writesonicAPI = process.env.WRITE_SONIC || null
-    client.bgAPI = process.env.BG_API_KEY || null
-    client.mods = (process.env.MODS || '').split(',')
+    client.config = getConfig()
 
     //Database
     client.DB = new QuickDB({
@@ -91,9 +87,9 @@ const start = async () => {
             readdirSync(rootDir).forEach(($dir) => {
                 const commandFiles = readdirSync(join(rootDir, $dir)).filter((file) => file.endsWith('.js'))
                 for (let file of commandFiles) {
-                    const command = require(join(rootDir, $dir, file))
-                    client.cmd.set(command.name, command)
-                    client.log(`Loaded: ${command.name.toUpperCase()} from ${file}`)
+                    const cmd = require(join(rootDir, $dir, file))
+                    client.cmd.set(cmd.command.name, cmd)
+                    client.log(`Loaded: ${cmd.command.name.toUpperCase()} from ${file}`)
                 }
             })
             client.log('Successfully Loaded Commands')
@@ -129,6 +125,7 @@ const start = async () => {
             client.state = 'open'
             loadCommands()
             client.log('Connected to WhatsApp')
+            client.log('Total Mods: ' + client.config.mods.length)
         }
     })
 
