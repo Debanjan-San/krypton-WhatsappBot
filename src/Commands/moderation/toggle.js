@@ -23,28 +23,29 @@ const settings = [
 ]
 module.exports.execute = async (client, flag, arg, M) => {
     const option = ['--true', '--false']
-    if (!option.includes(flag)) {
+
+    if (!option.includes(flag[0])) {
         return M.reply(
             `
-            🔧 *Toggle Settings*
+        🔧 *Toggle Settings* 🔧
 
             ${settings
                 .map(
                     ({ name, description }) =>
                         `🟢 *${name}* - ${description}\n\nTo turn on *${client.config.prefix}toggle ${name} --true*\nTo turn off *${client.config.prefix}toggle ${name} --false*`
                 )
-                .join('\n')}
+                .join('\n\n')}
             `
         )
     }
     if (!settings.map((x) => x.name).includes(arg)) return M.reply(`🟥 *Invalid setting*`)
     const Actives = (await client.DB.get(arg)) || []
-    if (flag === '--true') {
+    if (flag[0] === '--true') {
         if (Actives.includes(M.from)) return M.reply(`🟨 *${client.utils.capitalize(arg)} is already enabled*`)
         await client.DB.push(arg, M.from)
         return M.reply(`🟩 *Enabled "${client.utils.capitalize(arg)}"*`)
     }
-    if (flag === '--false') {
+    if (flag[0] === '--false') {
         if (!Actives.includes(M.from)) return M.reply(`🟨 *${client.utils.capitalize(arg)} is already disabled*`)
         await client.DB.pull(arg, M.from)
         return M.reply(`🟩 *Disabled "${client.utils.capitalize(arg)}"*`)

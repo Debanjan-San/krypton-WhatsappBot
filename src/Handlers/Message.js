@@ -49,7 +49,7 @@ module.exports = MessageHandler = async (messages, client) => {
             client.cmd.get(cmdName) ||
             client.cmd.find((cmd) => cmd.command.aliases && cmd.command.aliases.includes(cmdName))
 
-        if (!command) return M.reply('💔 *No such command found! BAKA*')
+        if (!command) return M.reply(`💔 *No such command found!!*`)
         if (!groupAdmins.includes(sender) && command.command.category == 'moderation')
             return M.reply('🟨 *User Missing Admin Permission*')
         if (
@@ -101,8 +101,17 @@ const ai_chat = async (client, M, isGroup, isCmd, ActivateChatBot, body, from) =
         isGroup &&
         ActivateChatBot.includes(from)
     ) {
-        const text = await axios.get(`https://api.simsimi.net/v2/?text=${emojiStrip(body)}&lc=en&cf=true`)
-        M.reply(body == 'hi' ? `Hey ${M.pushName} whats up?` : text.data.messages[0].text)
+        const msg = M.mentioned
+            ? M.mentioned
+                  .map(async (x) => `${body.replace(x, (await client.contact.getContact(x, client)).username)}`)
+                  .join(', ')
+            : body
+        const text = await axios.get(`https://hercai.onrender.com/beta/hercai?question=${encodeURI(msg)}`, {
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        M.reply(text.data.reply)
     }
 }
 
