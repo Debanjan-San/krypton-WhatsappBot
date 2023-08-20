@@ -5,32 +5,31 @@ module.exports.execute = async (client, flag, arg, M) => {
     const group = ['--gc', '--group']
     const groupMetadata = await client.groupMetadata(M.from)
     const groupMembers = groupMetadata?.participants.map((x) => x.id.split('.whatsapp.net')[0]) || []
-    const users = Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net }))
-    const sortUsers = sortArray(users, {
-        by: 'total',
-        order: 'desc',
-        computed: {
-            total: (cradit) => cradit.wallet + cradit.bank
-        }
-    })
-    const leaderboard = group.includes(flag[0]) ? sortUsers.filter((x) => groupMembers.includes(x.user)) : sortUsers
+    const all_users = Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net })) || []
+    const users = group.includes(flag[0]) ? all_users.filter((x) => groupMembers.includes(x.user)) : all_users
 
-    if (leaderboard.length < 10) return M.reply('Sorry there is no enough users to create a leaderboard')
+    const leaderboard = sortArray(users, {
+        by: 'xp',
+        order: 'desc'
+    })
+
+    if (leaderboard.length < 10) return M.reply('🟥 *Sorry there is no enough users to create a leaderboard*')
     const myPosition = leaderboard.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
-    // console.log(myPosition, M.sender)
     let text = `☆☆💥 LEADERBOARD 💥☆☆\n\n*${
         (await client.contact.getContact(M.sender, client)).username
     }'s Position is ${myPosition + 1}*`
     for (let i = 0; i < 10; i++) {
         const level = (await client.DB.get(`${leaderboard[i].user}.whatsapp.net_LEVEL`)) || 1
-        const { requiredXpToLevelUp, rank, emoji } = getStats(level)
+        const { requiredXpToLevelUp, rank } = getStats(level)
         const username = (await client.contact.getContact(leaderboard[i].user, client)).username.whatsapp.net
         const experience = (await client.exp.get(leaderboard[i].user)).whatsapp.net || 0
         text += `\n\n*>${i + 1}*\n`
         text += `🏮 *Username: ${username}*#${leaderboard[i].user.substring(
             3,
             7
-        )}\n〽️ *Level: ${level}*\n🎡 *Rank: ${rank}*\n⭐ *Exp: ${experience}*\n🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*`
+        )}\n〽️ *Level: ${level}*\n🎡 *Rank: ${rank}*\n💰 *Cradit: ${
+            leaderboard[i].wallet + leaderboard[i].bank
+        }*\n⭐ *Exp: ${experience}*\n🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*`
     }
 
     client.sendMessage(
