@@ -4,7 +4,7 @@ module.exports.execute = async (client, flag, arg, M) => {
     const groupMetadata = await client.groupMetadata(M.from)
     const groupMembers = groupMetadata?.participants || []
     const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
-    const user = M.quoted?.participant ? M.quoted.participant : M.mentions[0] ? M.mentions[0] : M.sender
+    const user = M.mentions[0] ?? M.sender
 
     let pfp
     try {
@@ -22,19 +22,19 @@ module.exports.execute = async (client, flag, arg, M) => {
     }
 
     const level = (await client.DB.get(`${user}_LEVEL`)) || 1
-    const stats = getStats(level)
+    const { requiredXpToLevelUp, rank } = getStats(level)
     const username = (await client.contact.getContact(user, client)).username
     const experience = (await client.exp.get(user)) || 0
     const banned = (await client.DB.get('banned')) || []
 
-    console.log(stats)
     let text = ''
     text += `🍥 *Username: ${username}#${user.substring(3, 7)}*\n\n`
     text += `📑 *Bio: ${bio}*\n\n`
     text += `⛩ *Number: wa.me/${user.split('@')[0]}*\n\n`
     text += `🌟 *Experience:* ${experience}*\n\n`
     text += `👑 *Level: ${level}*\n\n`
-    text += `🎡 *Rank: ${rank}*`
+    text += `🎡 *Rank: ${rank}*\n\n`
+    text += `🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*\n\n`
     text += `💮 *Admin: ${groupAdmins.includes(user) ? 'T' : 'F'}*\n\n`
     text += `🔴 *Ban: ${banned.includes(user) ? 'T' : 'F'}*`
 

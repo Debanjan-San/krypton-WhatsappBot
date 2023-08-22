@@ -5,13 +5,30 @@ module.exports.execute = async (client, flag, arg, M) => {
     const group = ['--gc', '--group']
     const groupMetadata = await client.groupMetadata(M.from)
     const groupMembers = groupMetadata?.participants.map((x) => x.id.split('.whatsapp.net')[0]) || []
-    const all_users = Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net })) || []
+    const all_users =
+        (flag[1] ?? flag[0]) === '--credit'
+            ? Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net })) || []
+            : Object.values(await client.credit.all()).map((x) => ({
+                  user: x.id,
+                  credit: x.value.whatsapp.net.credit || 0,
+                  bank: x.value.whatsapp.net.bank || 0
+              }))
+
     const users = group.includes(flag[0]) ? all_users.filter((x) => groupMembers.includes(x.user)) : all_users
 
-    const leaderboard = sortArray(users, {
-        by: 'xp',
-        order: 'desc'
-    })
+    const leaderboard =
+        (flag[1] ?? flag[0]) === '--credit'
+            ? sortArray(users, {
+                  by: 'xp',
+                  order: 'desc'
+              })
+            : sortArray(users, {
+                  by: 'total',
+                  order: 'desc',
+                  computed: {
+                      total: (x) => x.credit + x.bank
+                  }
+              })
 
     if (leaderboard.length < 10) return M.reply('🟥 *Sorry there is no enough users to create a leaderboard*')
     const myPosition = leaderboard.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
@@ -29,7 +46,9 @@ module.exports.execute = async (client, flag, arg, M) => {
             7
         )}\n〽️ *Level: ${level}*\n🎡 *Rank: ${rank}*\n💰 *Cradit: ${
             leaderboard[i].wallet + leaderboard[i].bank
-        }*\n⭐ *Exp: ${experience}*\n🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*`
+        }*\n⭐ *Exp: ${experience}*\n📇 *Credits: ${leaderboard[i].credit}*\n🔐 *Bank: ${
+            leaderboard[i].bank
+        }*\n🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*`
     }
 
     client.sendMessage(

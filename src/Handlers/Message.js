@@ -17,7 +17,8 @@ module.exports = MessageHandler = async (messages, client) => {
         const gcMeta = isGroup ? await client.groupMetadata(from) : ''
         const gcName = isGroup ? gcMeta.subject : ''
         const isCmd = body.startsWith(client.config.prefix)
-        const [cmdName, arg, ...args] = body.replace(client.config.prefix, '').split(' ')
+        const [cmdName, ...args] = body.replace(client.config.prefix, '').split(' ')
+        const arg = args.filter((x) => !x.startsWith('--')).join(' ')
         const flag = args.filter((arg) => arg.startsWith('--'))
         const groupMembers = gcMeta?.participants || []
         const groupAdmins = groupMembers.filter((v) => v.admin).map((v) => v.id)
@@ -101,8 +102,8 @@ const ai_chat = async (client, M, isGroup, isCmd, ActivateChatBot, body, from) =
         isGroup &&
         ActivateChatBot.includes(from)
     ) {
-        const msg = M.mentioned
-            ? M.mentioned
+        const msg = M.mentions
+            ? M.mentions
                   .map(async (x) => `${body.replace(x, (await client.contact.getContact(x, client)).username)}`)
                   .join(', ')
             : body

@@ -37,8 +37,8 @@ module.exports.execute = async (client, flag, arg, M) => {
         M.from,
         {
             text: `* 🎆 ${title.toUpperCase()} 🎆*\n\n @${M.mentions[0].split('@')[0]} \`\`\`is ${
-                command !== 'charactercheck' ? `${percentage}% ${sentence[0]}` : `${percentage}% ${character}\`\`\``
-            }`,
+                command !== 'charactercheck' ? `${percentage}% ${sentence[0]}` : `${percentage}% ${character}`
+            }\`\`\``,
             mentions: [M.mentions[0]]
         },
         {

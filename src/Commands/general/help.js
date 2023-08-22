@@ -10,6 +10,11 @@ const list = [
         emoji: '👨‍💻'
     },
     {
+        id: 'economy',
+        font: 'Eƈσɳσɱყ',
+        emoji: '💳'
+    },
+    {
         id: 'fun',
         font: 'Fυɳ',
         emoji: '🎡'
@@ -74,7 +79,7 @@ This help menu is designed to help you get started with the bot.`
         return
     }
     const command =
-        client.cmd.get(arg).command ||
+        client.cmd.get(arg)?.command ??
         client.cmd.find((cmd) => cmd.command.aliases && cmd.command.aliases.includes(arg)).command
     if (!command) return M.reply('🟥 *Command does not exsist*')
     M.reply(
