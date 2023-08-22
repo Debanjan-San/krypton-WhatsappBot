@@ -10,11 +10,6 @@ const list = [
         emoji: '👨‍💻'
     },
     {
-        id: 'economy',
-        font: 'Eƈσɳσɱყ',
-        emoji: '💳'
-    },
-    {
         id: 'fun',
         font: 'Fυɳ',
         emoji: '🎡'
