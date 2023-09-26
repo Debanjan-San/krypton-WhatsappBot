@@ -13,15 +13,15 @@ const decodeJid = (jid) => {
 const downloadMedia = async (message) => {
     /**@type {keyof proto.IMessage} */
     let type = Object.keys(message)[0]
-    let msg = message[type]
+    let M = message[type]
     if (type === 'buttonsMessage' || type === 'viewOnceMessageV2') {
         if (type === 'viewOnceMessageV2') {
-            msg = message.viewOnceMessageV2?.message
-            type = Object.keys(msg || {})[0]
-        } else type = Object.keys(msg || {})[1]
-        msg = msg[type]
+            M = message.viewOnceMessageV2?.message
+            type = Object.keys(M || {})[0]
+        } else type = Object.keys(M || {})[1]
+        M = M[type]
     }
-    const stream = await downloadContentFromMessage(msg, type.replace('Message', ''))
+    const stream = await downloadContentFromMessage(M, type.replace('Message', ''))
     let buffer = Buffer.from([])
     for await (const chunk of stream) {
         buffer = Buffer.concat([buffer, chunk])
@@ -31,49 +31,46 @@ const downloadMedia = async (message) => {
 
 /**
  * parse message for easy use
- * @param {proto.IWebMessageInfo} msg
+ * @param {proto.IWebMessageInfo} M
  * @param client
  */
-function serialize(msg, client) {
-    if (msg.key) {
-        msg.id = msg.key.id
-        msg.isSelf = msg.key.fromMe
-        msg.from = decodeJid(msg.key.remoteJid)
-        msg.isGroup = msg.from.endsWith('@g.us')
-        msg.sender = msg.isGroup ? decodeJid(msg.key.participant) : msg.isSelf ? decodeJid(client.user.id) : msg.from
+function serialize(M, client) {
+    if (M.key) {
+        M.id = M.key.id
+        M.isSelf = M.key.fromMe
+        M.from = decodeJid(M.key.remoteJid)
+        M.isGroup = M.from.endsWith('@g.us')
+        M.sender = M.isGroup ? decodeJid(M.key.participant) : M.isSelf ? decodeJid(client.user.id) : M.from
     }
-    if (msg.message) {
-        msg.type = getContentType(msg.message)
-        if (msg.type === 'ephemeralMessage') {
-            msg.message = msg.message[msg.type].message
-            const tipe = Object.keys(msg.message)[0]
-            msg.type = tipe
+    if (M.message) {
+        M.type = getContentType(M.message)
+        if (M.type === 'ephemeralMessage') {
+            M.message = M.message[M.type].message
+            const tipe = Object.keys(M.message)[0]
+            M.type = tipe
             if (tipe === 'viewOnceMessageV2') {
-                msg.message = msg.message[msg.type].message
-                msg.type = getContentType(msg.message)
+                M.message = M.message[M.type].message
+                M.type = getContentType(M.message)
             }
         }
-        if (msg.type === 'viewOnceMessageV2') {
-            msg.message = msg.message[msg.type].message
-            msg.type = getContentType(msg.message)
+        if (M.type === 'viewOnceMessageV2') {
+            M.message = M.message[M.type].message
+            M.type = getContentType(M.message)
         }
-        msg.messageTypes = (type) => ['videoMessage', 'imageMessage'].includes(type)
-        msg.mentions = []
-        const array = msg?.message?.[msg.type]?.contextInfo?.mentionedJid || []
-        msg.mentions.push(...array.filter(Boolean))
+        M.messageTypes = (type) => ['videoMessage', 'imageMessage'].includes(type)
         try {
-            const quoted = msg.message[msg.type]?.contextInfo
+            const quoted = M.message[M.type]?.contextInfo
             if (quoted.quotedMessage['ephemeralMessage']) {
                 const tipe = Object.keys(quoted.quotedMessage.ephemeralMessage.message)[0]
                 if (tipe === 'viewOnceMessageV2') {
-                    msg.quoted = {
+                    M.quoted = {
                         type: 'view_once',
                         stanzaId: quoted.stanzaId,
                         participant: decodeJid(quoted.participant),
                         message: quoted.quotedMessage.ephemeralMessage.message.viewOnceMessage.message
                     }
                 } else {
-                    msg.quoted = {
+                    M.quoted = {
                         type: 'ephemeral',
                         stanzaId: quoted.stanzaId,
                         participant: decodeJid(quoted.participant),
@@ -81,63 +78,67 @@ function serialize(msg, client) {
                     }
                 }
             } else if (quoted.quotedMessage['viewOnceMessageV2']) {
-                msg.quoted = {
+                M.quoted = {
                     type: 'view_once',
                     stanzaId: quoted.stanzaId,
                     participant: decodeJid(quoted.participant),
                     message: quoted.quotedMessage.viewOnceMessage.message
                 }
             } else {
-                msg.quoted = {
+                M.quoted = {
                     type: 'normal',
                     stanzaId: quoted.stanzaId,
                     participant: decodeJid(quoted.participant),
                     message: quoted.quotedMessage
                 }
             }
-            msg.quoted.isSelf = msg.quoted.participant === decodeJid(client.user.id)
-            msg.quoted.mtype = Object.keys(msg.quoted.message).filter(
+            M.quoted.isSelf = M.quoted.participant === decodeJid(client.user.id)
+            M.quoted.mtype = Object.keys(M.quoted.message).filter(
                 (v) => v.includes('Message') || v.includes('conversation')
             )[0]
-            msg.quoted.text =
-                msg.quoted.message[msg.quoted.mtype]?.text ||
-                msg.quoted.message[msg.quoted.mtype]?.description ||
-                msg.quoted.message[msg.quoted.mtype]?.caption ||
-                msg.quoted.message[msg.quoted.mtype]?.hydratedTemplate?.hydratedContentText ||
-                msg.quoted.message[msg.quoted.mtype] ||
+            M.quoted.text =
+                M.quoted.message[M.quoted.mtype]?.text ||
+                M.quoted.message[M.quoted.mtype]?.description ||
+                M.quoted.message[M.quoted.mtype]?.caption ||
+                M.quoted.message[M.quoted.mtype]?.hydratedTemplate?.hydratedContentText ||
+                M.quoted.message[M.quoted.mtype] ||
                 ''
-            msg.quoted.key = {
-                id: msg.quoted.stanzaId,
-                fromMe: msg.quoted.isSelf,
-                remoteJid: msg.from
+            M.quoted.key = {
+                id: M.quoted.stanzaId,
+                fromMe: M.quoted.isSelf,
+                remoteJid: M.from
             }
-            msg.quoted.download = () => downloadMedia(msg.quoted.message)
+            M.quoted.download = () => downloadMedia(M.quoted.message)
         } catch {
-            msg.quoted = null
+            M.quoted = null
         }
-        msg.body =
-            msg.message?.conversation ||
-            msg.message?.[msg.type]?.text ||
-            msg.message?.[msg.type]?.caption ||
-            (msg.type === 'listResponseMessage' && msg.message?.[msg.type]?.singleSelectReply?.selectedRowId) ||
-            (msg.type === 'buttonsResponseMessage' && msg.message?.[msg.type]?.selectedButtonId) ||
-            (msg.type === 'templateButtonReplyMessage' && msg.message?.[msg.type]?.selectedId) ||
+        M.body =
+            M.message?.conversation ||
+            M.message?.[M.type]?.text ||
+            M.message?.[M.type]?.caption ||
+            (M.type === 'listResponseMessage' && M.message?.[M.type]?.singleSelectReply?.selectedRowId) ||
+            (M.type === 'buttonsResponseMessage' && M.message?.[M.type]?.selectedButtonId) ||
+            (M.type === 'templateButtonReplyMessage' && M.message?.[M.type]?.selectedId) ||
             ''
-        msg.reply = (text) =>
+        M.reply = (text) =>
             client.sendMessage(
-                msg.from,
+                M.from,
                 {
                     text
                 },
                 {
-                    quoted: msg
+                    quoted: M
                 }
             )
-        msg.download = () => downloadMedia(msg.message)
-        msg.numbers = client.utils.extractNumbers(msg.body)
-        msg.urls = client.utils.extractUrls(msg.body)
+        M.mentions = []
+        if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
+        const array = M?.message?.[M.type]?.contextInfo?.mentionedJid || []
+        M.mentions.push(...array.filter(Boolean))
+        M.download = () => downloadMedia(M.message)
+        M.numbers = client.utils.extractNumbers(M.body)
+        M.urls = client.utils.extractUrls(M.body)
     }
-    return msg
+    return M
 }
 
 module.exports = {
