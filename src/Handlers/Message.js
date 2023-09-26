@@ -126,19 +126,5 @@ const experience = async (client, sender, M, from, cmd) => {
     const { requiredXpToLevelUp } = getStats(level)
     if (requiredXpToLevelUp > experience) return null
     await client.DB.add(`${sender}_LEVEL`, 1)
-    client.sendMessage(
-        from,
-        {
-            video: {
-                url: 'https://media.tenor.com/msfmevhmlDAAAAPo/anime-chibi.mp4'
-            },
-            caption: `🎉 Congratuations! You've Leveled Up!
-
-             *${level} ---> ${level + 1}* 🎊`,
-            gifPlayback: true
-        },
-        {
-            quoted: M
-        }
-    )
+    await M.reply(` 🎉 *_You Leveled Up_*\n\n _*${M.pushName}*_ Level up 🆙 *_${level} ==> ${level + 1}_*`)
 }

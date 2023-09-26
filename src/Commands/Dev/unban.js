@@ -1,8 +1,9 @@
 module.exports.execute = async (client, flag, arg, M) => {
     if (M.quoted?.participant) M.mentions.push(M.quoted.participant)
     if (!M.mentions.length) return M.reply('🟥 *Mentions are required to Unban*')
+    const mentions = client.utils.removeDuplicates(M.mentions)
     const banned = (await client.DB.get('banned')) || []
-    M.mentions.filter(async (user) =>
+    mentions.filter(async (user) =>
         banned.includes(user)
             ? (await client.DB.pull('banned', user)) &&
               (await client.sendMessage(

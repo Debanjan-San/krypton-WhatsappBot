@@ -3,7 +3,7 @@ const axios = require('axios')
 module.exports.execute = async (client, flag, arg, M) => {
     if (!arg) return M.reply('🟥 *Sorry you did not give any search term!*')
     const chara = await axios.get(`https://api.jikan.moe/v4/characters?q=${arg}`)
-    if (chara.data.data.length == 0) return M.reply('🟨 *Could not find*')
+    if (!chara.data.data.length) return M.reply('🟨 *Could not find*')
 
     let text = ''
     text += `📔 *Name: ${chara.data.data[0].name}*\n\n`

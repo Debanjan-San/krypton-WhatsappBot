@@ -230,7 +230,10 @@ const restart = () => {
     })
 }
 
+const removeDuplicates = (arr) => [...new Set(arr)]
+
 module.exports = {
+    removeDuplicates,
     calculatePing,
     capitalize,
     execute,
